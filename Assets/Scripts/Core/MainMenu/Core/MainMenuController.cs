@@ -51,18 +51,18 @@ public class MainMenuController : IDisposable {
     }
 
     private void OnHostButton() {
-        _mainMenuView.Hide();
+        _hostMenuController.Show();
         if ( _inputNameController.IsNameInitialized ) {
-            _hostMenuController.Show();
+            _mainMenuView.Hide();
         } else {
             _inputNameController.Show();
         }
     }
 
     private void OnJoinButton() {
-        _mainMenuView.Hide();
+        _joinMenuController.Show();
         if ( _inputNameController.IsNameInitialized ) {
-            _joinMenuController.Show();
+            _mainMenuView.Hide();
         } else {
             _inputNameController.Show();
         }
@@ -88,12 +88,11 @@ public class MainMenuController : IDisposable {
 
     public void InputNameMenuStartBtn( string name ) {
         _inputNameController.Hide();
-        _mainMenuView.Show();
+        _mainMenuView.Hide();
     }
 
     public void InputNameMenuReturnBtn() {
         _inputNameController.Hide();
-        _mainMenuView.Show();
     }
 
     public void OnQuitBtn() {

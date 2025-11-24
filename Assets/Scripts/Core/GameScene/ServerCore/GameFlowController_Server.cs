@@ -3,8 +3,6 @@ using UnityEngine;
 using Zenject;
 
 public class GameFlowController_Server : MonoBehaviour {
-    [SerializeField] private GameView_Global _view;
-
     private GameSessionService_Server _gameSessionService;
     private bool _gameIsStarted = false;
 
