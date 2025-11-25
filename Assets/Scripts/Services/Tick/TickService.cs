@@ -13,29 +13,29 @@ public class TickService : ITickService {
         if ( NetworkManager.Singleton != null ) {
             NetworkManager.Singleton.NetworkTickSystem.Tick += Tick;
             TickDeltaTime = 1f / NetworkManager.Singleton.NetworkTickSystem.TickRate;
-        } else { 
-            Debug.LogError( $"[{nameof( TickService )}] NetworkManager is null." ); 
+        } else {
+            Debug.LogError( $"[{nameof( TickService )}] NetworkManager is null." );
             TickDeltaTime *= DEFAULT_TICKRATE;
         }
     }
 
     public void Register( ITickable tickable ) {
-        if ( !_tickables.Contains( tickable ) ) {
-            _tickables.Add( tickable );
-        } else { LogDuplicateReference( tickable ); }
+        //if ( !_tickables.Contains( tickable ) ) {
+        //    _tickables.Add( tickable );
+        //} else { LogDuplicateReference( tickable ); }
     }
 
     public void Unregister( ITickable tickable ) {
-        if ( _tickables.Contains( tickable ) ) {
-            _tickables.Remove( tickable );
-        } else { TickableNotRegistredReference( tickable ); }
+        //if ( _tickables.Contains( tickable ) ) {
+        //    _tickables.Remove( tickable );
+        //} else { TickableNotRegistredReference( tickable ); }
     }
 
     public void Tick() {
-        for ( int i = 0; i < _tickables.Count; i++ ) {
-            _tickables[ i ].Tick();
-            OnTick?.Invoke();
-        }
+        //for ( int i = 0; i < _tickables.Count; i++ ) {
+        //    _tickables[ i ].Tick();
+        //}
+        OnTick?.Invoke();
     }
 
     public void LogDuplicateReference( ITickable tickable ) {

@@ -1,15 +1,17 @@
 using Unity.Netcode;
 using UnityEngine;
 using System.Collections.Generic;
-using Zenject;
+using System;
 
-public class BulletManager_Server : ITickable {
+public class BulletManager_Server : IDisposable {
     private readonly Dictionary<int, ServerBullet> _spawnedBullets = new();
     private readonly List<GameObject> _bulletsToRemove = new();
 
-    [Inject]
-    public BulletManager_Server( ITickService tickService ) {
-        tickService.Register( this );
+    public BulletManager_Server() {
+        TickService.OnTick += Tick;
+    }
+    public void Dispose() {
+        TickService.OnTick -= Tick; 
     }
 
     private void SafeAddSpawnedBullet( GameObject bulletObj, ServerBullet bullet ) {
@@ -23,7 +25,7 @@ public class BulletManager_Server : ITickable {
 
     public ServerBullet CreateServerBullet( PlayerRuntimeConfig playerRuntimeConfig, Transform transform, ulong ownerID ) {
         var bulletPrefab = Resources.Load<GameObject>( Defines.ObjectPaths.BULLET_PREFAB );
-        var bulletObject = Object.Instantiate( bulletPrefab, transform.position, Quaternion.identity );
+        var bulletObject = UnityEngine.Object.Instantiate( bulletPrefab, transform.position, Quaternion.identity );
         var bulletComponent = bulletObject.GetComponent<ServerBullet>();
 
         bulletObject.GetComponent<NetworkObject>().SpawnWithOwnership( ownerID, true );
