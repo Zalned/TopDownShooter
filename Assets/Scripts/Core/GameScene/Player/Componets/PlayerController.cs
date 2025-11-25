@@ -6,6 +6,7 @@ public class PlayerController : NetworkBehaviour {
     [SerializeField] private PlayerView _view;
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private PlayerShooting _playerShoot;
+    [SerializeField] private PlayerDash _playerDash;
     [SerializeField] private Camera _playerCamera;
 
     public ulong NetID { get; private set; }
@@ -25,6 +26,7 @@ public class PlayerController : NetworkBehaviour {
         _view.InitializeClientRpc( data );
         _playerMovement.Initialize( _playerCamera, _playerStats );
         _playerShoot.Initialize( bulletManager, _playerStats, NetID );
+        _playerDash.Initialize( _playerStats.RuntimeConfig );
 
         _currentHealth = _playerStats.RuntimeConfig.MaxHealth;
 

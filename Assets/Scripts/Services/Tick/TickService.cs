@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class TickService : ITickService {
     private readonly List<ITickable> _tickables = new();
     private const int DEFAULT_TICKRATE = 60;
     public static float TickDeltaTime { get; private set; }
+    public static event Action OnTick;
 
     public TickService() {
         if ( NetworkManager.Singleton != null ) {
@@ -32,6 +34,7 @@ public class TickService : ITickService {
     public void Tick() {
         for ( int i = 0; i < _tickables.Count; i++ ) {
             _tickables[ i ].Tick();
+            OnTick?.Invoke();
         }
     }
 

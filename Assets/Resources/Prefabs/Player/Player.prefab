@@ -507,6 +507,7 @@ GameObject:
   - component: {fileID: 1106786402737114748}
   - component: {fileID: 6872853643185648384}
   - component: {fileID: 3860770524262262798}
+  - component: {fileID: 1246590207952024651}
   - component: {fileID: 8969125667353140410}
   - component: {fileID: 3485426466095568378}
   m_Layer: 6
@@ -703,6 +704,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 88d37291-7c0a-4f24-bb31-15213c9d2418
     m_ActionName: 'UI/OpenPauseMenu[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1246590207952024651}
+        m_TargetAssemblyTypeName: PlayerDash, Assembly-CSharp
+        m_MethodName: OnDashInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ca1122bd-492b-450d-8b02-7fe383ce87f3
+    m_ActionName: 'Player/Dash[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -720,7 +737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3660620441
+  GlobalObjectIdHash: 1911464520
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -827,7 +844,22 @@ MonoBehaviour:
   _view: {fileID: 6872853643185648384}
   _playerMovement: {fileID: 3485426466095568378}
   _playerShoot: {fileID: 8969125667353140410}
+  _playerDash: {fileID: 1246590207952024651}
   _playerCamera: {fileID: 6324227946338686265}
+--- !u!114 &1246590207952024651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7752666375662103281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f59cab4df2419847aa9953aacbe21ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDash
+  ShowTopMostFoldoutHeaderGroup: 1
+  _playerInput: {fileID: 5278945309061239863}
 --- !u!114 &8969125667353140410
 MonoBehaviour:
   m_ObjectHideFlags: 0

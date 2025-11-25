@@ -916,7 +916,6 @@ GameObject:
   - component: {fileID: 1483786192976158962}
   - component: {fileID: 5462449166758074271}
   - component: {fileID: 8016139624358605167}
-  - component: {fileID: 7906523742352556541}
   - component: {fileID: 191445430070062970}
   m_Layer: 0
   m_Name: GameCore
@@ -995,19 +994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393aa31256e245e4db44dcaf783d87dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameFlowController_Server
-  _view: {fileID: 7906523742352556541}
---- !u!114 &7906523742352556541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2606420818590081715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26f893c40d207ba4484699294d9eb3c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameView_Shared
 --- !u!114 &191445430070062970
 MonoBehaviour:
   m_ObjectHideFlags: 0
