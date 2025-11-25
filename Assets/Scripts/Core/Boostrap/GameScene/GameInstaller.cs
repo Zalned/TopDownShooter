@@ -12,7 +12,7 @@ public class GameInstaller : MonoInstaller {
     [SerializeField] PlayerWinGameView _playerWinGameView;
 
     public override void InstallBindings() {
-        Container.Bind<ITickService>().To<TickService>().AsSingle();
+        Container.Bind<ITickService>().To<TickService>().AsSingle().NonLazy();
         Container.Bind<BulletManager_Server>().AsSingle().NonLazy();
 
         if ( NetcodeHelper.IsServer ) {

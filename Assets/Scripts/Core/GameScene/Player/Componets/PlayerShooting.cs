@@ -26,15 +26,14 @@ public class PlayerShooting : NetworkBehaviour {
     [ServerRpc]
     private void ShootServerRpc() {
         _bulletManager.CreateServerBullet( _stats.RuntimeConfig, _shootPoint, _playerId );
-        SpawnVisualBulletClientRpc();
     }
 
-    [ClientRpc]
-    private void SpawnVisualBulletClientRpc() {
-        var clientBulletPrefab = Resources.Load<GameObject>( Defines.ObjectPaths.CLIENT_BULLET_PREFAB );
-        var clientBulletObj = Instantiate( clientBulletPrefab );
-        clientBulletObj.transform.position = transform.position;
-        clientBulletObj.transform.rotation = transform.rotation;
-        clientBulletObj.GetComponent<ClientBullet>().Construct( _stats.RuntimeConfig );
-    }
+    //[ClientRpc]
+    //private void SpawnVisualBulletClientRpc() {
+    //    var clientBulletPrefab = Resources.Load<GameObject>( Defines.ObjectPaths.CLIENT_BULLET_PREFAB );
+    //    var clientBulletObj = Instantiate( clientBulletPrefab );
+    //    clientBulletObj.transform.position = _shootPoint.position;
+    //    clientBulletObj.transform.rotation = transform.rotation;
+    //    clientBulletObj.GetComponent<ClientBullet>().Construct( _stats.RuntimeConfig );
+    //}
 }
