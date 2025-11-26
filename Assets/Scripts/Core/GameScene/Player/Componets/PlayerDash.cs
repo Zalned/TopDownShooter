@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,7 @@ public class PlayerDash : NetworkBehaviour {
     float _cooldown = 0;
 
     private bool _inDash = false;
+    public event Action OnDash;
 
     public void Initialize( PlayerRuntimeConfig config ) {
         _config = config;
@@ -33,6 +35,7 @@ public class PlayerDash : NetworkBehaviour {
         _dashDirection = GetDashDirection( moveInput );
         _inDash = true;
         _cooldown = _config.PlayerDashCooldown;
+        OnDash.Invoke();
     }
 
 

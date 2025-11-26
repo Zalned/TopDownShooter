@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +9,8 @@ public class PlayerShooting : NetworkBehaviour {
     private BulletManager_Server _bulletManager;
     private PlayerStats _stats;
     private ulong _playerId;
+
+    public event Action OnShoot;
 
     public void Initialize( BulletManager_Server bulletManager, PlayerStats stats, ulong playerId ) {
         _bulletManager = bulletManager;
@@ -20,6 +23,7 @@ public class PlayerShooting : NetworkBehaviour {
 
         if ( context.performed ) {
             ShootServerRpc();
+            OnShoot.Invoke();
         }
     }
 
@@ -28,7 +32,7 @@ public class PlayerShooting : NetworkBehaviour {
         _bulletManager.CreateServerBullet( _stats.RuntimeConfig, _shootPoint, _playerId );
     }
 
-    //[ClientRpc]
+    //[ClientRpc] MyTODO
     //private void SpawnVisualBulletClientRpc() {
     //    var clientBulletPrefab = Resources.Load<GameObject>( Defines.ObjectPaths.CLIENT_BULLET_PREFAB );
     //    var clientBulletObj = Instantiate( clientBulletPrefab );

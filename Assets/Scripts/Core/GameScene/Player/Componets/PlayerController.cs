@@ -10,9 +10,7 @@ public class PlayerController : NetworkBehaviour {
     [SerializeField] private Camera _playerCamera;
 
     public ulong NetID { get; private set; }
-
     private PlayerStats _playerStats;
-
     private float _currentHealth = 0;
 
     [ClientRpc]
@@ -23,12 +21,15 @@ public class PlayerController : NetworkBehaviour {
         NetID = OwnerClientId;
 
         _playerStats = new PlayerStats();
+        _currentHealth = _playerStats.RuntimeConfig.MaxHealth;
+
         _view.InitializeClientRpc( data );
         _playerMovement.Initialize( _playerCamera, _playerStats );
         _playerShoot.Initialize( bulletManager, _playerStats, NetID );
         _playerDash.Initialize( _playerStats.RuntimeConfig );
 
-        _currentHealth = _playerStats.RuntimeConfig.MaxHealth;
+        _playerShoot.OnShoot += OnShoot;
+        _playerDash.OnDash += OnDash;
 
         if ( !IsOwner ) {
             _playerCamera.gameObject.SetActive( false );
@@ -51,5 +52,13 @@ public class PlayerController : NetworkBehaviour {
 
     public void HandleDie() {
         GameEvents.OnPlayerDie.Invoke( NetID, gameObject );
+    }
+
+    private void OnShoot() {
+        NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.PlayerShoot, transform.position );
+    }
+
+    private void OnDash() {
+        NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.Dash, transform.position );
     }
 }

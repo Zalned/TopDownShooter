@@ -145,6 +145,7 @@ public class ServerBullet : MonoBehaviour {
 
             float damage = component.GetDamage();
             HandleHitFromAnotherBullet( damage );
+            PlayHitAudio();
         }
     }
 
@@ -156,6 +157,11 @@ public class ServerBullet : MonoBehaviour {
 
     private void HandleAnotherHit() {
         HandleDestroy();
+        PlayHitAudio();
+    }
+
+    private void PlayHitAudio() {
+        NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.Hit, transform.position );
     }
 
     public float GetDamage() {
