@@ -8,25 +8,19 @@ public class PlayerWinRoundView : MonoBehaviour {
 
     private string _roundWinnerName;
 
-    [ServerRpc]
-    public void ShowServerRpc() { ShowClientRpc(); }
     [ClientRpc]
-    private void ShowClientRpc() {
+    public void ShowClientRpc() {
         _playerWinRoundUI.SetActive( true );
         UpdateWinText();
     }
 
-    [ServerRpc]
-    public void HideServerRpc() { HideClientRpc(); }
     [ClientRpc]
-    private void HideClientRpc() {
+    public void HideClientRpc() {
         _playerWinRoundUI.SetActive( false );
     }
 
-    [ServerRpc]
-    public void SetPlayerWinNameServerRpc( string playerName ) { SetPlayerWinNameClientRpc( playerName ); }
     [ClientRpc]
-    private void SetPlayerWinNameClientRpc( string playerName ) {
+    public void SetPlayerWinNameClientRpc( string playerName ) {
         _roundWinnerName = playerName;
     }
 

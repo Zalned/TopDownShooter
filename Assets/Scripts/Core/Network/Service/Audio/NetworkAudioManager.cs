@@ -30,7 +30,7 @@ public class NetworkAudioManager : NetworkBehaviour {
                 };
     }
 
-    [ServerRpc]
+    [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
     public void PlayClipAtPointServerRpc( Sounds type, Vector3 Position ) {
         //PlayClipAtPointClientRpc( type, Position );
     }

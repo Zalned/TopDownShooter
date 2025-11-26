@@ -24,7 +24,7 @@ public class GameInstaller : MonoInstaller {
             Container.Bind<PlayerManager_Server>().AsSingle().NonLazy();
 
             Container.Bind<RoundController_Server>().AsSingle().NonLazy();
-            Container.Bind<RoundViewUI>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<RoundHudView>().FromComponentInHierarchy().AsSingle();
             Container.Bind<PlayerWinRoundView>().FromComponentInHierarchy().AsSingle();
             Container.Bind<PlayerWinGameView>().FromComponentInHierarchy().AsSingle();
 

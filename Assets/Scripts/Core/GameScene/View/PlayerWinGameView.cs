@@ -8,23 +8,17 @@ public class PlayerWinGameView : MonoBehaviour {
 
     private string _gameWinnerPlayerName;
 
-    [ServerRpc]
-    public void ShowServerRpc() { ShowClientRpc(); }
     [ClientRpc]
-    private void ShowClientRpc() {
+    public void ShowClientRpc() {
         _playerWinGameUI.SetActive( true );
         UpdateWinText();
     }
 
-    [ServerRpc]
-    public void HideServerRpc() { HideClientRpc(); }
     [ClientRpc]
-    private void HideClientRpc() {
+    public void HideClientRpc() {
         _playerWinGameUI.SetActive( false );
     }
 
-    [ServerRpc]
-    public void SetPlayerWinNameServer( string playerName ) { SetPlayerWinNameClientRpc( playerName ); }
     [ClientRpc]
     public void SetPlayerWinNameClientRpc( string playerName ) {
         _gameWinnerPlayerName = playerName;

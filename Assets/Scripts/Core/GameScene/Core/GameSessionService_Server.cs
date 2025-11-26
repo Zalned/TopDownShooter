@@ -61,29 +61,29 @@ public class GameSessionService_Server {
     private async void HandleRoundEnd( ulong winnerID ) {
         _playerSpawnController.DespawnPlayersOnMap();
 
-        _playerWinRoundView.SetPlayerWinNameServerRpc( winnerID.ToString() );
+        _playerWinRoundView.SetPlayerWinNameClientRpc( winnerID.ToString() );
         await ShowPlayerWinRoundUI();
 
         StartRound();
     }
 
     private async void HandlePlayerWinGame( ulong playerId ) {
-        _playerWinGameView.SetPlayerWinNameServer( playerId.ToString() );
+        _playerWinGameView.SetPlayerWinNameClientRpc( playerId.ToString() );
         await ShowPlayerWinGameUI();
 
         EndGame( playerId );
     }
 
     private async Task ShowPlayerWinRoundUI() {
-        _playerWinRoundView.ShowServerRpc();
+        _playerWinRoundView.ShowClientRpc();
         await Task.Delay( SHOW_WIN_ROUND_UI_TIME * 1000 );
-        _playerWinRoundView.HideServerRpc();
+        _playerWinRoundView.ShowClientRpc();
     }
 
     private async Task ShowPlayerWinGameUI() {
-        _playerWinGameView.ShowServerRpc();
+        _playerWinGameView.ShowClientRpc();
         await Task.Delay( SHOW_WIN_GAME_UI_TIME * 1000 );
-        _playerWinGameView.HideServerRpc();
+        _playerWinGameView.HideClientRpc();
     }
 
     private void EndGame( ulong winnerId ) {

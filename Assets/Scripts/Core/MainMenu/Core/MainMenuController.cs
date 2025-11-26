@@ -93,6 +93,8 @@ public class MainMenuController : IDisposable {
 
     public void InputNameMenuReturnBtn() {
         _inputNameController.Hide();
+        _hostMenuController.Hide();
+        _joinMenuController.Hide();
     }
 
     public void OnQuitBtn() {

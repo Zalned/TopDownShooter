@@ -2,15 +2,15 @@ using System;
 using UnityEngine;
 
 public class RoundController_Server {
-    private RoundViewUI _view;
+    private RoundHudView _roundHUD;
     private SessionPlayerManager_Server _sessionPlayerManager;
     private SessionConfigSO _sessionConfig;
 
     public event Action<ulong> OnRoundEnd;
     public event Action<ulong> OnPlayerWin;
 
-    public RoundController_Server( RoundViewUI view, SessionPlayerManager_Server sessionPlayerManager ) {
-        _view = view;
+    public RoundController_Server( RoundHudView view, SessionPlayerManager_Server sessionPlayerManager ) {
+        _roundHUD = view;
         _sessionPlayerManager = sessionPlayerManager;
 
         _sessionConfig = Resources.Load<SessionConfigSO>( "Configs/SessionConfig" );
@@ -24,12 +24,12 @@ public class RoundController_Server {
     }
 
     public void StartRound() {
-        _view.UpdateHudData( GetHudData() );
-        _view.ShowHUD();
+        _roundHUD.UpdateHudDataClientRpc( GetHudData() );
+        _roundHUD.ShowClientRpc();
     }
 
     public void StopRound() {
-        _view.HideHUD();
+        _roundHUD.HideClientRpc();
 
         var lastLivePlayer = _sessionPlayerManager.GetLastLifePlayerID();
         AddWinScoreForLastPlayer( lastLivePlayer );
