@@ -9,7 +9,7 @@ public class PlayerSpawnController_Server {
     public PlayerSpawnController_Server(
         PlayerManager_Server playerManager,
         MapService_Server mapService,
-         SessionPlayerManager_Server sessionPlayerManager ) {
+        SessionPlayerManager_Server sessionPlayerManager ) {
         _playerManager = playerManager;
         _mapService = mapService;
         _sessionPlayerManager = sessionPlayerManager;

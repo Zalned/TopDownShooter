@@ -259,3 +259,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectInstaller
   _settingsView_Client: {fileID: 9080222417020509453}
+  _networkAudioManager: {fileID: 0}

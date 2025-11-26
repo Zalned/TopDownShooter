@@ -263,17 +263,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3437692645774225321, guid: cf1802e350f589843b0112c010eddc7f, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 838147034
+      objectReference: {fileID: 0}
     - target: {fileID: 6154076019890815669, guid: cf1802e350f589843b0112c010eddc7f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.41977
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6154076019890815669, guid: cf1802e350f589843b0112c010eddc7f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 32.0357
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6154076019890815669, guid: cf1802e350f589843b0112c010eddc7f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.06494
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6154076019890815669, guid: cf1802e350f589843b0112c010eddc7f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -317,5 +321,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1525713957}
-  - {fileID: 576862575}
   - {fileID: 1906534806}
+  - {fileID: 576862575}
