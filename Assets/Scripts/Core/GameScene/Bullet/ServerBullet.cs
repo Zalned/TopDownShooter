@@ -1,5 +1,4 @@
 using System;
-using System.Xml;
 using UnityEngine;
 
 public struct ProjectileState {
@@ -66,12 +65,16 @@ public class ServerBullet : MonoBehaviour {
                 if ( hit.GetComponent<PlayerController>().OwnerClientId == OwnerID ) {
                     Debug.Log( "Hitting a self player on spawn. Continue." );
                     continue;
+                } else {
+                    HandleProjectileColliderHit( hit );
                 }
 
             } else if ( hit.transform.CompareTag( Defines.Tags.Bullet ) ) {
                 if ( hit.GetComponent<ServerBullet>().OwnerID == OwnerID ) {
                     Debug.Log( "Hitting a self bullet on spawn. Continue." );
                     continue;
+                } else {
+                    HandleProjectileColliderHit( hit );
                 }
             }
 
@@ -100,7 +103,7 @@ public class ServerBullet : MonoBehaviour {
                 _state.Position = hit.point;
                 HandleProjectileRaycastHit( hit );
                 _state.IsActive = false;
-                return; 
+                return;
             }
 
             _state.Position += direction * stepDistance;
