@@ -38,8 +38,6 @@ public class LobbyController_Server : MonoBehaviour {
     }
 
     private void HandlePlayerListUpdated() {
-        Debug.Log( "Handle players list update" );
-        if ( !NetcodeHelper.IsServer ) { return; }
         if ( _playerManager == null ) { Debug.LogWarning( "PlayerManager is null" ); return; }
         if ( _playerManager.RegistredPlayers == null ) { Debug.LogWarning( "RegistredPlayers is null" ); return; }
 
