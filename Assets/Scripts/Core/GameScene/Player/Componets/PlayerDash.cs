@@ -34,7 +34,6 @@ public class PlayerDash : NetworkBehaviour {
         OnDash.Invoke();
     }
 
-
     private void Tick() {
         if ( _inDash ) {
             MoveToTargetPosition();

@@ -8,7 +8,6 @@ public class PlayerView : NetworkBehaviour {
     [SerializeField] private TextMeshProUGUI _playerName;
     [SerializeField] private Slider _playerHealth;
     [SerializeField] private Image _playerHealthSliderFill;
-    private Color _complementaryColor = Color.white;
 
     [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
     public void InitializeServerRpc( NetworkPlayerData data, float maxHealth ) {
@@ -24,17 +23,14 @@ public class PlayerView : NetworkBehaviour {
 
     private void SetColor( Color color ) {
         _renderer.material.color = color;
-        _complementaryColor = ColorUtils.GetComplementary( color );
     }
 
     private void SetPlayerName( string name ) {
         _playerName.text = name;
-        _playerName.color = _complementaryColor;
     }
 
     private void InitializePlayerHeatlhSlider( float maxValue ) {
         _playerHealth.maxValue = maxValue;
-        _playerHealthSliderFill.color = _complementaryColor;
     }
 
     [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]

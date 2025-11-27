@@ -142,7 +142,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 2f19a862526e3b549aa23185d52f4c89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -186,7 +186,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &2289582561955784920
+--- !u!1 &4778257370337123434
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,11 +194,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5117437445149550041}
-  - component: {fileID: 6222228444198767613}
-  - component: {fileID: 6324227946338686265}
-  - component: {fileID: 2242608123186344278}
-  - component: {fileID: 3818612065931483527}
+  - component: {fileID: 2773560209083632564}
+  - component: {fileID: 962419684731964183}
+  - component: {fileID: 7110861948503209870}
+  - component: {fileID: 3707341120366077969}
+  - component: {fileID: 6412824866227257067}
   m_Layer: 6
   m_Name: PlayerCamera
   m_TagString: Untagged
@@ -206,41 +206,41 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5117437445149550041
+--- !u!4 &2773560209083632564
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2289582561955784920}
+  m_GameObject: {fileID: 4778257370337123434}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 5.6077704, y: 16, z: -8.805539}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5649529831598993558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6222228444198767613
+--- !u!114 &962419684731964183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2289582561955784920}
+  m_GameObject: {fileID: 4778257370337123434}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a68d9a1e669747448999683750f8468c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  _target: {fileID: 2443743206098424061}
---- !u!20 &6324227946338686265
+  _target: {fileID: 5649529831598993558}
+--- !u!20 &7110861948503209870
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2289582561955784920}
+  m_GameObject: {fileID: 4778257370337123434}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -285,13 +285,13 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &2242608123186344278
+--- !u!114 &3707341120366077969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2289582561955784920}
+  m_GameObject: {fileID: 4778257370337123434}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
@@ -308,8 +308,8 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 3
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -329,13 +329,13 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &3818612065931483527
+--- !u!81 &6412824866227257067
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2289582561955784920}
+  m_GameObject: {fileID: 4778257370337123434}
   m_Enabled: 1
 --- !u!1 &5238047159261470206
 GameObject:
@@ -354,7 +354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4776243550941361602
 RectTransform:
   m_ObjectHideFlags: 0
@@ -609,7 +609,7 @@ RectTransform:
   m_Father: {fileID: 802112316566090343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.819, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -692,7 +692,7 @@ Transform:
   m_Children:
   - {fileID: 2443743206098424061}
   - {fileID: 517498969188227159}
-  - {fileID: 5117437445149550041}
+  - {fileID: 2773560209083632564}
   - {fileID: 5024555936190914394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -838,7 +838,7 @@ MonoBehaviour:
     m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6222228444198767613}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CameraController_Local, Assembly-CSharp
         m_MethodName: OnScroll
         m_Mode: 0
@@ -897,7 +897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3660620441
+  GlobalObjectIdHash: 1911464520
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1007,7 +1007,7 @@ MonoBehaviour:
   _playerMovement: {fileID: 3485426466095568378}
   _playerShoot: {fileID: 8969125667353140410}
   _playerDash: {fileID: 1246590207952024651}
-  _playerCamera: {fileID: 6324227946338686265}
+  _playerCamera: {fileID: 7110861948503209870}
 --- !u!114 &1246590207952024651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1132,7 +1132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7333030941648254897
 RectTransform:
   m_ObjectHideFlags: 0
