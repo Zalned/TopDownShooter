@@ -1696,13 +1696,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'TestTest
+  m_text: 'List is not initialized
 
-    TestTest
-
-    TestTest
-
-    TestTest'
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2ab5858ca13707f4fb7b170d9dad37b7, type: 2}
   m_sharedMaterial: {fileID: 5155630682436557435, guid: 2ab5858ca13707f4fb7b170d9dad37b7, type: 2}
@@ -2971,6 +2967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f6d65bec7f5ba43abd94233aa45e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoundViewUI
+  ShowTopMostFoldoutHeaderGroup: 1
   RoundHudObject: {fileID: 1265181266291500145}
   RoundHudText: {fileID: 9009277933596878626}
 --- !u!114 &22065584234354150
@@ -2985,6 +2982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9fe5ef2903223e43bc272ee80dc69e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWinRoundView
+  ShowTopMostFoldoutHeaderGroup: 1
   _playerWinRoundUI: {fileID: 7790703639200773588}
   _playerWinRoundText: {fileID: 8121222910236783535}
 --- !u!114 &6275649098644896099
@@ -2999,6 +2997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3684f9fa19ea1d3468308952f528c8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWinGameView
+  ShowTopMostFoldoutHeaderGroup: 1
   _playerWinGameUI: {fileID: 2785503372416326320}
   _playerWinGameText: {fileID: 7181618194604531305}
 --- !u!1 &7565195455656030711
