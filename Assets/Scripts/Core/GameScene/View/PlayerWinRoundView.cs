@@ -2,7 +2,7 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerWinRoundView : MonoBehaviour {
+public class PlayerWinRoundView : NetworkBehaviour {
     [SerializeField] private GameObject _playerWinRoundUI;
     [SerializeField] private TextMeshProUGUI _playerWinRoundText;
 

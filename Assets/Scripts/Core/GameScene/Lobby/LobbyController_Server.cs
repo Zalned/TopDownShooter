@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class LobbyController_Server : MonoBehaviour {
@@ -8,14 +9,12 @@ public class LobbyController_Server : MonoBehaviour {
         _playerManager = playerManager;
         _view.StartButton.onClick.AddListener( OnStartBtnClicked );
         _playerManager.OnRegistredPlayersUpdated += OnPlayersListUpdated;
+
+        OnPlayersListUpdated();
     }
 
-    private void Start() {
-        if ( NetcodeHelper.IsServer ) {
-            OnPlayersListUpdated();
-        } else {
-            this.enabled = false;
-        }
+    private void Awake() {
+        if ( !NetcodeHelper.IsServer ) { this.enabled = false; return; }
     }
 
     private void OnDestroy() {
@@ -26,12 +25,26 @@ public class LobbyController_Server : MonoBehaviour {
         GameEvents.OnStartBtn.Invoke();
     }
 
+    // MyNote: Не знаю как еще обновить список игроков у последнего подключившегося клиента не используя Update,
+    // проблема в том, что UI обновляется до того как игрок прогрузился.
+    private IEnumerator DelayedUiRefresh() {
+        yield return new WaitForSeconds( 1f );
+        OnPlayersListUpdated();
+    }
+
     private void OnPlayersListUpdated() {
+        HandlePlayerListUpdated();
+        StartCoroutine( DelayedUiRefresh() );
+    }
+
+    private void HandlePlayerListUpdated() {
+        Debug.Log( "Handle players list update" );
+        if ( !NetcodeHelper.IsServer ) { return; }
         if ( _playerManager == null ) { Debug.LogWarning( "PlayerManager is null" ); return; }
         if ( _playerManager.RegistredPlayers == null ) { Debug.LogWarning( "RegistredPlayers is null" ); return; }
 
         string buffer = string.Empty;
-        foreach ( var player in _playerManager.RegistredPlayers.Values ) { 
+        foreach ( var player in _playerManager.RegistredPlayers.Values ) {
             buffer = buffer + player.Name + "\n";
         }
         _view.UpdatePlayerListClientRpc( buffer );

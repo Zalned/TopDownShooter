@@ -18,8 +18,6 @@ public class GameBootstrap_Zenject : IInitializable, ITickable {
             gameFlowController.Initialize( gameSessionService );
             gameNetworkHandler.Initialize( sceneLoader );
             lobbyController.Initialize( playerManager );
-        } else {
-            // TODO Стоит ли отключать сервисы которые не нужны на клиенте?
-        }
+        } 
     }
 }

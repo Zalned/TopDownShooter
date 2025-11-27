@@ -18,7 +18,7 @@ public class GameInstaller : MonoInstaller {
         if ( NetcodeHelper.IsServer ) {
             Container.Bind<GameFlowController_Server>().FromInstance( _gameFlowController ).AsSingle().NonLazy();
             Container.Bind<GameNetworkHandler_Server>().FromInstance( _gameNetworkHandler ).AsSingle().NonLazy();
-            Container.Bind<GameSessionService_Server>().AsSingle();
+            Container.Bind<GameSessionService_Server>().AsSingle().NonLazy();
 
             Container.Bind<PlayerFactory_Server>().AsSingle().NonLazy();
             Container.Bind<PlayerManager_Server>().AsSingle().NonLazy();

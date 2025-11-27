@@ -17,6 +17,10 @@ public class GameFlowController_Server : MonoBehaviour {
         GameEvents.OnPlayerWinGame += OnPlayerWinGame;
     }
 
+    private void Awake() {
+        if ( !NetcodeHelper.IsServer ) { this.enabled = false; return; }
+    }
+
     private void OnDestroy() {
         GameEvents.OnStartBtn -= OnStartRequested;
         GameEvents.OnStopGameBtn -= OnStopRequested;

@@ -27,7 +27,7 @@ public class GameSessionService_Server {
         SessionPlayerManager_Server sessionPlayerManager,
         RoundController_Server roundController,
         PlayerWinRoundView playerWinRoundView,
-        PlayerWinGameView playerWinGameView, 
+        PlayerWinGameView playerWinGameView,
         LobbyController_Server lobbyController ) {
         _networkHandler = networkHandler;
         _mapService = mapService;
@@ -71,13 +71,14 @@ public class GameSessionService_Server {
         _playerWinGameView.SetPlayerWinNameClientRpc( playerId.ToString() );
         await ShowPlayerWinGameUI();
 
+        GameEvents.OnPlayerWinGame.Invoke( playerId );
         EndGame( playerId );
     }
 
     private async Task ShowPlayerWinRoundUI() {
         _playerWinRoundView.ShowClientRpc();
         await Task.Delay( SHOW_WIN_ROUND_UI_TIME * 1000 );
-        _playerWinRoundView.ShowClientRpc();
+        _playerWinRoundView.HideClientRpc();
     }
 
     private async Task ShowPlayerWinGameUI() {
@@ -95,7 +96,7 @@ public class GameSessionService_Server {
         _sessionPlayerManager.ResetActivePlayers();
     }
 
-    public void StopGame() { 
+    public void StopGame() {
         GameEvents.OnGameStopped.Invoke();
     }
 
