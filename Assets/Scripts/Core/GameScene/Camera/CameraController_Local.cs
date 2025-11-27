@@ -5,7 +5,7 @@ public class CameraController_Local : MonoBehaviour {
     [SerializeField] private Transform _target;
     private float _currentZoom = 15;
     private const int MIN_ZOOM = 10;
-    private const int MAX_ZOOM = 20;
+    private const int MAX_ZOOM = 16;
     private const float ZOOM_SPEED = 2;
 
     private readonly Quaternion _cameraRotation = Quaternion.Euler( 90, 0, 0 );

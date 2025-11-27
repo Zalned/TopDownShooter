@@ -19,11 +19,10 @@ public class PlayerController : NetworkBehaviour {
             FindFirstObjectByType<SceneContext>().Container.Resolve<BulletManager_Server>();
 
         NetID = OwnerClientId;
-
         _playerStats = new PlayerStats();
         _currentHealth = _playerStats.RuntimeConfig.MaxHealth;
 
-        _view.InitializeClientRpc( data );
+        _view.InitializeServerRpc( data, _playerStats.RuntimeConfig.MaxHealth );
         _playerMovement.Initialize( _playerCamera, _playerStats );
         _playerShoot.Initialize( bulletManager, _playerStats, NetID );
         _playerDash.Initialize( _playerStats.RuntimeConfig );
@@ -44,10 +43,8 @@ public class PlayerController : NetworkBehaviour {
 
     private void HandleHit( float damage ) {
         _currentHealth -= damage;
-
-        if ( _currentHealth <= 0 ) {
-            HandleDie();
-        }
+        if ( _currentHealth <= 0 ) { HandleDie(); }
+        _view.SetPlayerHeatlhServerRpc( _currentHealth );
     }
 
     public void HandleDie() {

@@ -7,11 +7,10 @@ public class GameNetworkHandler_Server : NetworkBehaviour {
 
     public void Initialize( SceneLoader sceneLoader ) {
         _sceneLoader = sceneLoader;
+    }
 
-        if ( !NetcodeHelper.IsServer ) {
-            Debug.LogWarning( $"[{nameof( GameNetworkHandler_Server )}] Is not server, destroying." );
-            Destroy( this );
-        }
+    private void Awake() {
+        if ( !NetcodeHelper.IsServer ) { this.enabled = false; return; }
     }
 
     public void QuitToMenuForClients() {

@@ -16,6 +16,7 @@ public struct NetworkPlayerData : INetworkSerializable {
 
     public void NetworkSerialize<T>( BufferSerializer<T> serializer ) where T : IReaderWriter {
         serializer.SerializeValue( ref NetID );
+        serializer.SerializeValue( ref Name );
         serializer.SerializeValue( ref TeamColor );
     }
 }

@@ -2,7 +2,7 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerWinGameView : MonoBehaviour {
+public class PlayerWinGameView : NetworkBehaviour {
     [SerializeField] private GameObject _playerWinGameUI;
     [SerializeField] private TextMeshProUGUI _playerWinGameText;
 
