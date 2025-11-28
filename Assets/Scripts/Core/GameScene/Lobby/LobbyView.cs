@@ -22,6 +22,7 @@ public class LobbyView : NetworkBehaviour {
 
     [ClientRpc]
     public void UpdatePlayerListClientRpc( string text ) {
+        if ( !NetcodeHelper.IsClient ) { return; }
         _playerList.text = text;
     }
 }

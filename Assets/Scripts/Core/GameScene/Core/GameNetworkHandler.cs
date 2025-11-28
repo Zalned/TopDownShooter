@@ -1,6 +1,4 @@
-using UnityEngine;
 using Unity.Netcode;
-using Zenject;
 
 public class GameNetworkHandler : NetworkBehaviour {
     private SceneLoader _sceneLoader;
@@ -13,14 +11,8 @@ public class GameNetworkHandler : NetworkBehaviour {
         if ( !NetcodeHelper.IsServer ) { this.enabled = false; return; }
     }
 
-    public void QuitToMenuForClients() {
-        if ( NetcodeHelper.IsHost || NetcodeHelper.IsServer ) {
-            QuitToMenuClientRpc();
-        }
-    }
-
     [ClientRpc]
-    private void QuitToMenuClientRpc() {
+    public void QuitToMenuClientRpc() {
         _sceneLoader.LoadMenuScene();
     }
 }

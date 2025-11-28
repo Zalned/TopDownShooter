@@ -2,14 +2,14 @@ using Zenject;
 using UnityEngine;
 
 public class GameInstaller : MonoInstaller {
-    [SerializeField] GameFlowController _gameFlowController;
-    [SerializeField] GameNetworkHandler _gameNetworkHandler;
+    [SerializeField] private GameFlowController _gameFlowController;
+    [SerializeField] private GameNetworkHandler _gameNetworkHandler;
+    [SerializeField] private MapService_Server _mapService;
 
-    [SerializeField] LobbyPresenter _lobbyPresenter;
-    [SerializeField] MapService_Server _mapService;
+    [SerializeField] private LobbyPresenter _lobbyPresenter;
 
-    [SerializeField] PlayerWinRoundView _playerWinRoundView;
-    [SerializeField] PlayerWinGameView _playerWinGameView;
+    [SerializeField] private PlayerWinRoundView _playerWinRoundView;
+    [SerializeField] private PlayerWinGameView _playerWinGameView;
 
     public override void InstallBindings() {
         Container.Bind<ITickService>().To<TickService>().AsSingle().NonLazy();
@@ -20,6 +20,7 @@ public class GameInstaller : MonoInstaller {
             Container.Bind<GameNetworkHandler>().FromInstance( _gameNetworkHandler ).AsSingle().NonLazy();
             Container.Bind<GameSessionService>().AsSingle().NonLazy();
 
+            Container.Bind<MapService_Server>().FromInstance( _mapService ).AsSingle();
             Container.Bind<PlayerFactory>().AsSingle().NonLazy();
             Container.Bind<PlayerManager>().AsSingle().NonLazy();
 
@@ -29,7 +30,6 @@ public class GameInstaller : MonoInstaller {
             Container.Bind<PlayerWinGameView>().FromComponentInHierarchy().AsSingle();
 
             Container.Bind<LobbyPresenter>().FromInstance( _lobbyPresenter ).AsSingle().NonLazy();
-            Container.Bind<MapService_Server>().FromInstance( _mapService ).AsSingle();
 
             Container.Bind<SessionPlayerManager>().AsSingle();
             Container.Bind<PlayerSpawnService>().AsSingle();
