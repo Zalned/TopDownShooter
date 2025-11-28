@@ -101,7 +101,7 @@ public class GameSessionService {
     }
 
     public void QuitToMenu() {
-        _networkHandler.QuitToMenuForClients();
+        _networkHandler.QuitToMenuClientRpc();
         NetworkManager.Singleton.Shutdown();
     }
 }
