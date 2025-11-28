@@ -1,0 +1,55 @@
+using Unity.Netcode;
+using UnityEngine;
+using Zenject;
+
+public class GameFlowController : MonoBehaviour {
+    private GameSessionService _gameSessionService;
+    private bool _gameIsStarted = false;
+
+    public void Initialize( GameSessionService gameSessionService ) {
+        _gameSessionService = gameSessionService;
+
+        GameEvents.OnStartBtn += OnStartRequested;
+        GameEvents.OnStopGameBtn += OnStopRequested;
+        GameEvents.OnQuitToMenuBtn += OnQuitRequested;
+
+        GameEvents.OnGameStopped += OnGameEnded;
+        GameEvents.OnPlayerWinGame += OnPlayerWinGame;
+    }
+
+    private void Awake() {
+        if ( !NetcodeHelper.IsServer ) { this.enabled = false; return; }
+    }
+
+    private void OnDestroy() {
+        GameEvents.OnStartBtn -= OnStartRequested;
+        GameEvents.OnStopGameBtn -= OnStopRequested;
+        GameEvents.OnQuitToMenuBtn -= OnQuitRequested;
+        GameEvents.OnGameStopped -= OnGameEnded;
+        GameEvents.OnPlayerWinGame -= OnPlayerWinGame;
+    }
+
+    private void OnStartRequested() {
+        if ( _gameIsStarted ) {
+            _gameSessionService.StartRound();
+        } else {
+            _gameSessionService.StartGame();
+        }
+    }
+
+    private void OnPlayerWinGame( ulong _ ) {
+        OnGameEnded();
+    }
+
+    private void OnGameEnded() {
+        _gameIsStarted = false;
+    }
+
+    private void OnStopRequested() {
+        _gameSessionService.StopGame();
+    }
+
+    private void OnQuitRequested() {
+        _gameSessionService.QuitToMenu();
+    }
+}

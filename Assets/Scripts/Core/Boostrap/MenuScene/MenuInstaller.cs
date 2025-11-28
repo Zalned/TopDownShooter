@@ -15,11 +15,11 @@ public class MenuInstaller : MonoInstaller {
         Container.Bind<JoinMenuView>().FromInstance( _joinMenuView ).AsSingle();
         Container.Bind<InputNameView>().FromInstance( _inputNameView ).AsSingle();
 
-        Container.Bind<MainMenuController>().AsSingle().NonLazy();
-        Container.Bind<JoinMenuController>().AsSingle();
-        Container.Bind<HostMenuController>().AsSingle();
-        Container.Bind<InputNameController>().AsSingle();
+        Container.Bind<MainMenuPresenter>().AsSingle().NonLazy();
+        Container.Bind<JoinMenuPresenter>().AsSingle();
+        Container.Bind<HostMenuPresenter>().AsSingle();
+        Container.Bind<InputNamePresenter>().AsSingle();
 
-        Container.BindInterfacesAndSelfTo<MenuBootstrap_Zenject>().AsSingle();
+        Container.BindInterfacesAndSelfTo<MenuBootstrap>().AsSingle();
     }
 }

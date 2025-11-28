@@ -17,7 +17,7 @@ public class PlayerController : NetworkBehaviour {
     [ClientRpc]
     public void InitalizeClientRpc( NetworkPlayerData data ) {
         var bulletManager =
-            FindFirstObjectByType<SceneContext>().Container.Resolve<BulletManager_Server>();
+            FindFirstObjectByType<SceneContext>().Container.Resolve<BulletManager>();
 
         NetID = OwnerClientId;
         _playerStats = new PlayerStats();

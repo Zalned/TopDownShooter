@@ -6,13 +6,13 @@ using UnityEngine.InputSystem;
 public class PlayerShooting : NetworkBehaviour {
     [SerializeField] private Transform _shootPoint;
 
-    private BulletManager_Server _bulletManager;
+    private BulletManager _bulletManager;
     private PlayerRuntimeConfig _config;
     private ulong _playerId;
 
     public event Action OnShoot;
 
-    public void Initialize( BulletManager_Server bulletManager, PlayerRuntimeConfig config, ulong playerId ) {
+    public void Initialize( BulletManager bulletManager, PlayerRuntimeConfig config, ulong playerId ) {
         _bulletManager = bulletManager;
         _config = config;
         _playerId = playerId;

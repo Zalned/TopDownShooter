@@ -2,10 +2,10 @@ using Zenject;
 using UnityEngine;
 
 public class GameInstaller : MonoInstaller {
-    [SerializeField] GameFlowController_Server _gameFlowController;
-    [SerializeField] GameNetworkHandler_Server _gameNetworkHandler;
+    [SerializeField] GameFlowController _gameFlowController;
+    [SerializeField] GameNetworkHandler _gameNetworkHandler;
 
-    [SerializeField] LobbyController_Server _lobbyController;
+    [SerializeField] LobbyPresenter _lobbyController;
     [SerializeField] MapService_Server _mapService;
 
     [SerializeField] PlayerWinRoundView _playerWinRoundView;
@@ -13,29 +13,29 @@ public class GameInstaller : MonoInstaller {
 
     public override void InstallBindings() {
         Container.Bind<ITickService>().To<TickService>().AsSingle().NonLazy();
-        Container.Bind<BulletManager_Server>().AsSingle().NonLazy();
+        Container.Bind<BulletManager>().AsSingle().NonLazy();
 
         if ( NetcodeHelper.IsServer ) {
-            Container.Bind<GameFlowController_Server>().FromInstance( _gameFlowController ).AsSingle().NonLazy();
-            Container.Bind<GameNetworkHandler_Server>().FromInstance( _gameNetworkHandler ).AsSingle().NonLazy();
-            Container.Bind<GameSessionService_Server>().AsSingle().NonLazy();
+            Container.Bind<GameFlowController>().FromInstance( _gameFlowController ).AsSingle().NonLazy();
+            Container.Bind<GameNetworkHandler>().FromInstance( _gameNetworkHandler ).AsSingle().NonLazy();
+            Container.Bind<GameSessionService>().AsSingle().NonLazy();
 
-            Container.Bind<PlayerFactory_Server>().AsSingle().NonLazy();
-            Container.Bind<PlayerManager_Server>().AsSingle().NonLazy();
+            Container.Bind<PlayerFactory>().AsSingle().NonLazy();
+            Container.Bind<PlayerManager>().AsSingle().NonLazy();
 
-            Container.Bind<RoundController_Server>().AsSingle().NonLazy();
+            Container.Bind<RoundManager>().AsSingle().NonLazy();
             Container.Bind<RoundHudView>().FromComponentInHierarchy().AsSingle();
             Container.Bind<PlayerWinRoundView>().FromComponentInHierarchy().AsSingle();
             Container.Bind<PlayerWinGameView>().FromComponentInHierarchy().AsSingle();
 
-            Container.Bind<LobbyController_Server>().FromInstance( _lobbyController ).AsSingle().NonLazy();
+            Container.Bind<LobbyPresenter>().FromInstance( _lobbyController ).AsSingle().NonLazy();
             Container.Bind<MapService_Server>().FromInstance( _mapService ).AsSingle();
 
-            Container.Bind<SessionPlayerManager_Server>().AsSingle();
-            Container.Bind<PlayerSpawnController_Server>().AsSingle();
-            Container.Bind<PlayerDieHandler_Server>().AsSingle().NonLazy();
+            Container.Bind<SessionPlayerManager>().AsSingle();
+            Container.Bind<PlayerSpawnService>().AsSingle();
+            Container.Bind<PlayerDieHandler>().AsSingle().NonLazy();
         }
 
-        Container.BindInterfacesAndSelfTo<GameBootstrap_Zenject>().AsSingle();
+        Container.BindInterfacesAndSelfTo<GameBootstrap>().AsSingle();
     }
 }
