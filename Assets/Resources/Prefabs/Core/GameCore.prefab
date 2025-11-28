@@ -777,7 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 669457870
+  GlobalObjectIdHash: 609955244
   InScenePlacedSourceGlobalObjectIdHash: 669457870
   DeferredDespawnTick: 0
   Ownership: 1
@@ -2780,7 +2780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameInstaller
   _gameFlowController: {fileID: 8016139624358605167}
   _gameNetworkHandler: {fileID: 441201853987375864}
-  _lobbyController: {fileID: 0}
+  _lobbyPresenter: {fileID: 8799446208161392465}
   _mapService: {fileID: 5462449166758074271}
   _playerWinRoundView: {fileID: 22065584234354150}
   _playerWinGameView: {fileID: 6275649098644896099}

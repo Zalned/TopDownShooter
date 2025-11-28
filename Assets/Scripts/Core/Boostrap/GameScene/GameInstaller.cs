@@ -5,7 +5,7 @@ public class GameInstaller : MonoInstaller {
     [SerializeField] GameFlowController _gameFlowController;
     [SerializeField] GameNetworkHandler _gameNetworkHandler;
 
-    [SerializeField] LobbyPresenter _lobbyController;
+    [SerializeField] LobbyPresenter _lobbyPresenter;
     [SerializeField] MapService_Server _mapService;
 
     [SerializeField] PlayerWinRoundView _playerWinRoundView;
@@ -28,7 +28,7 @@ public class GameInstaller : MonoInstaller {
             Container.Bind<PlayerWinRoundView>().FromComponentInHierarchy().AsSingle();
             Container.Bind<PlayerWinGameView>().FromComponentInHierarchy().AsSingle();
 
-            Container.Bind<LobbyPresenter>().FromInstance( _lobbyController ).AsSingle().NonLazy();
+            Container.Bind<LobbyPresenter>().FromInstance( _lobbyPresenter ).AsSingle().NonLazy();
             Container.Bind<MapService_Server>().FromInstance( _mapService ).AsSingle();
 
             Container.Bind<SessionPlayerManager>().AsSingle();
