@@ -30,7 +30,7 @@ public class PlayerDash : NetworkBehaviour {
         if ( _cooldown > 0 ) return;
 
         _inDash = true;
-        _cooldown = _config.PlayerDashCooldown;
+        _cooldown = _config.Player.DashCooldown;
         OnDash.Invoke();
     }
 
@@ -42,8 +42,8 @@ public class PlayerDash : NetworkBehaviour {
     }
 
     private void MoveToTargetPosition() {
-        if ( _dashTimeAccumulated <= _config.PlayerDashTime ) {
-            Vector3 velocity = transform.forward * (_config.PlayerDashLenght / _config.PlayerDashTime);
+        if ( _dashTimeAccumulated <= _config.Player.DashTime ) {
+            Vector3 velocity = transform.forward * (_config.Player.DashLength / _config.Player.DashTime);
             var newPosition = transform.position + velocity * TickService.TickDeltaTime;
 
             if ( !Physics.CheckSphere( newPosition, _checkCollisionRadius, _wallLayerMask ) ) {

@@ -4,18 +4,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : NetworkBehaviour {
     private Camera _playerCamera;
-    private PlayerStats _stats;
+    private PlayerRuntimeConfig _config;
 
     private Rigidbody _rb;
     private Vector2 _inputVector = Vector2.zero;
 
-    public void Initialize( Camera camera, PlayerStats stats ) {
+    public void Initialize( Camera camera, PlayerRuntimeConfig config ) {
         _playerCamera = camera;
-        _stats = stats;
+        _config = config;
     }
 
     public void Start() {
-        _stats = new();// MyNote: По умолчанию используем базовые статы чтобы не делать проверку на инициализацию
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -27,7 +26,7 @@ public class PlayerMovement : NetworkBehaviour {
     }
 
     private void Move() {
-        Vector3 velocity = new Vector3( _inputVector.x, 0, _inputVector.y ) * _stats.RuntimeConfig.PlayerSpeed;
+        Vector3 velocity = new Vector3( _inputVector.x, 0, _inputVector.y ) * _config.Player.Speed;
         _rb.linearVelocity = velocity;
     }
 
