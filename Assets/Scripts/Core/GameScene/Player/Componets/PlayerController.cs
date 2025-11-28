@@ -20,11 +20,11 @@ public class PlayerController : NetworkBehaviour {
 
         NetID = OwnerClientId;
         _playerStats = new PlayerStats();
-        _currentHealth = _playerStats.RuntimeConfig.MaxHealth;
+        _currentHealth = _playerStats.RuntimeConfig.Player.MaxHealth;
 
-        _view.InitializeServerRpc( data, _playerStats.RuntimeConfig.MaxHealth );
-        _playerMovement.Initialize( _playerCamera, _playerStats );
-        _playerShoot.Initialize( bulletManager, _playerStats, NetID );
+        _view.InitializeServerRpc( data, _playerStats.RuntimeConfig.Player.MaxHealth );
+        _playerMovement.Initialize( _playerCamera, _playerStats.RuntimeConfig );
+        _playerShoot.Initialize( bulletManager, _playerStats.RuntimeConfig, NetID );
         _playerDash.Initialize( _playerStats.RuntimeConfig );
 
         _playerShoot.OnShoot += OnShoot;

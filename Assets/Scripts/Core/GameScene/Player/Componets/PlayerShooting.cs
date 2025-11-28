@@ -7,14 +7,14 @@ public class PlayerShooting : NetworkBehaviour {
     [SerializeField] private Transform _shootPoint;
 
     private BulletManager_Server _bulletManager;
-    private PlayerStats _stats;
+    private PlayerRuntimeConfig _config;
     private ulong _playerId;
 
     public event Action OnShoot;
 
-    public void Initialize( BulletManager_Server bulletManager, PlayerStats stats, ulong playerId ) {
+    public void Initialize( BulletManager_Server bulletManager, PlayerRuntimeConfig config, ulong playerId ) {
         _bulletManager = bulletManager;
-        _stats = stats;
+        _config = config;
         _playerId = playerId;
     }
 
@@ -29,10 +29,10 @@ public class PlayerShooting : NetworkBehaviour {
 
     [ServerRpc]
     private void ShootServerRpc() {
-        _bulletManager.CreateServerBullet( _stats.RuntimeConfig, _shootPoint, _playerId );
+        _bulletManager.CreateServerBullet( _config, _shootPoint, _playerId );
     }
 
-    //[ClientRpc] MyTODO
+    //[ClientRpc] MyTodo
     //private void SpawnVisualBulletClientRpc() {
     //    var clientBulletPrefab = Resources.Load<GameObject>( Defines.ObjectPaths.CLIENT_BULLET_PREFAB );
     //    var clientBulletObj = Instantiate( clientBulletPrefab );

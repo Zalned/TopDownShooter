@@ -40,7 +40,7 @@ public class ServerBullet : MonoBehaviour {
         _state = new();
         _state.Position = transform.position;
         _state.PreviousPosition = transform.position;
-        _state.Velocity = transform.forward * _config.BulletSpeed;
+        _state.Velocity = transform.forward * _config.Bullet.Speed;
         _state.IsActive = true;
     }
 
@@ -97,7 +97,7 @@ public class ServerBullet : MonoBehaviour {
         while ( remainingDistance > 0f ) {
             float stepDistance = Mathf.Min( remainingDistance, MAX_STEP_DISTANCE );
 
-            if ( Physics.SphereCast( _state.Position, _config.BulletRadius, direction,
+            if ( Physics.SphereCast( _state.Position, _config.Bullet.Radius, direction,
                 out RaycastHit hit, stepDistance, _hitMask, QueryTriggerInteraction.Collide ) ) {
 
                 _state.Position = hit.point;
@@ -128,17 +128,15 @@ public class ServerBullet : MonoBehaviour {
     private void HandleProjectileHit( Transform hitTransform ) {
         if ( hitTransform.CompareTag( Defines.Tags.Player ) ) {
             HandlePlayerHit( hitTransform );
-            Debug.Log( "Hitting a player." );
         } else if ( hitTransform.CompareTag( Defines.Tags.Bullet ) ) {
             HandleBulletHit( hitTransform );
-            Debug.Log( "Hitting a bullet" );
         } else {
             HandleAnotherHit();
         }
     }
 
     private void HandlePlayerHit( Transform hitTransform ) {
-        hitTransform.GetComponent<PlayerController>().TakeDamage( _config.Damage );
+        hitTransform.GetComponent<PlayerController>().TakeDamage( _config.Bullet.Damage );
         HandleDestroy();
     }
 
@@ -153,7 +151,7 @@ public class ServerBullet : MonoBehaviour {
     }
 
     private void HandleHitFromAnotherBullet( float damageFromAnotherBullet ) {
-        if ( _config.Damage <= damageFromAnotherBullet ) {
+        if ( _config.Bullet.Damage <= damageFromAnotherBullet ) {
             HandleDestroy();
         }
     }
@@ -168,11 +166,11 @@ public class ServerBullet : MonoBehaviour {
     }
 
     public float GetDamage() {
-        return _config.Damage;
+        return _config.Bullet.Damage;
     }
 
     private void HandleLifetime() {
-        if ( _age >= _config.Lifetime ) {
+        if ( _age >= _config.Bullet.Lifetime ) {
             HandleDestroy();
         }
     }

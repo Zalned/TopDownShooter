@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public enum StatType {
-    PlayerHealth, PlayerSpeed, 
-    Damage, BulletSpeed,
+public enum PlayerStatType {
+    MaxHealth, Speed, DashTime, DashLength,
+}
+
+public enum BulletStatType {
+    Damage, Speed, Lifetime, Radius
 }
 
 public class PlayerStats {
@@ -14,13 +17,20 @@ public class PlayerStats {
         RuntimeConfig = new PlayerRuntimeConfig( basePlayerConfig, baseBulletConfig );
     }
 
-    public void ApplyModifier( StatType type, float value ) {
+    public void ApplyPlayerModifier( PlayerStatType type, float value ) {
         switch ( type ) {
-            case StatType.PlayerHealth: RuntimeConfig.MaxHealth += value; break;
-            case StatType.PlayerSpeed: RuntimeConfig.PlayerSpeed += value; break;
-
-            case StatType.Damage: RuntimeConfig.Damage += value; break;
-            case StatType.BulletSpeed: RuntimeConfig.BulletSpeed += value; break;
+            case PlayerStatType.MaxHealth: RuntimeConfig.Player.MaxHealth += value; break;
+            case PlayerStatType.Speed: RuntimeConfig.Player.Speed += value; break;
+            case PlayerStatType.DashTime: RuntimeConfig.Player.DashTime += value; break;
+            case PlayerStatType.DashLength: RuntimeConfig.Player.DashLength += value; break;
+        }
+    }
+    public void ApplyBulletModifier( BulletStatType type, float value ) {
+        switch ( type ) {
+            case BulletStatType.Damage: RuntimeConfig.Bullet.Damage += value; break;
+            case BulletStatType.Speed: RuntimeConfig.Bullet.Speed += value; break;
+            case BulletStatType.Lifetime: RuntimeConfig.Bullet.Lifetime += value; break;
+            case BulletStatType.Radius: RuntimeConfig.Bullet.Radius += value; break;
         }
     }
 }
