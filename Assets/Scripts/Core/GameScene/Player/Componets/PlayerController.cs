@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using Zenject;
+using UniRx;
 
 public class PlayerController : NetworkBehaviour {
     [SerializeField] private PlayerView _view;
@@ -11,7 +12,7 @@ public class PlayerController : NetworkBehaviour {
 
     public ulong NetID { get; private set; }
     private PlayerStats _playerStats;
-    private float _currentHealth = 0;
+    private ReactiveProperty<float> _currentHealth;
 
     [ClientRpc]
     public void InitalizeClientRpc( NetworkPlayerData data ) {
@@ -20,7 +21,10 @@ public class PlayerController : NetworkBehaviour {
 
         NetID = OwnerClientId;
         _playerStats = new PlayerStats();
-        _currentHealth = _playerStats.RuntimeConfig.Player.MaxHealth;
+
+        _currentHealth = new( _playerStats.RuntimeConfig.Player.MaxHealth );
+        _currentHealth.Where( h => h <= 0 ).Take(1).Subscribe( _ => HandleDie() ).AddTo( this );
+        _currentHealth.Subscribe( v => _view.SetPlayerHeatlhServerRpc(v) ).AddTo( this );
 
         _view.InitializeServerRpc( data, _playerStats.RuntimeConfig.Player.MaxHealth );
         _playerMovement.Initialize( _playerCamera, _playerStats.RuntimeConfig );
@@ -38,13 +42,7 @@ public class PlayerController : NetworkBehaviour {
     }
 
     public void TakeDamage( float damage ) {
-        HandleHit( damage );
-    }
-
-    private void HandleHit( float damage ) {
-        _currentHealth -= damage;
-        if ( _currentHealth <= 0 ) { HandleDie(); }
-        _view.SetPlayerHeatlhServerRpc( _currentHealth );
+        _currentHealth.Value -= damage;
     }
 
     public void HandleDie() {

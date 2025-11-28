@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -27,13 +26,10 @@ public class MainMenuController : IDisposable {
         _mainMenuView.HostButton.onClick.AddListener( OnHostButton );
         _mainMenuView.JoinButton.onClick.AddListener( OnJoinButton );
         _mainMenuView.QuitButton.onClick.AddListener( OnQuitBtn );
-
         _hostMenuController.OnStartBtn += HostMenuStartBtn;
         _hostMenuController.OnReturnBtn += HostMenuReturnBtn;
-
         _joinMenuController.OnStartBtn += JoinMenuStartBtn;
         _joinMenuController.OnReturnBtn += JoinMenuReturnBtn;
-
         _inputNameController.OnNameConfirmed += InputNameMenuStartBtn;
         _inputNameController.OnReturnBtn += InputNameMenuReturnBtn;
     }

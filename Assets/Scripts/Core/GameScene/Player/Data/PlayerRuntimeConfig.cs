@@ -1,5 +1,3 @@
-using System;
-
 [System.Serializable]
 public class PlayerRuntimeConfig {
     public PlayerRuntimeStats Player { get; private set; } = new();
@@ -19,7 +17,3 @@ public class PlayerRuntimeConfig {
         Bullet.Radius = baseBulletCfg.baseRadius;
     }
 }
-
-
-
-

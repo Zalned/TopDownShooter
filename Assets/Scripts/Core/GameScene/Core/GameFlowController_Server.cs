@@ -30,12 +30,10 @@ public class GameFlowController_Server : MonoBehaviour {
     }
 
     private void OnStartRequested() {
-        if ( NetworkManager.Singleton.IsServer ) {
-            if ( _gameIsStarted ) {
-                _gameSessionService.StartRound();
-            } else {
-                _gameSessionService.StartGame();
-            }
+        if ( _gameIsStarted ) {
+            _gameSessionService.StartRound();
+        } else {
+            _gameSessionService.StartGame();
         }
     }
 
@@ -48,14 +46,10 @@ public class GameFlowController_Server : MonoBehaviour {
     }
 
     private void OnStopRequested() {
-        if ( NetworkManager.Singleton.IsServer ) {
-            _gameSessionService.StopGame();
-        }
+        _gameSessionService.StopGame();
     }
 
     private void OnQuitRequested() {
-        if ( NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer ) {
-            _gameSessionService.QuitToMenu();
-        }
+        _gameSessionService.QuitToMenu();
     }
 }

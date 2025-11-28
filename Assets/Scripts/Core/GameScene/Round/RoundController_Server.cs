@@ -33,7 +33,6 @@ public class RoundController_Server {
 
         var lastLivePlayer = _sessionPlayerManager.GetLastLifePlayerID();
         AddWinScoreForLastPlayer( lastLivePlayer );
-        Debug.Log( $"[{nameof( RoundController_Server )}] Player {lastLivePlayer} won the round." );
 
         if ( !HasWinner() ) {
             OnRoundEnd.Invoke( lastLivePlayer );

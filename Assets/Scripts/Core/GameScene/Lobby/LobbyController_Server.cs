@@ -25,6 +25,11 @@ public class LobbyController_Server : MonoBehaviour {
         GameEvents.OnStartBtn.Invoke();
     }
 
+    private void OnPlayersListUpdated() {
+        HandlePlayerListUpdated();
+        StartCoroutine( DelayedUiRefresh() );
+    }
+
     // MyNote: Не знаю как еще обновить список игроков у последнего подключившегося клиента не используя Update,
     // проблема в том, что UI обновляется до того как игрок прогрузился.
     private IEnumerator DelayedUiRefresh() {
@@ -32,15 +37,7 @@ public class LobbyController_Server : MonoBehaviour {
         OnPlayersListUpdated();
     }
 
-    private void OnPlayersListUpdated() {
-        HandlePlayerListUpdated();
-        StartCoroutine( DelayedUiRefresh() );
-    }
-
     private void HandlePlayerListUpdated() {
-        if ( _playerManager == null ) { Debug.LogWarning( "PlayerManager is null" ); return; }
-        if ( _playerManager.RegistredPlayers == null ) { Debug.LogWarning( "RegistredPlayers is null" ); return; }
-
         string buffer = string.Empty;
         foreach ( var player in _playerManager.RegistredPlayers.Values ) {
             buffer = buffer + player.Name + "\n";
