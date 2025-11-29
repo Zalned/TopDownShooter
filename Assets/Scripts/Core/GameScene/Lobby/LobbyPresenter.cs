@@ -11,6 +11,7 @@ public class LobbyPresenter : MonoBehaviour {
         _playerManager.OnRegistredPlayersUpdated += OnPlayersListUpdated;
 
         OnPlayersListUpdated();
+        HandleClientState();
     }
 
     private void Awake() {
@@ -43,6 +44,13 @@ public class LobbyPresenter : MonoBehaviour {
             buffer = buffer + player.Name + "\n";
         }
         _view.UpdatePlayerListClientRpc( buffer );
+    }
+
+    private void HandleClientState() {
+        if ( NetcodeHelper.IsServer ) {
+            _view.WaitingHostText.gameObject.SetActive( false );
+            _view.StartButton.gameObject.SetActive( true );
+        }
     }
 
     public void Show() {

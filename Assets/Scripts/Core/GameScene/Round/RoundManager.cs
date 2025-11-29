@@ -1,11 +1,13 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
-public class RoundManager {
+public class RoundManager : IDisposable {
     private RoundHudView _roundHUD;
     private SessionPlayerManager _sessionPlayerManager;
     private SessionConfigSO _sessionConfig;
+    private PlayerHudDataBuilder _playerHudDataBuilder = new();
 
     public event Action<ulong> OnRoundEnd;
     public event Action<ulong> OnPlayerWin;
@@ -19,6 +21,10 @@ public class RoundManager {
         _sessionPlayerManager.OnLivePlayerRemoved += HandlePlayerDie;
     }
 
+    public void Dispose() {
+        _sessionPlayerManager.OnLivePlayerRemoved -= HandlePlayerDie;
+    }
+
     private void HandlePlayerDie() {
         if ( _sessionPlayerManager.LivePlayers.Count == 1 ) {
             StopRound();
@@ -26,7 +32,8 @@ public class RoundManager {
     }
 
     public void StartRound() {
-        _roundHUD.UpdateHudDataClientRpc( GetHudData() );
+        _roundHUD.UpdateHudDataClientRpc(
+            _playerHudDataBuilder.GetHudData( _sessionPlayerManager.ActivePlayers.Values.ToList() ) );
         _roundHUD.ShowClientRpc();
     }
 
@@ -53,17 +60,5 @@ public class RoundManager {
             }
         }
         return false;
-    }
-
-    private string GetHudData() {
-        var buffer = string.Empty;
-
-        foreach ( var player in _sessionPlayerManager.ActivePlayers ) {
-            var playerName = player.Value.NetworkPlayerData.Name;
-            var activePlayerData = player.Value;
-
-            buffer += $"{playerName} - {activePlayerData.Score} \n";
-        }
-        return buffer;
     }
 }

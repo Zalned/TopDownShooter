@@ -2,15 +2,18 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class LobbyView : NetworkBehaviour {
     [SerializeField] private GameObject _lobbyObject;
     [SerializeField] private Button _startButton;
-    [SerializeField] private TextMeshProUGUI _playerList;
+    [SerializeField] private TextMeshProUGUI _playerListText;
+    [SerializeField] private TextMeshProUGUI _waitingHostText;
 
     public Button StartButton => _startButton;
+    public TextMeshProUGUI WaitingHostText => _waitingHostText;
 
-    [ClientRpc]
+    [ ClientRpc]
     public void ShowClientRpc() {
         _lobbyObject.SetActive( true );
     }
@@ -23,6 +26,6 @@ public class LobbyView : NetworkBehaviour {
     [ClientRpc]
     public void UpdatePlayerListClientRpc( string text ) {
         if ( !NetcodeHelper.IsClient ) { return; }
-        _playerList.text = text;
+        _playerListText.text = text;
     }
 }
