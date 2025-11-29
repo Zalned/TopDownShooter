@@ -3,7 +3,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerShooting : NetworkBehaviour {
+public class PlayerShoot : NetworkBehaviour {
     [SerializeField] private Transform _shootPoint;
 
     private BulletManager _bulletManager;

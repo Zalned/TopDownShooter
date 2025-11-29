@@ -9,8 +9,8 @@ public class RoundManager : IDisposable {
     private SessionConfigSO _sessionConfig;
     private PlayerHudDataBuilder _playerHudDataBuilder = new();
 
-    public event Action<ulong> OnRoundEnd;
-    public event Action<ulong> OnPlayerWin;
+    public event Action<ulong, string> OnRoundEnd;
+    public event Action<ulong, string> OnPlayerWin;
 
     [Inject]
     public RoundManager( RoundHudView view, SessionPlayerManager sessionPlayerManager ) {
@@ -44,7 +44,8 @@ public class RoundManager : IDisposable {
         AddWinScoreForLastPlayer( lastLivePlayer );
 
         if ( !HasWinner() ) {
-            OnRoundEnd.Invoke( lastLivePlayer );
+            var winnerName = _sessionPlayerManager.GetActivePlayerByID( lastLivePlayer ).NetworkPlayerData.Name;
+            OnRoundEnd.Invoke( lastLivePlayer, winnerName );
         }
     }
 
@@ -55,7 +56,7 @@ public class RoundManager : IDisposable {
     private bool HasWinner() {
         foreach ( var (playerId, ActivePlayerData) in _sessionPlayerManager.ActivePlayers ) {
             if ( ActivePlayerData.Score >= _sessionConfig.RoundForWin ) {
-                OnPlayerWin?.Invoke( playerId );
+                OnPlayerWin?.Invoke( playerId, ActivePlayerData.NetworkPlayerData.Name );
                 return true;
             }
         }

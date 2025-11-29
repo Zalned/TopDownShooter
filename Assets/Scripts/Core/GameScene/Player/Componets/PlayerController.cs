@@ -6,7 +6,7 @@ using UniRx;
 public class PlayerController : NetworkBehaviour {
     [SerializeField] private PlayerView _view;
     [SerializeField] private PlayerMovement _playerMovement;
-    [SerializeField] private PlayerShooting _playerShoot;
+    [SerializeField] private PlayerShoot _playerShoot;
     [SerializeField] private PlayerDash _playerDash;
     [SerializeField] private Camera _playerCamera;
 
@@ -16,8 +16,8 @@ public class PlayerController : NetworkBehaviour {
 
     [ClientRpc]
     public void InitalizeClientRpc( NetworkPlayerData data ) {
-        var bulletManager =
-            FindFirstObjectByType<SceneContext>().Container.Resolve<BulletManager>();
+        var bulletManager = 
+            FindFirstObjectByType<SceneContext>().Container.Resolve<BulletManager>(); // MyNote: Не лучший способ получения
 
         NetID = OwnerClientId;
         _playerStats = new PlayerStats();
@@ -47,13 +47,14 @@ public class PlayerController : NetworkBehaviour {
 
     public void HandleDie() {
         GameEvents.OnPlayerDie.Invoke( NetID, gameObject );
+        NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.PlayerDie, transform.position );
     }
 
     private void OnShoot() {
         NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.PlayerShoot, transform.position );
     }
 
-    private void OnDash() {
+    private void OnDash() { // MyTodo: звук не загружен
         NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.Dash, transform.position );
     }
 }

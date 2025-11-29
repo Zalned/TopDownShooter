@@ -49,10 +49,16 @@ public class SessionPlayerManager {
         ActivePlayers.Remove( playerID );
     }
 
-    public void AddWinScore( ulong winner ) {
-        if ( ActivePlayers.ContainsKey( winner ) ) {
-            ActivePlayers[ winner ].AddScore();
-        } else { Debug.LogWarning( $"[{nameof( SessionPlayerManager )}] Winner ID not fount in dictionary." ); }
+    public ActivePlayerData GetActivePlayerByID( ulong id ) {
+        if ( ActivePlayers.ContainsKey( id ) ) {
+            return ActivePlayers[ id ];
+        } else { throw new Exception( "ID not fount in dictionary." ); }
+    }
+
+    public void AddWinScore( ulong id ) {
+        if ( ActivePlayers.ContainsKey( id ) ) {
+            ActivePlayers[ id ].AddScore();
+        } else { throw new Exception( "ID not fount in dictionary." ); }
     }
 
     // Live/Dead players

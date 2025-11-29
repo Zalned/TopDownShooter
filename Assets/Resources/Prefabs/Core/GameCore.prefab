@@ -3410,7 +3410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7808791045784299600, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_text
-      value: 'Settings (off)
+      value: 'Settings
 
 '
       objectReference: {fileID: 0}

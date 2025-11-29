@@ -1,3 +1,8 @@
 public enum Sounds {
-    PlayerShoot, Explosion, HittingPlayer, Hit, Dash
+    PlayerShoot, 
+    Explosion,
+    HittingPlayer, 
+    Hit, 
+    Dash,
+    PlayerDie
 }

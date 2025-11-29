@@ -58,17 +58,17 @@ public class GameSessionService {
         _roundController.StartRound();
     }
 
-    private async void HandleRoundEnd( ulong winnerID ) {
+    private async void HandleRoundEnd( ulong winnerID, string name ) {
         _playerSpawnService.DespawnPlayersOnMap();
 
-        _playerWinRoundView.SetPlayerWinNameClientRpc( winnerID.ToString() );
+        _playerWinRoundView.SetPlayerWinNameClientRpc( name );
         await ShowPlayerWinRoundUI();
 
         StartRound();
     }
 
-    private async void HandlePlayerWinGame( ulong playerId ) {
-        _playerWinGameView.SetPlayerWinNameClientRpc( playerId.ToString() );
+    private async void HandlePlayerWinGame( ulong playerId, string name ) {
+        _playerWinGameView.SetPlayerWinNameClientRpc( name );
         await ShowPlayerWinGameUI();
 
         GameEvents.OnPlayerWinGame.Invoke( playerId );

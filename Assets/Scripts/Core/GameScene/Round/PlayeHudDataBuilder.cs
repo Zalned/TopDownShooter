@@ -12,7 +12,6 @@ public class PlayerHudDataBuilder {
             data[ i ].PlayerText = new FixedString64Bytes( $"{player.NetworkPlayerData.Name} - {player.Score}" );
             data[ i ].PlayerColor = player.NetworkPlayerData.TeamColor;
             i++;
-            Debug.Log( $"Builded data: {player.NetworkPlayerData.Name}" );
         }
         return new HudPlayerDataArray { Data = data };
     }

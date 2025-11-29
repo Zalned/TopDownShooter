@@ -3,18 +3,18 @@ using Unity.Netcode;
 using UnityEngine;
 
 public class NetworkAudioManager : NetworkBehaviour {
+    [SerializeField] private SettingsConfigSO _settingsCfg;
+    [Space]
+    [SerializeField] private AudioSource _playerShoot;
+    [SerializeField] private AudioSource _hittingPlayer;
+    [SerializeField] private AudioSource _playerDie;
+    [SerializeField] private AudioSource _hit;
+    [SerializeField] private AudioSource _dash;
+
     public static NetworkAudioManager Instance;
-
-    private AudioSource _audioSource;
-    [SerializeField] private AudioClip _playerShoot;
-    [SerializeField] private AudioClip _hittingPlayer;
-    [SerializeField] private AudioClip _hit;
-    [SerializeField] private AudioClip _dash;
-
-    private Dictionary<Sounds, AudioClip> _sounds = new();
+    private Dictionary<Sounds, AudioSource> _sounds = new();
 
     public void Awake() {
-        _audioSource = GetComponent<AudioSource>();
         InitializeSounds();
 
         Instance = this;
@@ -22,24 +22,27 @@ public class NetworkAudioManager : NetworkBehaviour {
     }
 
     private void InitializeSounds() {
-        _sounds = new Dictionary<Sounds, AudioClip> {
+        _sounds = new() {
                     { Sounds.Hit, _hit },
                     { Sounds.PlayerShoot, _playerShoot },
                     { Sounds.HittingPlayer, _hittingPlayer },
+                    { Sounds.PlayerDie, _playerDie },
                     { Sounds.Dash, _dash }
                 };
     }
 
     [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
     public void PlayClipAtPointServerRpc( Sounds type, Vector3 Position ) {
-        //PlayClipAtPointClientRpc( type, Position );
+        PlayAudioSourceAtPositionClientRpc( type, Position );
     }
     [ClientRpc]
-    private void PlayClipAtPointClientRpc( Sounds type, Vector3 Position ) {
-        if ( _sounds.TryGetValue( type, out AudioClip clip ) ) {
-            AudioSource.PlayClipAtPoint( clip, Position );
+    public void PlayAudioSourceAtPositionClientRpc( Sounds type, Vector3 position ) {
+        if ( _sounds.TryGetValue( type, out AudioSource audioSource ) ) {
+            var tempGO = Instantiate( audioSource.gameObject, position, Quaternion.identity );
+            tempGO.GetComponent<AudioSource>().volume *= _settingsCfg.EffectsVolume;
+            Destroy( tempGO, audioSource.clip.length );
         } else {
-            Debug.LogWarning( $"[{nameof( NetworkAudioManager )}] Error when getting audioClip." );
+            Debug.LogWarning( $"[{nameof( NetworkAudioManager )}] Error when getting audioSource." );
         }
     }
 }

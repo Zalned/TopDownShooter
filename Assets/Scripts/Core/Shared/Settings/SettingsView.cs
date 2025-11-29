@@ -1,13 +1,20 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingsView : MonoBehaviour {
-    [SerializeField] private GameObject _settingsMenuObj;
+    [SerializeField] private GameObject _menuObj;
+    [SerializeField] public Button _closeBtn;
+    [SerializeField] private Slider _effectsVolumeSlider;
+
+    public GameObject MenuObj => _menuObj;
+    public Button CloseBtn => _closeBtn;
+    public Slider EffectVolumeSlider => _effectsVolumeSlider;
 
     public void Show() {
-        _settingsMenuObj.SetActive( true );
+        _menuObj.SetActive( true );
     }
 
     public void Hide() {
-        _settingsMenuObj.SetActive( false );
+        _menuObj.SetActive( false );
     }
 }

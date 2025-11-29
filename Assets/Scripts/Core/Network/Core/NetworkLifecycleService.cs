@@ -14,8 +14,14 @@ public class NetworkLifecycleService : IDisposable {
         NetworkEvents.StartHostRequest += StartHost;
         NetworkEvents.StartClientRequest += StartClient;
         NetworkEvents.StopHostRequest += Shutdown;
-
         NetworkManager.OnInstantiated += OnNetManagerCreated;
+    }
+
+    public void Dispose() {
+        NetworkEvents.StartHostRequest -= StartHost;
+        NetworkEvents.StartClientRequest -= StartClient;
+        NetworkEvents.StopHostRequest -= Shutdown;
+        NetworkManager.OnInstantiated -= OnNetManagerCreated;
     }
 
     private void OnNetManagerCreated( NetworkManager networkManager ) {
@@ -40,11 +46,5 @@ public class NetworkLifecycleService : IDisposable {
     public void Shutdown() {
         Debug.Log( $"[{nameof( NetworkLifecycleService )}] Shutdown server." );
         NetworkManager.Singleton.Shutdown();
-    }
-
-    public void Dispose() {
-        NetworkEvents.StartHostRequest -= StartHost;
-        NetworkEvents.StartClientRequest -= StartClient;
-        NetworkEvents.StopHostRequest -= Shutdown;
     }
 }
