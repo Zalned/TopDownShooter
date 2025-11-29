@@ -18,10 +18,6 @@ public class PlayerDash : NetworkBehaviour {
     public void Initialize( PlayerRuntimeConfig config ) {
         _config = config;
         _wallLayerMask = LayerMask.GetMask( Defines.Layers.Environment );
-        TickService.OnTick += Tick;
-    }
-    public override void OnDestroy() {
-        TickService.OnTick -= Tick;
     }
 
     public void OnDashInput( InputAction.CallbackContext context ) {
@@ -34,7 +30,7 @@ public class PlayerDash : NetworkBehaviour {
         OnDash.Invoke();
     }
 
-    private void Tick() {
+    public void Tick() {
         if ( _inDash ) {
             MoveToTargetPosition();
         }

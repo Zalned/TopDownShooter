@@ -16,29 +16,38 @@ public class PlayerController : NetworkBehaviour {
 
     [ClientRpc]
     public void InitalizeClientRpc( NetworkPlayerData data ) {
-        var bulletManager = 
+        var bulletManager =
             FindFirstObjectByType<SceneContext>().Container.Resolve<BulletManager>(); // MyNote: Не лучший способ получения
 
         NetID = OwnerClientId;
         _playerStats = new PlayerStats();
 
         _currentHealth = new( _playerStats.RuntimeConfig.Player.MaxHealth );
-        _currentHealth.Where( h => h <= 0 ).Take(1).Subscribe( _ => HandleDie() ).AddTo( this );
-        _currentHealth.Subscribe( v => _view.SetPlayerHeatlhServerRpc(v) ).AddTo( this );
+        _currentHealth.Where( h => h <= 0 ).Take( 1 ).Subscribe( _ => HandleDie() ).AddTo( this );
+        _currentHealth.Subscribe( v => _view.SetPlayerHeatlhServerRpc( v ) ).AddTo( this );
 
         _view.InitializeServerRpc( data, _playerStats.RuntimeConfig.Player.MaxHealth );
         _playerMovement.Initialize( _playerCamera, _playerStats.RuntimeConfig );
         _playerShoot.Initialize( bulletManager, _playerStats.RuntimeConfig, NetID );
         _playerDash.Initialize( _playerStats.RuntimeConfig );
 
+        TickService.OnTick += Tick;
         _playerShoot.OnShoot += OnShoot;
         _playerDash.OnDash += OnDash;
 
         if ( !IsOwner ) {
             _playerCamera.gameObject.SetActive( false );
         }
+    }
+    public override void OnDestroy() {
+        TickService.OnTick -= Tick;
+        _playerShoot.OnShoot -= OnShoot;
+        _playerDash.OnDash -= OnDash;
+    }
 
-        Debug.Log( $"Player {NetID} initialized." );
+    private void Tick() {
+        _playerShoot.Tick();
+        _playerDash.Tick();
     }
 
     public void TakeDamage( float damage ) {
@@ -54,7 +63,7 @@ public class PlayerController : NetworkBehaviour {
         NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.PlayerShoot, transform.position );
     }
 
-    private void OnDash() { // MyTodo: звук не загружен
+    private void OnDash() {
         NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.Dash, transform.position );
     }
 }
