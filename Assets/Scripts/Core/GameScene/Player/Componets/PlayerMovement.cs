@@ -12,14 +12,14 @@ public class PlayerMovement : NetworkBehaviour {
     public void Initialize( Camera camera, PlayerRuntimeConfig config ) {
         _playerCamera = camera;
         _config = config;
-        TickService.OnTick += Tick;
     }
 
     public void Start() {
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void Tick() {
+    // MyTodo: желательно перенести на систему тиков?
+    private void FixedUpdate() {
         if ( IsOwner ) {
             Move();
             Rotate();
