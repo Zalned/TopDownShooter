@@ -16,6 +16,7 @@ MonoBehaviour:
   baseSpeed: 15
   maxAmmoCount: 5
   shotCooldown: 0.15
+  reloadTime: 4
   baseDashLenght: 6
   baseDashTime: 0.1
   baseDashCooldown: 2

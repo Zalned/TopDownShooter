@@ -7,6 +7,7 @@ public class BasePlayerConfigSO : ScriptableObject {
 
     public int maxAmmoCount = 5;
     public float shotCooldown = 0.5f;
+    public float reloadTime = 3f;
 
     public float baseDashLenght = 4f;
     public float baseDashTime = 0.5f;
