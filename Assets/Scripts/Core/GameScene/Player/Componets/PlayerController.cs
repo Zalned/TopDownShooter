@@ -32,7 +32,7 @@ public class PlayerController : NetworkBehaviour {
         _playerDash.Initialize( _playerStats.RuntimeConfig );
 
         TickService.OnTick += Tick;
-        _playerShoot.OnShoot += OnShoot;
+        _playerShoot.OnShot += OnShoot;
         _playerDash.OnDash += OnDash;
 
         if ( !IsOwner ) {
@@ -41,7 +41,7 @@ public class PlayerController : NetworkBehaviour {
     }
     public override void OnDestroy() {
         TickService.OnTick -= Tick;
-        _playerShoot.OnShoot -= OnShoot;
+        _playerShoot.OnShot -= OnShoot;
         _playerDash.OnDash -= OnDash;
     }
 

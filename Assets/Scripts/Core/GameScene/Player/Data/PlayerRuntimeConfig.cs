@@ -7,8 +7,9 @@ public class PlayerRuntimeConfig {
         Player.MaxHealth = basePlayerCfg.baseHealth;
         Player.Speed = basePlayerCfg.baseSpeed;
 
-        Player.MaxBulletCount = basePlayerCfg.maxAmmoCount;
+        Player.MaxAmmoCount = basePlayerCfg.maxAmmoCount;
         Player.ShotCooldown = basePlayerCfg.shotCooldown;
+        Player.ReloadTime = basePlayerCfg.reloadTime;
 
         Player.DashLength = basePlayerCfg.baseDashLenght;
         Player.DashTime = basePlayerCfg.baseDashTime;

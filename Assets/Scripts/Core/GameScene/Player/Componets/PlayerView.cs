@@ -26,19 +26,19 @@ public class PlayerView : NetworkBehaviour {
     }
 
     private void SetPlayerName( string name ) {
-        _playerName.text = name;
+        //_playerName.text = name; // MyNote: world canvas с данными игрока не доделан
     }
 
     private void InitializePlayerHeatlhSlider( float maxValue ) {
-        _playerHealth.maxValue = maxValue;
+        //_playerHealth.maxValue = maxValue;
     }
 
     [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
     public void SetPlayerHeatlhServerRpc( float value ) {
-        SetPlayerHeatlhClientRpc( value );
+        //SetPlayerHeatlhClientRpc( value );
     }
     [ClientRpc]
     private void SetPlayerHeatlhClientRpc( float value ) {
-        _playerHealth.value = value;
+        //_playerHealth.value = value;
     }
 }
