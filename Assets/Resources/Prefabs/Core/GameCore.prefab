@@ -3342,7 +3342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3350,7 +3350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3410,7 +3410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7808791045784299600, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_text
-      value: 'Settings
+      value: 'Settings (off)
 
 '
       objectReference: {fileID: 0}
@@ -3584,7 +3584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3592,7 +3592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3652,7 +3652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7808791045784299600, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_text
-      value: Exit
+      value: Exit (off)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3927,7 +3927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3935,7 +3935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4044,7 +4044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMin.x
@@ -4052,7 +4052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3759190698284627487, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4112,7 +4112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7808791045784299600, guid: 3cb2fc8c9bab6d246827884de2cfda37, type: 3}
       propertyPath: m_text
-      value: 'Stop Game
+      value: 'Stop Game (off)
 
 '
       objectReference: {fileID: 0}

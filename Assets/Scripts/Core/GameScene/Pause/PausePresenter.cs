@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PausePresenter : MonoBehaviour {
     [SerializeField] private PauseView _view;
-    private bool _isSettingsOpened = false;
+    private bool _isPauseOpened = false;
 
     private void Awake() {
         _view.ResumeButton.onClick.AddListener( OnResumeButton );
@@ -22,35 +22,35 @@ public class PausePresenter : MonoBehaviour {
 
     public void OnShowPauseMenuBtn( InputAction.CallbackContext context ) {
         if ( context.performed ) {
-            if ( _isSettingsOpened ) {
+            if ( _isPauseOpened ) {
                 _view.Hide();
-                _isSettingsOpened = false;
+                _isPauseOpened = false;
             } else {
                 _view.Show();
-                _isSettingsOpened = true;
+                _isPauseOpened = true;
             }
         }
     }
 
     private void OnResumeButton() {
-        _isSettingsOpened = false;
+        _isPauseOpened = false;
         _view.Hide();
     }
 
     private void OnOpenSettingsButton() {
         SettingsEvents.OnSettingsOpened?.Invoke();
-        _isSettingsOpened = false;
+        _isPauseOpened = false;
         _view.Hide();
     }
 
-    private void OnStopGameButton() {
-        GameEvents.OnStopGameBtn.Invoke();
-        _isSettingsOpened = false;
-        _view.Hide();
+    private void OnStopGameButton() { // MyTodo
+        //GameEvents.OnStopGameBtn.Invoke();
+        //_isPauseOpened = false;
+        //_view.Hide();
     }
 
-    private void OnQuitButton() {
-        GameEvents.OnQuitToMenuBtn.Invoke();
+    private void OnQuitButton() { // MyTodo
+        //GameEvents.OnQuitToMenuBtn.Invoke();
     }
 
     private void HandleClientState() {

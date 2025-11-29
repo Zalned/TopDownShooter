@@ -5,7 +5,7 @@ using Zenject;
 public class GameSessionService {
     private GameNetworkHandler _networkHandler;
     private MapService_Server _mapService;
-    private PlayerSpawnService _playerSpawnController;
+    private PlayerSpawnService _playerSpawnService;
     private PlayerManager _playerManager;
     private SessionPlayerManager _sessionPlayerManager;
 
@@ -31,7 +31,7 @@ public class GameSessionService {
         LobbyPresenter lobbyController ) {
         _networkHandler = networkHandler;
         _mapService = mapService;
-        _playerSpawnController = playerSpawner;
+        _playerSpawnService = playerSpawner;
         _playerManager = playerManager;
         _sessionPlayerManager = sessionPlayerManager;
         _lobbyController = lobbyController;
@@ -54,12 +54,12 @@ public class GameSessionService {
 
     public void StartRound() {
         _mapService.LoadRandomMap();
-        _playerSpawnController.SpawnPlayersOnMap();
+        _playerSpawnService.SpawnPlayersOnMap();
         _roundController.StartRound();
     }
 
     private async void HandleRoundEnd( ulong winnerID ) {
-        _playerSpawnController.DespawnPlayersOnMap();
+        _playerSpawnService.DespawnPlayersOnMap();
 
         _playerWinRoundView.SetPlayerWinNameClientRpc( winnerID.ToString() );
         await ShowPlayerWinRoundUI();
@@ -90,7 +90,7 @@ public class GameSessionService {
     private void EndGame( ulong winnerId ) {
         _mapService.DespawnMap();
         _lobbyController.Show();
-        _playerSpawnController.DespawnPlayersOnMap();
+        _playerSpawnService.DespawnPlayersOnMap();
 
         _sessionPlayerManager.ResetSessionPlayers();
         _sessionPlayerManager.ResetActivePlayers();

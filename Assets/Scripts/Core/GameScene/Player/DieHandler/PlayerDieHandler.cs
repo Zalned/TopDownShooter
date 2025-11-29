@@ -3,14 +3,14 @@ using Zenject;
 
 public class PlayerDieHandler {
     private SessionPlayerManager _sessionPlayerManager;
-    private PlayerSpawnService _playerSpawnController;
+    private PlayerSpawnService _playerSpawnService;
 
     [Inject]
     public PlayerDieHandler(
         SessionPlayerManager sessionPlayerManager,
         PlayerSpawnService playerSpawn ) {
         _sessionPlayerManager = sessionPlayerManager;
-        _playerSpawnController = playerSpawn;
+        _playerSpawnService = playerSpawn;
 
         GameEvents.OnPlayerDie += HandlePlayerDie;
     }
@@ -18,6 +18,6 @@ public class PlayerDieHandler {
     private void HandlePlayerDie( ulong id, GameObject playerObj ) {
         _sessionPlayerManager.RemoveLivePlayer( id);
         _sessionPlayerManager.AddDeadPlayer( id, playerObj );
-        _playerSpawnController.DespawnPlayerOnMap( playerObj );
+        _playerSpawnService.DespawnPlayerOnMap( playerObj );
     }
 }
