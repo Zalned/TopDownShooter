@@ -7,7 +7,6 @@ public class GameInstaller : MonoInstaller {
     [SerializeField] private MapService_Server _mapService;
 
     [SerializeField] private LobbyPresenter _lobbyPresenter;
-
     [SerializeField] private PlayerWinRoundView _playerWinRoundView;
     [SerializeField] private PlayerWinGameView _playerWinGameView;
 
@@ -28,7 +27,6 @@ public class GameInstaller : MonoInstaller {
             Container.Bind<RoundHudView>().FromComponentInHierarchy().AsSingle();
             Container.Bind<PlayerWinRoundView>().FromComponentInHierarchy().AsSingle();
             Container.Bind<PlayerWinGameView>().FromComponentInHierarchy().AsSingle();
-
             Container.Bind<LobbyPresenter>().FromInstance( _lobbyPresenter ).AsSingle().NonLazy();
 
             Container.Bind<SessionPlayerManager>().AsSingle();
