@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using Zenject;
@@ -7,20 +8,20 @@ public class NetworkLifecycleService : IDisposable {
     private ConnectionService _connectionService;
     private bool _networkManagerIsAlreadyInitialized = false; // MyNote: Какой-то баг с дублирующимся NetworkManager
 
+    private readonly List<IDisposable> _subscriptions = new();
+
     [Inject]
     public NetworkLifecycleService( ConnectionService connectionService ) {
         _connectionService = connectionService;
 
-        NetworkEvents.StartHostRequest += StartHost;
-        NetworkEvents.StartClientRequest += StartClient;
-        NetworkEvents.StopHostRequest += Shutdown;
+        _subscriptions.Add( EventBus.Subscribe<StartHostRequestEvent>( e => StartHost( e.IpAdress ) ) );
+        _subscriptions.Add( EventBus.Subscribe<StartClientRequestEvent>( e => StartClient( e.IpAdress ) ) );
+        _subscriptions.Add( EventBus.Subscribe<StopHostRequestEvent>( e => Shutdown() ) ); ;
         NetworkManager.OnInstantiated += OnNetManagerCreated;
     }
 
     public void Dispose() {
-        NetworkEvents.StartHostRequest -= StartHost;
-        NetworkEvents.StartClientRequest -= StartClient;
-        NetworkEvents.StopHostRequest -= Shutdown;
+        foreach ( var sub in _subscriptions ) sub.Dispose();
         NetworkManager.OnInstantiated -= OnNetManagerCreated;
     }
 
@@ -32,10 +33,10 @@ public class NetworkLifecycleService : IDisposable {
     }
 
     private void OnClientConnected( ulong clientId ) {
-        NetworkEvents.OnClientConnected?.Invoke( clientId );
+        EventBus.Publish( new ClientDisconnectedEvent( clientId ) );
     }
 
-    private void StartHost(string ipAddress ) {
+    private void StartHost( string ipAddress ) {
         _connectionService.TryStartHostWithIP( ipAddress );
     }
 

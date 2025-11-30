@@ -8,7 +8,7 @@ public class ConnectionService {
         try {
             StartHostWithIP( ipAddress );
         } catch ( System.Exception e ) {
-            NetworkEvents.OnNetworkError?.Invoke( $"Failed to start host with IP {ipAddress}.", e );
+            EventBus.Publish( new NetworkErrorEvent( $"Failed to start host with IP {ipAddress}.", e ) );
         }
     }
 
@@ -16,7 +16,7 @@ public class ConnectionService {
         try {
             StartClientWithIP( ipAddress );
         } catch ( System.Exception e ) {
-            NetworkEvents.OnNetworkError?.Invoke( $"Failed to start client with IP {ipAddress}.", e );
+            EventBus.Publish( new NetworkErrorEvent( $"Failed to start client with IP {ipAddress}.", e ) );
         }
     }
 
@@ -26,11 +26,8 @@ public class ConnectionService {
         var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         unityTransport.SetConnectionData( ipAdress, 7777 );
 
-        if ( NetworkManager.Singleton.StartHost() ) {
-            NetworkEvents.OnHostStarted.Invoke();
-        } else {
-            throw new System.Exception();
-        }
+        NetworkManager.Singleton.StartHost();
+        EventBus.Publish( new HostStartedEvent() );
     }
 
     private void StartClientWithIP( string ipAddress ) {
@@ -39,8 +36,6 @@ public class ConnectionService {
         var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         transport.SetConnectionData( ipAddress, 7777 );
 
-        if ( !NetworkManager.Singleton.StartClient() ) {
-            throw new System.Exception();
-        }
+        NetworkManager.Singleton.StartClient();
     }
 }

@@ -1,0 +1,2 @@
+public record OnStopGameButtonClicked;
+public record OnExitGameButtonClicked;

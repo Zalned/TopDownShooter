@@ -49,7 +49,7 @@ public class GameSessionService {
         _sessionPlayerManager.SetActivePlayers( _sessionPlayerManager.SessionPlayers );
         StartRound();
         _lobbyController.Hide();
-        GameEvents.OnGameStarted?.Invoke();
+        EventBus.Publish( new GameStartedEvent() );
     }
 
     public void StartRound() {
@@ -71,7 +71,7 @@ public class GameSessionService {
         _playerWinGameView.SetPlayerWinNameClientRpc( name );
         await ShowPlayerWinGameUI();
 
-        GameEvents.OnPlayerWinGame.Invoke( playerId );
+        EventBus.Publish( new PlayerWinGameEvent( playerId ) );
         EndGame( playerId );
     }
 
@@ -97,7 +97,7 @@ public class GameSessionService {
     }
 
     public void StopGame() {
-        GameEvents.OnGameStopped.Invoke();
+        EventBus.Publish( new GameStoppedEvent() );
     }
 
     public void QuitToMenu() {

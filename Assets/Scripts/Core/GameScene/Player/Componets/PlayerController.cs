@@ -55,7 +55,7 @@ public class PlayerController : NetworkBehaviour {
     }
 
     public void HandleDie() {
-        GameEvents.OnPlayerDie.Invoke( NetID, gameObject );
+        EventBus.Publish( new PlayerDiedEvent( NetID, gameObject ) );
         NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.PlayerDie, transform.position );
     }
 

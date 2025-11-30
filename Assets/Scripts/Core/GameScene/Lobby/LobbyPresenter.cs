@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class LobbyPresenter : MonoBehaviour {
     [SerializeField] private LobbyView _view;
     private PlayerManager _playerManager;
-
     public void Initialize( PlayerManager playerManager ) {
         _playerManager = playerManager;
         _view.StartButton.onClick.AddListener( OnStartBtnClicked );
@@ -23,7 +23,7 @@ public class LobbyPresenter : MonoBehaviour {
     }
 
     public void OnStartBtnClicked() {
-        GameEvents.OnStartBtn.Invoke();
+        EventBus.Publish( new StartButtonClicked() );
     }
 
     private void OnPlayersListUpdated() {

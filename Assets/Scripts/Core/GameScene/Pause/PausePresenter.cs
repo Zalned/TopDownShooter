@@ -38,7 +38,7 @@ public class PausePresenter : MonoBehaviour {
     }
 
     private void OnOpenSettingsButton() {
-        SettingsEvents.OnSettingsOpened?.Invoke();
+        EventBus.Publish( new SettingsOpenedEvent() );
         _isPauseOpened = false;
         _view.Hide();
     }

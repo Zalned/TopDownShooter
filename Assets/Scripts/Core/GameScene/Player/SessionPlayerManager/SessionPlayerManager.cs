@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Zenject;
 
-public class SessionPlayerManager {
+public class SessionPlayerManager : IDisposable {
     public Dictionary<ulong, NetworkPlayerData> SessionPlayers { get; private set; } = new();
     public Dictionary<ulong, ActivePlayerData> ActivePlayers { get; private set; } = new();
     public Dictionary<ulong, GameObject> LivePlayers { get; private set; } = new();
@@ -13,8 +12,14 @@ public class SessionPlayerManager {
     public event Action OnLivePlayerAdded;
     public event Action OnLivePlayerRemoved;
 
+    private IDisposable _onClientDisconnectedSubscription;
+
     public SessionPlayerManager() {
-        NetworkEvents.OnClientDisconnected += RemoveSessionPlayer;
+        _onClientDisconnectedSubscription =
+            EventBus.Subscribe<ClientDisconnectedEvent>( e => RemoveSessionPlayer( e.ClientId ) );
+    }
+    public void Dispose() {
+        _onClientDisconnectedSubscription.Dispose();
     }
 
     // Session players

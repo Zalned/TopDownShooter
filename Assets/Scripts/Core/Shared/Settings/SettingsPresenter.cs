@@ -1,6 +1,10 @@
-public class SettingsPresenter {
+using System;
+
+public class SettingsPresenter : IDisposable {
     private readonly SettingsView _view;
     private readonly SettingsConfigSO _config;
+
+    private IDisposable _onSettingsOpenedSub;
 
     public SettingsPresenter( SettingsView view, SettingsConfigSO config ) {
         _view = view;
@@ -10,7 +14,13 @@ public class SettingsPresenter {
         _view.CloseBtn.onClick.AddListener( OnCloseBtnClicked );
         _view.EffectVolumeSlider.onValueChanged.AddListener( OnEffectsVolumeChanged );
 
-        SettingsEvents.OnSettingsOpened += _view.Show;
+        _onSettingsOpenedSub = EventBus.Subscribe<SettingsOpenedEvent>( e => _view.Show() );
+    }
+
+    public void Dispose() {
+        _view.CloseBtn.onClick.RemoveListener( OnCloseBtnClicked );
+        _view.EffectVolumeSlider.onValueChanged.RemoveListener( OnEffectsVolumeChanged );
+        _onSettingsOpenedSub.Dispose();
     }
 
     private void OnCloseBtnClicked() {

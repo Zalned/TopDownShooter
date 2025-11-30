@@ -1,20 +1,18 @@
 using System;
 
-public static class NetworkEvents {
-    public static Action OnNetworkStarted;
+public record NetworkStartedEvent();
 
-    public static Action<NetworkPlayerData> OnPlayerJoined; 
-    public static Action<NetworkPlayerData> OnPlayerLeft;
+public record PlayerJoinedEvent( NetworkPlayerData Data );
+public record PlayerLeftEvent( NetworkPlayerData Data );
 
-    public static Action<ulong> OnClientConnected;
-    public static Action<ulong> OnClientDisconnected;
+public record ClientConnectedEvent( ulong ClientId );
+public record ClientDisconnectedEvent( ulong ClientId );
 
-    public static Action<string> StartHostRequest;
-    public static Action StopHostRequest;
+public record StartHostRequestEvent( string IpAdress );
+public record StopHostRequestEvent();
 
-    public static Action<string> StartClientRequest;
+public record StartClientRequestEvent( string IpAdress );
 
-    public static Action OnHostStarted;
+public record HostStartedEvent();
 
-    public static Action<string, Exception> OnNetworkError;
-}
+public record NetworkErrorEvent( string Context, Exception Error );
