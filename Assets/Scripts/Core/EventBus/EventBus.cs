@@ -15,7 +15,7 @@ public static class EventBus {
         return new Subscription<T>( callback, () => Unsubscribe( callback ) );
     }
 
-    private static void Unsubscribe<T>( Action<T> callback ) {
+    public static void Unsubscribe<T>( Action<T> callback ) {
         var type = typeof( T );
         if ( _subscribers.TryGetValue( type, out var list ) ) {
             list.Remove( callback );

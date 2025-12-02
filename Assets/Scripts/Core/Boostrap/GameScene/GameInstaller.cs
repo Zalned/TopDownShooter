@@ -32,6 +32,10 @@ public class GameInstaller : MonoInstaller {
             Container.Bind<SessionPlayerManager>().AsSingle();
             Container.Bind<PlayerSpawnService>().AsSingle();
             Container.Bind<PlayerDieHandler>().AsSingle().NonLazy();
+
+            Container.Bind<ExplosionService>().AsSingle();
+            Container.Bind<CardPickService>().AsSingle().NonLazy();
+            Container.Bind<CardContext>().AsSingle();
         }
 
         Container.BindInterfacesAndSelfTo<GameBootstrap>().AsSingle();

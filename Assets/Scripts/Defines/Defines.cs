@@ -11,6 +11,13 @@ public static class Defines {
         public const string PLAYER_CAMERA_PREFAB = "Prefabs/Camera/PlayerCamera";
     }
 
+    public static class ConfigPaths {
+        public const string SESSION_CONFIG = "Configs/SessionConfig";
+        public const string BULLET_CONFIG = "Configs/BulletConfig";
+        public const string PLAYER_CONFIG = "Configs/PlayerConfig";
+        public const string SETTINGS_CONFIG = "Configs/SettingsConfig";
+    }
+
     public static class Tags {
         public const string Player = "Player";
         public const string Enemy = "Enemy";

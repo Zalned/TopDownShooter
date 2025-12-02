@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using Zenject;
@@ -10,26 +11,25 @@ public class PlayerController : NetworkBehaviour {
     [SerializeField] private PlayerDash _playerDash;
     [SerializeField] private Camera _playerCamera;
 
-    public ulong NetID { get; private set; }
-    private PlayerStats _playerStats;
-    private ReactiveProperty<float> _currentHealth;
+    public PlayerModel Model;
 
-    [ClientRpc]
-    public void InitalizeClientRpc( NetworkPlayerData data ) {
-        var bulletManager =
-            FindFirstObjectByType<SceneContext>().Container.Resolve<BulletManager>(); // MyNote: Не лучший способ получения
+    //[ClientRpc] // DEBUG: Временно убрано для тестов 
+    public void Initalize( NetworkPlayerData data, List<CardSO> cards ) {
+        var container = FindFirstObjectByType<SceneContext>().Container; // MyNote: Не лучший способ получения
+        var bulletManager = container.Resolve<BulletManager>();
+        var cardContext = container.Resolve<CardContext>();
 
-        NetID = OwnerClientId;
-        _playerStats = new PlayerStats();
+        Model = new();
+        Model.SetCards( cards );
 
-        _currentHealth = new( _playerStats.RuntimeConfig.Player.MaxHealth );
-        _currentHealth.Where( h => h <= 0 ).Take( 1 ).Subscribe( _ => HandleDie() ).AddTo( this );
-        _currentHealth.Subscribe( v => _view.SetPlayerHeatlhServerRpc( v ) ).AddTo( this );
+        Model.CurrentHealth = new( Model.PlayerStats.RuntimeConfig.Player.MaxHealth );
+        Model.CurrentHealth.Where( h => h <= 0 ).Take( 1 ).Subscribe( _ => HandleDie() ).AddTo( this );
+        Model.CurrentHealth.Subscribe( v => _view.SetPlayerHeatlhServerRpc( v ) ).AddTo( this );
 
-        _view.InitializeServerRpc( data, _playerStats.RuntimeConfig.Player.MaxHealth );
-        _playerMovement.Initialize( _playerCamera, _playerStats.RuntimeConfig );
-        _playerShoot.Initialize( bulletManager, _playerStats.RuntimeConfig, NetID );
-        _playerDash.Initialize( _playerStats.RuntimeConfig );
+        _view.InitializeServerRpc( data, Model.PlayerStats.RuntimeConfig.Player.MaxHealth );
+        _playerMovement.Initialize( _playerCamera, Model.PlayerStats.RuntimeConfig );
+        _playerShoot.Initialize( bulletManager, Model.PlayerStats.RuntimeConfig, OwnerClientId );
+        _playerDash.Initialize( Model.PlayerStats.RuntimeConfig );
 
         TickService.OnTick += Tick;
         _playerShoot.OnShot += OnShoot;
@@ -51,11 +51,11 @@ public class PlayerController : NetworkBehaviour {
     }
 
     public void TakeDamage( float damage ) {
-        _currentHealth.Value -= damage;
+        Model.CurrentHealth.Value -= damage;
     }
 
     public void HandleDie() {
-        EventBus.Publish( new PlayerDiedEvent( NetID, gameObject ) );
+        EventBus.Publish( new PlayerDiedEvent( OwnerClientId, gameObject ) );
         NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.PlayerDie, transform.position );
     }
 

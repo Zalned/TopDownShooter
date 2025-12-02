@@ -42,6 +42,8 @@ public class GameSessionService {
 
         _roundController.OnRoundEnd += HandleRoundEnd;
         _roundController.OnPlayerWin += HandlePlayerWinGame;
+
+        DebugEvents.OnEndRoundBtn += HandleRoundEnd; // DEBUG
     }
 
     public void StartGame() {
