@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerView : NetworkBehaviour {
+    [SerializeField] private Canvas _playerHudCanvas;
     [SerializeField] private Renderer _renderer;
     [SerializeField] private TextMeshProUGUI _playerName;
     [SerializeField] private Slider _playerHealth;
@@ -26,19 +27,23 @@ public class PlayerView : NetworkBehaviour {
     }
 
     private void SetPlayerName( string name ) {
-        //_playerName.text = name; // MyNote: world canvas с данными игрока не доделан
+        //_playerName.text = name; // MyNote: world canvas с данными игрока не используется
     }
 
     private void InitializePlayerHeatlhSlider( float maxValue ) {
         //_playerHealth.maxValue = maxValue;
     }
 
-    [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
+    [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )] 
     public void SetPlayerHeatlhServerRpc( float value ) {
         //SetPlayerHeatlhClientRpc( value );
     }
     [ClientRpc]
     private void SetPlayerHeatlhClientRpc( float value ) {
         //_playerHealth.value = value;
+    }
+
+    public void HideHudCanvas() {
+        _playerHudCanvas.enabled = false;
     }
 }

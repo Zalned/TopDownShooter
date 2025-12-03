@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,8 @@ public class CardPickView : MonoBehaviour {
     [SerializeField] private CardManager _cardManager;
     [Space]
     [SerializeField] private GameObject _menu;
+    [SerializeField] private GameObject _pickMenu;
+    [SerializeField] private GameObject _waitingMenu;
     [SerializeField] private HorizontalLayoutGroup _horizontalLayout;
 
     public void ShowCards( int[] cardIDs ) {
@@ -21,10 +24,31 @@ public class CardPickView : MonoBehaviour {
         }
     }
 
-    public void Show() {
-        _menu.gameObject.SetActive( true );
+    [ClientRpc]
+    public void ShowClientRpc() {
+        _menu.SetActive( true );
     }
-    public void Hide() {
-        _menu.gameObject.SetActive( false );
+    [ClientRpc]
+    public void HideClientRpc() {
+        _menu.SetActive( false );
+    }
+
+    public void ShowPickMenu() {
+        _pickMenu.SetActive( true );
+    }
+    public void HidePickMenu() {
+        _pickMenu.SetActive( false );
+    }
+
+
+    [ClientRpc]
+    public void HideWaitingMenuClientRpc() {
+        _waitingMenu.SetActive( false );
+    }
+    public void ShowWaitingMenu() {
+        _waitingMenu.SetActive( true );
+    }
+    public void HideWaitingMenu() {
+        _waitingMenu.SetActive( false );
     }
 }

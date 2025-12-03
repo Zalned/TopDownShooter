@@ -11,7 +11,7 @@ public class ExplosionOnHitEffect : IEffect {
     public void Install( PlayerStats stats, CardContext ctx ) {
         _ctx = ctx;
         _stats = stats;
-        CardsEvents.OnHit += OnHit;
+        CardProvideEvents.OnHit += OnHit;
     }
 
     private void OnHit( ServerBullet bullet, Collider hit ) { // MyTodo
@@ -21,6 +21,6 @@ public class ExplosionOnHitEffect : IEffect {
     }
 
     public void Uninstall() {
-        CardsEvents.OnHit -= OnHit;
+        CardProvideEvents.OnHit -= OnHit;
     }
 }

@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 435549471810552608}
   - component: {fileID: 8559834997904447693}
   m_Layer: 5
-  m_Name: AmmoCanvas
+  m_Name: HudCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -805,6 +805,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 070fff74-3228-4053-8817-5f629b65db1c
     m_ActionName: 'Player/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 418ac778-6205-4fa9-815c-b5e762284348
+    m_ActionName: 'Debug/OpenDebug[/Keyboard/f9]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -822,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3660620441
+  GlobalObjectIdHash: 1911464520
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -911,6 +915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
   ShowTopMostFoldoutHeaderGroup: 1
+  _playerHudCanvas: {fileID: 5705099363971905841}
   _renderer: {fileID: 8417048918147119545}
   _playerName: {fileID: 0}
   _playerHealth: {fileID: 0}

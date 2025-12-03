@@ -1031,6 +1031,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Debug",
+            "id": "dc4156c1-8847-41fe-abaa-206d24710649",
+            "actions": [
+                {
+                    "name": "OpenDebug",
+                    "type": "Button",
+                    "id": "418ac778-6205-4fa9-815c-b5e762284348",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b466ba13-f2cf-4ef2-aad9-28399aa148ff",
+                    "path": "<Keyboard>/f9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "OpenDebug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -10,9 +10,12 @@ public class GameInstaller : MonoInstaller {
     [SerializeField] private PlayerWinRoundView _playerWinRoundView;
     [SerializeField] private PlayerWinGameView _playerWinGameView;
 
+    [SerializeField] private CardManager _cardManager;
+
     public override void InstallBindings() {
         Container.Bind<ITickService>().To<TickService>().AsSingle().NonLazy();
         Container.Bind<BulletManager>().AsSingle().NonLazy();
+        Container.Bind<CardManager>().FromInstance( _cardManager ).AsSingle().NonLazy();
 
         if ( NetcodeHelper.IsServer ) {
             Container.Bind<GameFlowController>().FromInstance( _gameFlowController ).AsSingle().NonLazy();

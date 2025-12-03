@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,8 @@ public class Card : MonoBehaviour {
     [Space]
     [SerializeField] private Button _pickUpBtn;
 
+    public CardSO CardSO => _cardSO;
+
     private void Awake() {
         _nameText.text = _cardSO.Name;
         _descriptionText.text = _cardSO.Description;
@@ -17,16 +20,17 @@ public class Card : MonoBehaviour {
         _pickUpBtn.onClick.AddListener( OnCardPicked );
     }
 
-    private int _cardID;
-    private ulong _playerID = 0;
+    private ulong _playerID;
     public void SetPlayerID( ulong playerID ) {
         _playerID = playerID;
     }
-    public void SetCardID( int cardID ) {
-        _cardID = cardID;
-    }
 
     private void OnCardPicked() {
-        EventBus.Publish( new OnPlayerPickCard( _playerID, _cardSO ) ); // MyTodo: Replace 0 with actual player ID
+        NotifyCardPickedServerRpc();
+    }
+
+    [ServerRpc]
+    private void NotifyCardPickedServerRpc() {
+        EventBus.Publish( new PlayerCardPickEvent( _playerID, _cardSO ) );
     }
 }

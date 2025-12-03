@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BasePlayerConfigSO
   baseHealth: 100
   baseSpeed: 15
-  maxAmmoCount: 5
+  maxAmmoCount: 6
   shotCooldown: 0.15
-  reloadTime: 4
+  reloadTime: 3.5
   baseDashLenght: 6
   baseDashTime: 0.1
   baseDashCooldown: 2

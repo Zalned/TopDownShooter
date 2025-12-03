@@ -6,22 +6,30 @@ using UnityEngine;
 public class SessionPlayerManager : IDisposable {
     public Dictionary<ulong, NetworkPlayerData> SessionPlayers { get; private set; } = new();
     public Dictionary<ulong, ActivePlayerData> ActivePlayers { get; private set; } = new();
-    public Dictionary<ulong, ActivePlayerData> LosePlayers { get; private set; } = new();
     public Dictionary<ulong, GameObject> LivePlayers { get; private set; } = new();
     public Dictionary<ulong, GameObject> DeadPlayers { get; private set; } = new();
+
+    public Dictionary<ulong, ActivePlayerData> LosePlayers { get; private set; } = new();
+    public List<ulong> PlayerWhoChoseCard { get; private set; } = new();
+    public bool IsAllLosePlayersChoseCard => LosePlayers.Count == PlayerWhoChoseCard.Count;
 
     public event Action OnLivePlayerAdded;
     public event Action OnLivePlayerRemoved;
 
-    private IDisposable _onClientDisconnectedSub;
-
     public SessionPlayerManager() {
-        _onClientDisconnectedSub =
-            EventBus.Subscribe<ClientDisconnectedEvent>( e => RemoveSessionPlayer( e.ClientId ) );
+        EventBus.Subscribe<ClientDisconnectedEvent>( RemoveSessionPlayer );
     }
     public void Dispose() {
-        _onClientDisconnectedSub.Dispose();
+        EventBus.Unsubscribe<ClientDisconnectedEvent>( RemoveSessionPlayer );
     }
+
+    public void AddPlayerWhoChoseCard( ulong playerID ) {
+        PlayerWhoChoseCard.Add( playerID );
+    }
+    public void ResetPlayerWhoChoseCard() {
+        PlayerWhoChoseCard.Clear();
+    }
+    
 
     // Session players
     public void SetSessionPlayers( Dictionary<ulong, NetworkPlayerData> players ) {
@@ -35,8 +43,8 @@ public class SessionPlayerManager : IDisposable {
     public void AddSessionPlayer( ulong playerID, NetworkPlayerData data ) {
         SessionPlayers.Add( playerID, data );
     }
-    public void RemoveSessionPlayer( ulong playerID ) {
-        SessionPlayers.Remove( playerID );
+    public void RemoveSessionPlayer( ClientDisconnectedEvent e ) {
+        SessionPlayers.Remove( e.ClientID );
     }
 
     // Active players
@@ -49,7 +57,7 @@ public class SessionPlayerManager : IDisposable {
         ActivePlayers.Clear();
     }
     public void AddActivePlayer( ulong playerID, NetworkPlayerData data ) {
-        ActivePlayers.Add( playerID, new( data) );
+        ActivePlayers.Add( playerID, new( data ) );
     }
     public void RemoveActivePlayer( ulong playerID ) {
         ActivePlayers.Remove( playerID );
@@ -103,13 +111,13 @@ public class SessionPlayerManager : IDisposable {
 
     public ulong GetLastLifePlayerID() {
         foreach ( var kvp in LivePlayers ) { return kvp.Key; }
-        throw new Exception( "No live players." );
+        throw new Exception( "No live players." ); // MyTodo: последний игрок может умереть после победы
     }
-    
+
     // Lose players
-    public void SetLosePlayers( Dictionary<ulong, ActivePlayerData> players, ulong winnerID ) {
+    public void InitializeLosePlayers( ulong winnerID ) {
         LosePlayers.Clear();
-        foreach ( var player in players ) {
+        foreach ( var player in ActivePlayers ) {
             AddLosePlayer( player.Key, player.Value );
         }
         LosePlayers.Remove( winnerID );

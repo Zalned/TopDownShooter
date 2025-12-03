@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using Zenject;
 
 public class CardPickService : IDisposable {
@@ -9,13 +8,13 @@ public class CardPickService : IDisposable {
     public CardPickService( SessionPlayerManager sessionPlayerManager ) {
         _sessionPlayerManager = sessionPlayerManager;
 
-        EventBus.Subscribe<OnPlayerPickCard>( HandlePlayerPickCard );
+        EventBus.Subscribe<PlayerCardPickEvent>( OnPlayerPickCard );
     }
     public void Dispose() {
-        EventBus.Unsubscribe<OnPlayerPickCard>( HandlePlayerPickCard );
+        EventBus.Unsubscribe<PlayerCardPickEvent>( OnPlayerPickCard );
     }
 
-    private void HandlePlayerPickCard( OnPlayerPickCard evt ) {
+    private void OnPlayerPickCard( PlayerCardPickEvent evt ) {
         var activePlayer = _sessionPlayerManager.GetActivePlayerByID( evt.playerID );
         activePlayer.CardDeck.Add( evt.CardSO );
     }

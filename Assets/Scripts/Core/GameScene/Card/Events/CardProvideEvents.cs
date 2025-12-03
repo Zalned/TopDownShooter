@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
 
-public static class CardsEvents {
+public static class CardProvideEvents { 
     public static Action<ServerBullet> OnShoot;
     public static Action<ServerBullet, Collider> OnHit;
+    public static Action OnDash;
 }
 
-public record OnPlayerPickCard( ulong playerID, CardSO CardSO );
+public record PlayerCardPickEvent( ulong playerID, CardSO CardSO );

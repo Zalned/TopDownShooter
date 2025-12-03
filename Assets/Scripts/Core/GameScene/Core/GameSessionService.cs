@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using UnityEngine;
 using Unity.Netcode;
 using Zenject;
 
@@ -15,8 +16,13 @@ public class GameSessionService {
     private PlayerWinRoundView _playerWinRoundView;
     private PlayerWinGameView _playerWinGameView;
 
+    private CardManager _cardManager;
+
     private const int SHOW_WIN_ROUND_UI_TIME = 5;
     private const int SHOW_WIN_GAME_UI_TIME = 5;
+
+    private bool _isFirstRound = true;
+    private TaskCompletionSource<bool> _waitCardPickTask;
 
     [Inject]
     public GameSessionService(
@@ -28,7 +34,8 @@ public class GameSessionService {
         RoundManager roundController,
         PlayerWinRoundView playerWinRoundView,
         PlayerWinGameView playerWinGameView,
-        LobbyPresenter lobbyController ) {
+        LobbyPresenter lobbyController,
+        CardManager cardManager ) {
         _networkHandler = networkHandler;
         _mapService = mapService;
         _playerSpawnService = playerSpawner;
@@ -36,37 +43,57 @@ public class GameSessionService {
         _sessionPlayerManager = sessionPlayerManager;
         _lobbyController = lobbyController;
         _roundController = roundController;
-
         _playerWinRoundView = playerWinRoundView;
         _playerWinGameView = playerWinGameView;
+        _cardManager = cardManager;
 
         _roundController.OnRoundEnd += HandleRoundEnd;
         _roundController.OnPlayerWin += HandlePlayerWinGame;
 
+        EventBus.Subscribe<PlayerCardPickEvent>( HandlePlayerPickCard );
         DebugEvents.OnEndRoundBtn += HandleRoundEnd; // DEBUG
     }
 
-    public void StartGame() {
+    public async void StartGame() {
         _sessionPlayerManager.SetSessionPlayers( _playerManager.RegistredPlayers );
         _sessionPlayerManager.SetActivePlayers( _sessionPlayerManager.SessionPlayers );
-        StartRound();
+        await StartRound();
         _lobbyController.Hide();
         EventBus.Publish( new GameStartedEvent() );
     }
 
-    public void StartRound() {
+    public async Task StartRound() {
+        Debug.Log( "GameSessionService StartRound" );
+
+        if ( _isFirstRound == true ) {
+            _isFirstRound = false;
+        } else {
+            Debug.Log( "Start wait task" );
+            _cardManager.StartCardChooseServer();
+            _waitCardPickTask = new TaskCompletionSource<bool>();
+            await _waitCardPickTask.Task;
+        }
+
         _mapService.LoadRandomMap();
         _playerSpawnService.SpawnPlayersOnMap();
         _roundController.StartRound();
     }
 
-    private async void HandleRoundEnd( ulong winnerID, string name ) {
-        _playerSpawnService.DespawnPlayersOnMap();
+    private async void HandlePlayerPickCard( PlayerCardPickEvent e ) {
+        _sessionPlayerManager.AddPlayerWhoChoseCard( e.playerID );
 
+        if ( _sessionPlayerManager.IsAllLosePlayersChoseCard ) {
+            _sessionPlayerManager.ResetPlayerWhoChoseCard();
+            _waitCardPickTask?.SetResult( true );
+        }
+    }
+
+    private async void HandleRoundEnd( ulong winnerID, string name ) {
+        _sessionPlayerManager.InitializeLosePlayers( winnerID );   
+        _playerSpawnService.DespawnPlayersOnMap();
         _playerWinRoundView.SetPlayerWinNameClientRpc( name );
         await ShowPlayerWinRoundUI();
-
-        StartRound();
+        await StartRound();
     }
 
     private async void HandlePlayerWinGame( ulong playerId, string name ) {

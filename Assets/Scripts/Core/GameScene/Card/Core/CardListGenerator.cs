@@ -1,13 +1,25 @@
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
-public class CardListGenerator : NetworkBehaviour {
-    public int[] Generate( int numberOfCards ) {
-        var cardIDs = new int[] { numberOfCards };
-        for ( int i = 0; i < numberOfCards; i++ ) {
-            cardIDs[ i ] = Random.Range( 0, numberOfCards );
+public class CardListGenerator {
+    public int[] Generate( int cardsCountToChoose, int cardsCount ) {
+        if ( cardsCountToChoose > cardsCount ) {
+            Debug.LogWarning( $"[{nameof( CardListGenerator )}] Cards to choose > registered cards" );
+            cardsCountToChoose = cardsCount;
         }
-        return cardIDs;
+
+        var result = new int[ cardsCountToChoose ];
+        var used = new HashSet<int>();
+
+        int index = 0;
+        while ( index < cardsCountToChoose ) {
+            int randomID = Random.Range( 0, cardsCount );
+            if ( used.Add( randomID ) ) {
+                result[ index ] = randomID;
+                index++;
+            }
+        }
+
+        return result;
     }
 }

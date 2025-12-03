@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using Zenject;
@@ -13,14 +12,14 @@ public class PlayerController : NetworkBehaviour {
 
     public PlayerModel Model;
 
-    //[ClientRpc] // DEBUG: Временно убрано для тестов 
-    public void Initalize( NetworkPlayerData data, List<CardSO> cards ) {
+    [ClientRpc] // MyTodo: Нужно ли выполнять не визуальную логику для всех клиентов?
+    public void InitalizeClientRpc( NetworkPlayerData data, int[] cardsIDs ) { 
         var container = FindFirstObjectByType<SceneContext>().Container; // MyNote: Не лучший способ получения
         var bulletManager = container.Resolve<BulletManager>();
-        var cardContext = container.Resolve<CardContext>();
+        var cardManager = container.Resolve<CardManager>();
 
         Model = new();
-        Model.SetCards( cards );
+        Model.SetCards( cardManager.GetCardSOsByIds( cardsIDs ) );
 
         Model.CurrentHealth = new( Model.PlayerStats.RuntimeConfig.Player.MaxHealth );
         Model.CurrentHealth.Where( h => h <= 0 ).Take( 1 ).Subscribe( _ => HandleDie() ).AddTo( this );
@@ -37,6 +36,7 @@ public class PlayerController : NetworkBehaviour {
 
         if ( !IsOwner ) {
             _playerCamera.gameObject.SetActive( false );
+            _view.HideHudCanvas();
         }
     }
     public override void OnDestroy() {

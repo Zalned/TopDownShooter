@@ -33,7 +33,7 @@ public class PlayerSpawnService {
 
         var data = _playerManager.GetPlayerById( NetcodeHelper.GetOwnerClientID( playerObj ) );
         var activePlayer = _sessionPlayerManager.GetActivePlayerByID( id );
-        playerObj.GetComponent<PlayerController>().Initalize( data, activePlayer.CardDeck );
+        playerObj.GetComponent<PlayerController>().InitalizeClientRpc( data, activePlayer.CardDeckIDs );
 
         Debug.Log( $"Spawned player {id} at {spawnPosition} on Map" );
         return (id, playerObj);
