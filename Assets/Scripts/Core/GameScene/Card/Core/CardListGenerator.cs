@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class CardListGenerator {
     public int[] Generate( int cardsCountToChoose, int cardsCount ) {
+        if ( cardsCountToChoose <= 0 ) {
+            throw new System.ArgumentOutOfRangeException( nameof( cardsCountToChoose ), "Must be > 0" );
+        }
+
         if ( cardsCountToChoose > cardsCount ) {
             Debug.LogWarning( $"[{nameof( CardListGenerator )}] Cards to choose > registered cards" );
             cardsCountToChoose = cardsCount;

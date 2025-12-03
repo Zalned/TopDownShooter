@@ -47,11 +47,11 @@ public class GameSessionService {
         _playerWinGameView = playerWinGameView;
         _cardManager = cardManager;
 
-        _roundController.OnRoundEnd += HandleRoundEnd;
+        _roundController.OnRoundEnd += HandleRoundEndWithWinner;
         _roundController.OnPlayerWin += HandlePlayerWinGame;
 
         EventBus.Subscribe<PlayerCardPickEvent>( HandlePlayerPickCard );
-        DebugEvents.OnEndRoundBtn += HandleRoundEnd; // DEBUG
+        DebugEvents.OnEndRoundBtn += HandleRoundEndWithWinner; // DEBUG
     }
 
     public async void StartGame() {
@@ -63,13 +63,10 @@ public class GameSessionService {
     }
 
     public async Task StartRound() {
-        Debug.Log( "GameSessionService StartRound" );
-
         if ( _isFirstRound == true ) {
             _isFirstRound = false;
         } else {
-            Debug.Log( "Start wait task" );
-            _cardManager.StartCardChooseServer();
+            _cardManager.StartCardChooseFromServer();
             _waitCardPickTask = new TaskCompletionSource<bool>();
             await _waitCardPickTask.Task;
         }
@@ -88,7 +85,7 @@ public class GameSessionService {
         }
     }
 
-    private async void HandleRoundEnd( ulong winnerID, string name ) {
+    private async void HandleRoundEndWithWinner( ulong winnerID, string name ) {
         _sessionPlayerManager.InitializeLosePlayers( winnerID );   
         _playerSpawnService.DespawnPlayersOnMap();
         _playerWinRoundView.SetPlayerWinNameClientRpc( name );

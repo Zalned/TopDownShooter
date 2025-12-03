@@ -19,5 +19,8 @@ public class PlayerRuntimeConfig {
         Bullet.Speed = baseBulletCfg.baseSpeed;
         Bullet.Lifetime = baseBulletCfg.baseLifetime;
         Bullet.Radius = baseBulletCfg.baseRadius;
+
+        Bullet.PenetrationCount = baseBulletCfg.maxPenetrationCount;
+        Bullet.RicochetCount = baseBulletCfg.maxRicochetCount;
     }
 }

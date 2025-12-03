@@ -7,4 +7,4 @@ public static class CardProvideEvents {
     public static Action OnDash;
 }
 
-public record PlayerCardPickEvent( ulong playerID, CardSO CardSO );
+public record PlayerCardPickEvent( ulong playerID, ushort CardId );

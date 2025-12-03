@@ -1,12 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
-// Refactor: в классе смешена сетевая и локальная логика
 public class CardManager : NetworkBehaviour {
-    [SerializeField] private CardPickView _cardPickView;
+    [SerializeField] private CardMenuView _cardPickView;
     [Space]
-    [SerializeField] private List<GameObject> _cards = new();
+    [SerializeField] private List<GameObject> _registredCards = new();
 
     private SessionPlayerManager _sessionPlayerManager;
 
@@ -20,94 +20,89 @@ public class CardManager : NetworkBehaviour {
         _maxCardsToChoose = sessionConfig.CountCardToChoose;
 
         if ( IsServer ) {
-            EventBus.Subscribe<PlayerCardPickEvent>( OnPlayerPickCardServer );
-            DebugEvents.OnShowCardPickViewBtn += StartCardChooseServer; // DEBUG
+            EventBus.Subscribe<PlayerCardPickEvent>( HandlePlayerChoseCardFromServer );
+            DebugEvents.OnShowCardPickViewBtn += StartCardChooseFromServer; // DEBUG
         }
     }
 
     public override void OnDestroy() {
         if ( IsServer ) {
-            EventBus.Unsubscribe<PlayerCardPickEvent>( OnPlayerPickCardServer );
-            DebugEvents.OnShowCardPickViewBtn -= StartCardChooseServer; // DEBUG
+            EventBus.Unsubscribe<PlayerCardPickEvent>( HandlePlayerChoseCardFromServer );
+            DebugEvents.OnShowCardPickViewBtn -= StartCardChooseFromServer; // DEBUG
         }
     }
 
-    public void StartCardChooseServer() {
-        StartCardChooseClientRpc();
-        _cardPickView.ShowClientRpc(); // Почему-то не запускается для всех клиентов
+    public void StartCardChooseFromServer() {
+        HandleStartCardChooseClientRpc();
+        HandleStartCardChooseServerRpc();
     }
 
     [ClientRpc]
-    public void StartCardChooseClientRpc() {
-        HandleCardSelectionRequestServerRpc( NetworkManager.LocalClientId );
+    private void HandleStartCardChooseClientRpc() {
+        _cardPickView.Show();
     }
 
-    [Rpc( SendTo.Server )]
-    private void HandleCardSelectionRequestServerRpc( ulong clientId ) {
-        bool isLosePlayer = _sessionPlayerManager.LosePlayers.ContainsKey( clientId );
+    [ServerRpc]
+    private void HandleStartCardChooseServerRpc() {
+        var activePlayersIDs = _sessionPlayerManager.ActivePlayers.Keys;
+        var losePlayersIDs = _sessionPlayerManager.LosePlayers.Keys;
 
-        if ( isLosePlayer ) {
-            int[] ids = _cardListGenerator.Generate( _maxCardsToChoose, _cards.Count );
-            SendCardListTargetClientRpc( ids, clientId );
-            ShowPickMenuTargetClientRpc( clientId );
-        } else {
-            ShowWaitingMenuTargetClientRpc( clientId );
+        foreach ( var activePlayerID in activePlayersIDs ) {
+            if ( _sessionPlayerManager.LosePlayers.Keys.Contains( activePlayerID ) ) {
+
+                var cardIDs = _cardListGenerator.Generate( _maxCardsToChoose, _registredCards.Count );
+                SendCardsIDsTargetClientRpc( activePlayerID, cardIDs );
+                HandleLosePlayersStartChooseCardsTargetClientRpc( activePlayerID );
+
+            } else {
+                // MyNote: Выполняем ту же логику что для игрока выбравшего карточку
+                HandlePlayerChoseCardTargetClientRpc( activePlayerID );
+            }
         }
     }
 
     [ClientRpc]
-    private void ShowPickMenuTargetClientRpc( ulong targetClientId ) {
-        if ( NetworkManager.LocalClientId == targetClientId ) {
+    private void SendCardsIDsTargetClientRpc( ulong playerID, int[] cardSoIDs ) {
+        if ( NetcodeHelper.LocalClientId == playerID ) {
+            _cardPickView.InstallCards( cardSoIDs );
+        }
+    }
+
+    [ClientRpc]
+    private void HandleLosePlayersStartChooseCardsTargetClientRpc( ulong playerID ) {
+        if ( NetcodeHelper.LocalClientId == playerID ) {
             _cardPickView.ShowPickMenu();
         }
     }
 
-    [ClientRpc]
-    private void ShowWaitingMenuTargetClientRpc( ulong targetClientId ) {
-        if ( NetworkManager.LocalClientId == targetClientId ) {
-            _cardPickView.ShowWaitingMenu();
-        }
-    }
+    private void HandlePlayerChoseCardFromServer( PlayerCardPickEvent evt ) {
+        _sessionPlayerManager.AddPlayerWhoChoseCard( evt.playerID );
 
-    [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
-    public void RequestCardListServerRpc( ulong clientId ) {
-        int[] ids = _cardListGenerator.Generate( _maxCardsToChoose, _cards.Count );
-        SendCardListTargetClientRpc( ids, clientId );
-    }
-
-    [ClientRpc]
-    private void SendCardListTargetClientRpc( int[] ids, ulong targetClientId ) {
-        if ( NetcodeHelper.LocalClientId == targetClientId ) {
-            foreach ( var card in _cards ) {
-                card.GetComponent<Card>().SetPlayerID( targetClientId );
-            }
-            _cardPickView.ShowCards( ids );
-        }
-    }
-
-    private void OnPlayerPickCardServer( PlayerCardPickEvent evt ) {
-        HandlePlayerChoseCardTargetClientRpc( evt.playerID );
-        HandlePlayerChoseCardServer();
-    }
-
-    [ClientRpc]
-    public void HandlePlayerChoseCardTargetClientRpc( ulong targetClientId ) {
-        if ( NetcodeHelper.LocalClientId == targetClientId ) {
-            _cardPickView.HidePickMenu();
-            _cardPickView.ClearCards();
-            _cardPickView.ShowWaitingMenu();
-        }
-    }
-
-    public void HandlePlayerChoseCardServer() {
         if ( _sessionPlayerManager.IsAllLosePlayersChoseCard ) {
-            _cardPickView.HideClientRpc();
-            _cardPickView.HideWaitingMenuClientRpc();
+            HandleAllPlayersChoseCardClientRpc();
+        } else {
+            HandlePlayerChoseCardTargetClientRpc( evt.playerID );
+        }
+    }
+
+    [ClientRpc]
+    private void HandleAllPlayersChoseCardClientRpc() {
+        _cardPickView.Hide();
+        _cardPickView.HideWaitingMenu();
+        _cardPickView.HidePickMenu();
+        _cardPickView.ClearCards();
+    }
+
+    [ClientRpc]
+    private void HandlePlayerChoseCardTargetClientRpc( ulong playerID ) {
+        if ( NetcodeHelper.LocalClientId == playerID ) {
+            _cardPickView.HidePickMenu();
+            _cardPickView.ShowWaitingMenu();
         }
     }
 
     public Card GetCardByID( int id ) {
-        return _cards[ id ].GetComponent<Card>();
+        return _registredCards[ id ].GetComponent<Card>();
     }
 
     public List<Card> GetCardsByIDs( int[] ids ) {
@@ -119,7 +114,7 @@ public class CardManager : NetworkBehaviour {
     }
 
     public CardSO GetCardSoById( int id ) {
-        return _cards[ id ].GetComponent<Card>().CardSO;
+        return _registredCards[ id ].GetComponent<Card>().CardSO;
     }
 
     public List<CardSO> GetCardSOsByIds( int[] ids ) {

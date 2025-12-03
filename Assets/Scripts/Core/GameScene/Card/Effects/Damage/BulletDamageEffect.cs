@@ -8,8 +8,8 @@ public class BulletDamageEffect : IEffect {
         _mult = mult;
     }
 
-    public void Install( PlayerStats player, CardContext ctx ) {
-        _stats = player;
+    public void Install( PlayerStats stats, CardContext ctx ) {
+        _stats = stats;
         float damage = _stats.RuntimeConfig.Bullet.Damage;
         _stats.ApplyBulletModifier( BulletStatType.Damage, +(damage * _mult) );
     }

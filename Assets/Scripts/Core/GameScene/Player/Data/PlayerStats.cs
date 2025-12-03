@@ -1,11 +1,12 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public enum PlayerStatType {
     MaxHealth, Speed, DashTime, DashLength, ReloadTime
 }
 
 public enum BulletStatType {
-    Damage, Speed, Lifetime, Radius
+    Damage, Speed, Lifetime, Radius, RicochetCount, PenetrationCount
 }
 
 public class PlayerStats {
@@ -32,6 +33,14 @@ public class PlayerStats {
             case BulletStatType.Speed: RuntimeConfig.Bullet.Speed += value; break;
             case BulletStatType.Lifetime: RuntimeConfig.Bullet.Lifetime += value; break;
             case BulletStatType.Radius: RuntimeConfig.Bullet.Radius += value; break;
+
+        }
+    }
+
+    public void ApplyBulletModifier( BulletStatType type, int count ) {
+        switch ( type ) {
+            case BulletStatType.RicochetCount: RuntimeConfig.Bullet.RicochetCount += count; break;
+            case BulletStatType.PenetrationCount: RuntimeConfig.Bullet.PenetrationCount += count; break;
         }
     }
 }

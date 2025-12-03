@@ -24,6 +24,10 @@ public class SessionPlayerManager : IDisposable {
     }
 
     public void AddPlayerWhoChoseCard( ulong playerID ) {
+        if( PlayerWhoChoseCard.Contains( playerID ) ) {
+            Debug.LogWarning( $"[{nameof( SessionPlayerManager )}] Player already chose card." );
+            return;
+        }
         PlayerWhoChoseCard.Add( playerID );
     }
     public void ResetPlayerWhoChoseCard() {
@@ -118,12 +122,8 @@ public class SessionPlayerManager : IDisposable {
     public void InitializeLosePlayers( ulong winnerID ) {
         LosePlayers.Clear();
         foreach ( var player in ActivePlayers ) {
-            AddLosePlayer( player.Key, player.Value );
+            LosePlayers.Add( player.Key, player.Value );
         }
         LosePlayers.Remove( winnerID );
-    }
-
-    public void AddLosePlayer( ulong playerID, ActivePlayerData data ) {
-        LosePlayers.Add( playerID, data );
     }
 }

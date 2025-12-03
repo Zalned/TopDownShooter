@@ -138,7 +138,7 @@ public class ServerBullet : MonoBehaviour {
     private void HandlePlayerHit( Transform hitTransform ) {
         hitTransform.GetComponent<PlayerController>().TakeDamage( _config.Bullet.Damage );
         HandleDestroy();
-    }
+        }
 
     private void HandleBulletHit( Transform hitTransform ) {
         if ( hitTransform.TryGetComponent( out ServerBullet component ) ) {

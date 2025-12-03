@@ -16,7 +16,7 @@ public class ExplosionOnHitEffect : IEffect {
 
     private void OnHit( ServerBullet bullet, Collider hit ) { // MyTodo
         float damage = _stats.RuntimeConfig.Bullet.Damage;
-        float explosionRadius = damage * ExplosionMultiple;
+        float explosionRadius = damage * ExplosionMultiple; // При комбинировании карточек радиус должен увеличиваться
         _ctx.ExplosionService.Explode( hit.gameObject.transform.position, explosionRadius, damage );
     }
 

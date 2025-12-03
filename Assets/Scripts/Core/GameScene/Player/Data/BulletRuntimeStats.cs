@@ -6,4 +6,6 @@ public class BulletRuntimeStats {
     public float Speed;
     public float Lifetime;
     public float Radius;
+    public int PenetrationCount;
+    public int RicochetCount;
 }

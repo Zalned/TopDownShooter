@@ -1,36 +1,38 @@
-using TMPro;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Card : MonoBehaviour {
     [SerializeField] private CardSO _cardSO;
-    [Space]
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _descriptionText;
-    [Space]
-    [SerializeField] private Button _pickUpBtn;
+    [SerializeField] private TextMeshProUGUI _cardStatText;
+    [SerializeField] private Button _btn;
 
     public CardSO CardSO => _cardSO;
+    public ushort CardId { get; private set; }
+    public int PlayerId { get; private set; }
 
-    private void Awake() {
+    private CardPickController _controller;
+
+    public void Init( CardPickController controller ) {
+        _controller = controller;
+
         _nameText.text = _cardSO.Name;
         _descriptionText.text = _cardSO.Description;
-
-        _pickUpBtn.onClick.AddListener( OnCardPicked );
+        _cardStatText.text = _cardSO.StatDescription;
+        _btn.onClick.AddListener( OnPicked );
     }
 
-    private ulong _playerID;
-    public void SetPlayerID( ulong playerID ) {
-        _playerID = playerID;
+    public void SetCardId( ushort cardId ) {
+        CardId = cardId;
     }
 
-    private void OnCardPicked() {
-        NotifyCardPickedServerRpc();
+    private void OnDestroy() {
+        _btn.onClick.RemoveListener( OnPicked );
     }
 
-    [ServerRpc]
-    private void NotifyCardPickedServerRpc() {
-        EventBus.Publish( new PlayerCardPickEvent( _playerID, _cardSO ) );
+    private void OnPicked() {
+        _controller.OnCardPicked( NetcodeHelper.LocalClientId, CardId );
     }
 }
