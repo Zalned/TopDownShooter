@@ -6,4 +6,6 @@ public class BaseBulletConfigSO : ScriptableObject {
     public float baseSpeed = 10f;
     public float baseLifetime = 5f;
     public float baseRadius = 0.1f;
+    public int maxPenetrationCount = 0;
+    public int maxRicochetCount = 0;
 }

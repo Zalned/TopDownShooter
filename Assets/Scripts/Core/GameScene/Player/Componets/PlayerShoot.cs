@@ -24,6 +24,7 @@ public class PlayerShoot : NetworkBehaviour {
         _playerId = playerId;
 
         _currentAmmo = _config.Player.MaxAmmoCount;
+        RefreshAmmoCountText();
     }
 
     public void OnShootInput( InputAction.CallbackContext context ) {

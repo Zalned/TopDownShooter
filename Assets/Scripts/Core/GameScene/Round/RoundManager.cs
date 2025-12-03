@@ -17,7 +17,7 @@ public class RoundManager : IDisposable {
         _roundHUD = view;
         _sessionPlayerManager = sessionPlayerManager;
 
-        _sessionConfig = Resources.Load<SessionConfigSO>( "Configs/SessionConfig" );
+        _sessionConfig = Resources.Load<SessionConfigSO>( Defines.ConfigPaths.SESSION_CONFIG );
         _sessionPlayerManager.OnLivePlayerRemoved += HandlePlayerDie;
     }
 

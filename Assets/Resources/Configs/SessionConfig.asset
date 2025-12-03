@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1de7d69bead675459801732c9dac4bd, type: 3}
   m_Name: SessionConfig
   m_EditorClassIdentifier: Assembly-CSharp::SessionConfigSO
-  RoundForWin: 3
-  CountBonusToPick: 5
+  _roundForWin: 4
+  _countCardToChoose: 2
+  _timeToPickBonus: 60

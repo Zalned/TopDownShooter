@@ -6,6 +6,7 @@ public static class NetcodeHelper {
     public static bool IsServer => NetworkManager.Singleton && NetworkManager.Singleton.IsServer;
     public static bool IsClient => NetworkManager.Singleton && NetworkManager.Singleton.IsClient;
     public static bool IsHost => NetworkManager.Singleton && NetworkManager.Singleton.IsHost;
+    public static ulong LocalClientId => NetworkManager.Singleton ? NetworkManager.Singleton.LocalClientId : 0;
 
     public static void SpawnWithOwnership( GameObject go, ulong clientId, bool destroyWithScene = false ) {
         var netObj = Validate( go );

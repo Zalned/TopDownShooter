@@ -15,9 +15,13 @@ public class GameBootstrap : IInitializable, ITickable {
             var gameNetworkHandler = container.Resolve<GameNetworkHandler>();
             var lobbyController = container.Resolve<LobbyPresenter>();
 
+            var cardManager = container.Resolve<CardManager>();
+            var sessionPlayerManager = container.Resolve<SessionPlayerManager>();
+
             gameFlowController.Initialize( gameSessionService );
             gameNetworkHandler.Initialize( sceneLoader );
             lobbyController.Initialize( playerManager );
-        } 
+            cardManager.Initialize( sessionPlayerManager );
+        }
     }
 }

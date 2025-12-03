@@ -5,8 +5,8 @@ public record NetworkStartedEvent();
 public record PlayerJoinedEvent( NetworkPlayerData Data );
 public record PlayerLeftEvent( NetworkPlayerData Data );
 
-public record ClientConnectedEvent( ulong ClientId );
-public record ClientDisconnectedEvent( ulong ClientId );
+public record ClientConnectedEvent( ulong ClientID );
+public record ClientDisconnectedEvent( ulong ClientID );
 
 public record StartHostRequestEvent( string IpAdress );
 public record StopHostRequestEvent();
