@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameMap_Data : MonoBehaviour {
+public class GameMap : MonoBehaviour {
     [SerializeField] private GameObject _mapPrefab;
     [SerializeField] private List<GameObject> _spawnPoints;
 
