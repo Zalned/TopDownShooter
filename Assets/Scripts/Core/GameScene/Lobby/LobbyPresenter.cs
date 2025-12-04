@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LobbyPresenter : MonoBehaviour {
     [SerializeField] private LobbyView _view;
-    private PlayerManager _playerManager;
-    public void Initialize( PlayerManager playerManager ) {
+    private NetworkPlayerManager _playerManager;
+    public void Initialize( NetworkPlayerManager playerManager ) {
         _playerManager = playerManager;
         _view.StartButton.onClick.AddListener( OnStartBtnClicked );
         _playerManager.OnRegistredPlayersUpdated += OnPlayersListUpdated;

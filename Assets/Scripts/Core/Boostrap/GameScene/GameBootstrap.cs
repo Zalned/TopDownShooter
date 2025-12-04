@@ -7,20 +7,12 @@ public class GameBootstrap : IInitializable, ITickable {
             var sceneContext = Object.FindFirstObjectByType<SceneContext>();
             var container = sceneContext.Container;
 
-            var gameSessionService = container.Resolve<GameSessionService>();
-            var sceneLoader = container.Resolve<SceneLoader>();
-            var playerManager = container.Resolve<PlayerManager>();
-
-            var gameFlowController = container.Resolve<GameFlowController>();
-            var gameNetworkHandler = container.Resolve<GameNetworkHandler>();
-            var lobbyController = container.Resolve<LobbyPresenter>();
-
+            var playerManager = container.Resolve<NetworkPlayerManager>();
+            var lobbyPresenter = container.Resolve<LobbyPresenter>();
             var cardManager = container.Resolve<CardManager>();
             var sessionPlayerManager = container.Resolve<SessionPlayerManager>();
 
-            gameFlowController.Initialize( gameSessionService );
-            gameNetworkHandler.Initialize( sceneLoader );
-            lobbyController.Initialize( playerManager );
+            lobbyPresenter.Initialize( playerManager );
             cardManager.Initialize( sessionPlayerManager );
         }
     }

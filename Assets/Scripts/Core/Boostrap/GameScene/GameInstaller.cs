@@ -2,9 +2,7 @@ using Zenject;
 using UnityEngine;
 
 public class GameInstaller : MonoInstaller {
-    [SerializeField] private GameFlowController _gameFlowController;
-    [SerializeField] private GameNetworkHandler _gameNetworkHandler;
-    [SerializeField] private MapService_Server _mapService;
+    [SerializeField] private MapService _mapService;
 
     [SerializeField] private LobbyPresenter _lobbyPresenter;
     [SerializeField] private PlayerWinRoundView _playerWinRoundView;
@@ -18,13 +16,11 @@ public class GameInstaller : MonoInstaller {
         Container.Bind<CardManager>().FromInstance( _cardManager ).AsSingle().NonLazy();
 
         if ( NetcodeHelper.IsServer ) {
-            Container.Bind<GameFlowController>().FromInstance( _gameFlowController ).AsSingle().NonLazy();
-            Container.Bind<GameNetworkHandler>().FromInstance( _gameNetworkHandler ).AsSingle().NonLazy();
-            Container.Bind<GameSessionService>().AsSingle().NonLazy();
+            Container.Bind<GameFlowController>().AsSingle().NonLazy();
 
-            Container.Bind<MapService_Server>().FromInstance( _mapService ).AsSingle();
+            Container.Bind<MapService>().FromInstance( _mapService ).AsSingle();
             Container.Bind<PlayerFactory>().AsSingle().NonLazy();
-            Container.Bind<PlayerManager>().AsSingle().NonLazy();
+            Container.Bind<NetworkPlayerManager>().AsSingle().NonLazy();
 
             Container.Bind<RoundManager>().AsSingle().NonLazy();
             Container.Bind<RoundHudView>().FromComponentInHierarchy().AsSingle();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SessionPlayerManager : IDisposable {
+public class SessionPlayerManager {
     public Dictionary<ulong, NetworkPlayerData> SessionPlayers { get; private set; } = new();
     public Dictionary<ulong, ActivePlayerData> ActivePlayers { get; private set; } = new();
     public Dictionary<ulong, GameObject> LivePlayers { get; private set; } = new();
@@ -27,7 +27,6 @@ public class SessionPlayerManager : IDisposable {
         PlayerWhoChoseCard.Clear();
     }
     
-
     // Session players
     public void SetSessionPlayers( Dictionary<ulong, NetworkPlayerData> players ) {
         foreach ( var player in players ) {

@@ -15,6 +15,7 @@ public class CardMenuView : MonoBehaviour {
             var cardID = cardIDs[ i ];
             var cardPrefab = _cardManager.GetCardByID( cardID ).gameObject;
             var card = Instantiate( cardPrefab, _horizontalLayout.transform );
+
             var cardComponent = card.GetComponent<Card>();
             cardComponent.Init( _cardPickController );
             cardComponent.SetCardId( (ushort)cardID );

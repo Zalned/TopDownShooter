@@ -982,8 +982,6 @@ GameObject:
   - component: {fileID: 9207295743875814105}
   - component: {fileID: 1483786192976158962}
   - component: {fileID: 5462449166758074271}
-  - component: {fileID: 8016139624358605167}
-  - component: {fileID: 441201853987375864}
   - component: {fileID: 2076149628214871062}
   m_Layer: 0
   m_Name: GameCore
@@ -1024,7 +1022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 669457870
+  GlobalObjectIdHash: 609955244
   InScenePlacedSourceGlobalObjectIdHash: 669457870
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1046,7 +1044,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2606420818590081715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a421cb3109d0c9a46b75cb228564dd1b, type: 3}
+  m_Script: {fileID: 11500000, guid: d2cc6cf315a211242844497d93d175b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapService
   _maps:
@@ -1054,31 +1052,6 @@ MonoBehaviour:
   - {fileID: 1720974953460589044, guid: d1809161ecba15f42a3392f7f2c8cf08, type: 3}
   - {fileID: 1720974953460589044, guid: 88854b05840ad1c44ab46c78f0af7546, type: 3}
   - {fileID: 1720974953460589044, guid: cb75c95f94aa766408fc510198e65d3a, type: 3}
---- !u!114 &8016139624358605167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2606420818590081715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393aa31256e245e4db44dcaf783d87dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameFlowController_Server
---- !u!114 &441201853987375864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2606420818590081715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c115658e67b860d44b601186d2812554, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameNetworkHandler
-  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!114 &2076149628214871062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2035,7 +2008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3564473c748be66448532ba0161f1b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShowPickCardView
-  _panel: {fileID: 0}
+  _panel: {fileID: 6666235557646564033}
   _showPickCardMenuBtn: {fileID: 8933878989623083582}
   _endRoundBtn: {fileID: 6012899864213381602}
 --- !u!114 &9078022758668858825
@@ -3574,8 +3547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f9af3509c974ea4eb02ff25704c10c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameInstaller
-  _gameFlowController: {fileID: 8016139624358605167}
-  _gameNetworkHandler: {fileID: 441201853987375864}
   _mapService: {fileID: 5462449166758074271}
   _lobbyPresenter: {fileID: 8799446208161392465}
   _playerWinRoundView: {fileID: 22065584234354150}

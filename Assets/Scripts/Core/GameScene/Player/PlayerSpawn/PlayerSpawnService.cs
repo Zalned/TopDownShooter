@@ -2,13 +2,13 @@ using System.Linq;
 using UnityEngine;
 
 public class PlayerSpawnService {
-    private readonly PlayerManager _playerManager;
-    private readonly MapService_Server _mapService;
+    private readonly NetworkPlayerManager _playerManager;
+    private readonly MapService _mapService;
     private readonly SessionPlayerManager _sessionPlayerManager;
 
     public PlayerSpawnService(
-        PlayerManager playerManager,
-        MapService_Server mapService,
+        NetworkPlayerManager playerManager,
+        MapService mapService,
         SessionPlayerManager sessionPlayerManager ) {
         _playerManager = playerManager;
         _mapService = mapService;
