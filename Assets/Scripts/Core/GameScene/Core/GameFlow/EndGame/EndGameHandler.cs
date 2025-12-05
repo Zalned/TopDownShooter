@@ -17,7 +17,7 @@ public class EndGameHandler {
         _sessionPlayerManager = sessionPlayerManager;
     }
 
-    public void HandleEndGame( ulong winnerId ) {
+    public void HandleEndGame() {
         _mapService.DespawnMap();
         _lobbyPresenter.Show();
         _playerSpawnService.DespawnPlayersOnMap();

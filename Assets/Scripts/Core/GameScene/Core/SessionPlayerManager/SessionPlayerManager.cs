@@ -10,23 +10,29 @@ public class SessionPlayerManager {
     public Dictionary<ulong, GameObject> DeadPlayers { get; private set; } = new();
 
     public Dictionary<ulong, ActivePlayerData> LosePlayers { get; private set; } = new();
-    public List<ulong> PlayerWhoChoseCard { get; private set; } = new();
-    public bool IsAllLosePlayersChoseCard => LosePlayers.Count == PlayerWhoChoseCard.Count;
+    public List<ulong> PlayersWhoChoseCard { get; private set; } = new();
+    public bool IsAllLosePlayersChoseCard => LosePlayers.Count == PlayersWhoChoseCard.Count;
 
     public event Action OnLivePlayerAdded;
     public event Action OnLivePlayerRemoved;
+    public event Action OnAllPlayersPickCard;
 
     public void AddPlayerWhoChoseCard( ulong playerID ) {
-        if( PlayerWhoChoseCard.Contains( playerID ) ) {
+        if( PlayersWhoChoseCard.Contains( playerID ) ) {
             Debug.LogWarning( $"[{nameof( SessionPlayerManager )}] Player already chose card." );
             return;
         }
-        PlayerWhoChoseCard.Add( playerID );
+        PlayersWhoChoseCard.Add( playerID );
+
+        if ( IsAllLosePlayersChoseCard ) {
+            OnAllPlayersPickCard?.Invoke();
+        }
     }
-    public void ResetPlayerWhoChoseCard() {
-        PlayerWhoChoseCard.Clear();
+
+    public void ClearPlayersWhoChoseCard() {
+        PlayersWhoChoseCard.Clear();
     }
-    
+
     // Session players
     public void SetSessionPlayers( Dictionary<ulong, NetworkPlayerData> players ) {
         foreach ( var player in players ) {

@@ -80,9 +80,14 @@ public class CardManager : NetworkBehaviour {
 
         if ( _sessionPlayerManager.IsAllLosePlayersChoseCard ) {
             HandleAllPlayersChoseCardClientRpc();
+            HandleAllPlayersChoseCardServer();
         } else {
             HandlePlayerChoseCardTargetClientRpc( evt.playerID );
         }
+    }
+
+    private void HandleAllPlayersChoseCardServer() {
+        _sessionPlayerManager.ClearPlayersWhoChoseCard();
     }
 
     [ClientRpc]

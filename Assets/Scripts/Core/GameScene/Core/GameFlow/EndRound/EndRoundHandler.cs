@@ -7,8 +7,6 @@ public class EndRoundHandler {
     private readonly PlayerWinRoundView _playerWinRoundView;
     private const int SHOW_WIN_ROUND_UI_TIME = 3 * 1000;
 
-    public event Func<Task> StartRoundEvent;
-
     public EndRoundHandler(
         PlayerSpawnService playerSpawnService,
         SessionPlayerManager sessionPlayerManager,
@@ -18,7 +16,7 @@ public class EndRoundHandler {
         _playerWinRoundView = playerWinRoundView;
     }
 
-    public async void HandleRoundEnd( ulong winnerID, string name ) {
+    public async Task HandleRoundEnd( ulong winnerID, string name ) {
         _sessionPlayerManager.InitializeLosePlayers( winnerID );
         _playerSpawnService.DespawnPlayersOnMap();
         _playerWinRoundView.SetPlayerWinNameClientRpc( name );

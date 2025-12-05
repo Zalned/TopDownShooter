@@ -809,7 +809,7 @@ MonoBehaviour:
 
     Scroll - Wheel
 
-    Settings - Esc'
+    Pause - Esc'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2ab5858ca13707f4fb7b170d9dad37b7, type: 2}
   m_sharedMaterial: {fileID: 5155630682436557435, guid: 2ab5858ca13707f4fb7b170d9dad37b7, type: 2}
