@@ -7,8 +7,10 @@ public class PlayerView : NetworkBehaviour {
     [SerializeField] private Canvas _playerHudCanvas;
     [SerializeField] private Renderer _renderer;
     [SerializeField] private TextMeshProUGUI _playerName;
-    [SerializeField] private Slider _playerHealth;
-    [SerializeField] private Image _playerHealthSliderFill;
+
+    [SerializeField] private TextMeshProUGUI _healthHudText;
+    [SerializeField] private Slider _healthWorldSlider;
+    [SerializeField] private Image _healthWorldSliderFill;
 
     [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
     public void InitializeServerRpc( NetworkPlayerData data, float maxHealth ) {
@@ -34,12 +36,16 @@ public class PlayerView : NetworkBehaviour {
         //_playerHealth.maxValue = maxValue;
     }
 
-    [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )] 
+    [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
     public void SetPlayerHeatlhServerRpc( float value ) {
         //SetPlayerHeatlhClientRpc( value );
+        _healthHudText.text = value.ToString();
     }
     [ClientRpc]
-    private void SetPlayerHeatlhClientRpc( float value ) {
+    private void SetPlayerHeatlhSliderClientRpc( float value ) {
+        //_playerHealth.value = value;
+    }
+    private void SetPlayerHeatlhHud( float value ) {
         //_playerHealth.value = value;
     }
 
