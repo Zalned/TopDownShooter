@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
   cardName: Bounce
   effects:
-  - {fileID: 11400000, guid: d57c8693e9e61fa4cb83cd58f55c6f9b, type: 2}
+  - {fileID: 11400000, guid: e8ec631a85ac4b74796f4c3a0e7f46b0, type: 2}
   description: Add bullet bounces
   statDescription: +2 bullet bounce

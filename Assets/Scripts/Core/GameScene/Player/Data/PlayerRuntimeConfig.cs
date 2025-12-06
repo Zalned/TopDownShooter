@@ -2,25 +2,11 @@
 public class PlayerRuntimeConfig {
     public PlayerRuntimeStats Player { get; private set; } = new();
     public BulletRuntimeStats Bullet { get; private set; } = new();
+    public void SetPlayerRuntimeStats( PlayerRuntimeStats stats ) => Player = stats;
+    public void SetBulletRuntimeStats( BulletRuntimeStats stats ) => Bullet = stats;
 
     public PlayerRuntimeConfig( BasePlayerConfigSO basePlayerCfg, BaseBulletConfigSO baseBulletCfg ) {
-        Player.MaxHealth = basePlayerCfg.baseHealth;
-        Player.Speed = basePlayerCfg.baseSpeed;
-
-        Player.MaxAmmoCount = basePlayerCfg.maxAmmoCount;
-        Player.ShotCooldown = basePlayerCfg.shotCooldown;
-        Player.ReloadTime = basePlayerCfg.reloadTime;
-
-        Player.DashLength = basePlayerCfg.baseDashLenght;
-        Player.DashTime = basePlayerCfg.baseDashTime;
-        Player.DashCooldown = basePlayerCfg.baseDashCooldown;
-
-        Bullet.Damage = baseBulletCfg.baseDamage;
-        Bullet.Speed = baseBulletCfg.baseSpeed;
-        Bullet.Lifetime = baseBulletCfg.baseLifetime;
-        Bullet.Radius = baseBulletCfg.baseRadius;
-
-        Bullet.PenetrationCount = baseBulletCfg.maxPenetrationCount;
-        Bullet.RicochetCount = baseBulletCfg.maxRicochetCount;
+        Player.SetStats( basePlayerCfg );
+        Bullet.SetStats( baseBulletCfg );
     }
 }

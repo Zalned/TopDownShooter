@@ -23,14 +23,14 @@ public class BulletManager : IDisposable {
         _spawnedBullets.Add( bulletId, bullet );
     }
 
-    public ServerBullet CreateServerBullet( PlayerRuntimeConfig playerRuntimeConfig, Transform transform, ulong ownerID ) {
+    public ServerBullet CreateServerBullet( BulletRuntimeStats bulletRuntimeConfig, Transform transform, ulong ownerID ) {
         var bulletPrefab = Resources.Load<GameObject>( Defines.ObjectPaths.BULLET_PREFAB );
         var bulletObject = UnityEngine.Object.Instantiate( bulletPrefab, transform.position, Quaternion.identity );
         var bulletComponent = bulletObject.GetComponent<ServerBullet>();
 
         bulletObject.GetComponent<NetworkObject>().SpawnWithOwnership( ownerID, true );
         bulletComponent.DestroyRequest += HandleDestroyBullet;
-        bulletComponent.Construct( playerRuntimeConfig, ownerID, transform.rotation );
+        bulletComponent.Construct( bulletRuntimeConfig, ownerID, transform.rotation );
 
         SafeAddSpawnedBullet( bulletObject, bulletComponent );
         return bulletComponent;

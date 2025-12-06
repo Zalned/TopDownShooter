@@ -9,6 +9,7 @@ public class PlayerDash : NetworkBehaviour {
     private LayerMask _wallLayerMask;
     private float _checkCollisionRadius = 0.25f;
 
+    int _currentDashCount = 0;
     float _dashTimeAccumulated = 0;
     float _cooldown = 0;
 
@@ -17,6 +18,7 @@ public class PlayerDash : NetworkBehaviour {
 
     public void Initialize( PlayerRuntimeConfig config ) {
         _config = config;
+        _currentDashCount = _config.Player.DashCount;
         _wallLayerMask = LayerMask.GetMask( Defines.Layers.Environment );
     }
 

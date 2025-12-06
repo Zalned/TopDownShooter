@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ReloadCard
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
   cardName: Reload
-  effects:
+  mods:
   - {fileID: 11400000, guid: fd49c0094c93b914ba8b766b520a9af4, type: 2}
   description: Increase reload speed
   statDescription: Reload speed +50%

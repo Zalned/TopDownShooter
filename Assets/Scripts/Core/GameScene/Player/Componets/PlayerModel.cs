@@ -1,36 +1,35 @@
 using System.Collections.Generic;
-using UnityEngine;
 using UniRx;
+using UnityEngine;
 
 public class PlayerModel {
     public PlayerStats PlayerStats = new();
     public ReactiveProperty<float> CurrentHealth;
 
     private CardContext _ctx;
-    private readonly List<IEffect> _effects = new();
 
-    public void SetCards(List<CardSO> cards ) {
+    public List<IBulletMod> BulletMods => PlayerStats.RuntimeConfig.Bullet.Mods;
+    public List<IPlayerMod> PlayerMods => PlayerStats.RuntimeConfig.Player.Mods;
+
+    public void SetCards( List<CardSO> cards ) {
         foreach ( var card in cards ) {
             AddCard( card );
         }
     }
 
     private void AddCard( CardSO card ) {
-        Debug.Log( $"Adding card {card.Name} to player" );
+        Debug.Log( $"Add card: {card.Name}" );
 
         foreach ( var effectSO in card.Effects ) {
-            Debug.Log( $"Aplly effect {effectSO.name} to player" );
+            ISimpleMod mod = effectSO.CreateRuntime();
+            mod.Install( PlayerStats, _ctx );
 
-            var eff = effectSO.CreateRuntime();
-            eff.Install( PlayerStats, _ctx );
-            _effects.Add( eff );
+            if ( mod is IPlayerMod ) {
+                PlayerStats.RuntimeConfig.Player.Mods.Add( (IPlayerMod)mod );
+
+            } else if ( mod is IBulletMod ) {
+                PlayerStats.RuntimeConfig.Bullet.Mods.Add( (IBulletMod)mod );
+            }
         }
     }
-
-    public void ClearEffects() {
-        foreach ( var e in _effects )
-            e.Uninstall();
-        _effects.Clear();
-    }
-
 }

@@ -27,7 +27,7 @@ public class PlayerView : NetworkBehaviour {
     }
 
     private void SetPlayerName( string name ) {
-        //_playerName.text = name; // MyNote: world canvas с данными игрока не используется
+        //_playerName.text = name; // world canvas с данными игрока не используется
     }
 
     private void InitializePlayerHeatlhSlider( float maxValue ) {

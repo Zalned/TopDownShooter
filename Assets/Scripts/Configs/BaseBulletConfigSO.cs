@@ -2,10 +2,12 @@ using UnityEngine;
 
 [CreateAssetMenu( fileName = "BulletConfig", menuName = "Game/Bullet Config" )]
 public class BaseBulletConfigSO : ScriptableObject {
-    public float baseDamage = 25f;
-    public float baseSpeed = 10f;
-    public float baseLifetime = 5f;
-    public float baseRadius = 0.1f;
-    public int maxPenetrationCount = 0;
-    public int maxRicochetCount = 0;
+    public float damage = 25f;
+    public float speed = 10f;
+    public float lifetime = 5f;
+    public float radius = 0.1f;
+    public int penetrationCount = 0;
+    public int bounceCount = 0;
+    public float scale = 0;
+    public bool hasSplash = false;
 }

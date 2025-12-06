@@ -9,20 +9,20 @@ public struct ProjectileState {
 }
 
 public class ServerBullet : MonoBehaviour {
+    private BulletModHandler _modHandler;
     public ulong OwnerID { get; private set; }
 
-    private PlayerRuntimeConfig _config;
+    private BulletRuntimeStats _config;
     private ProjectileState _state;
     private LayerMask _hitMask;
 
     private const float MAX_STEP_DISTANCE = 0.5f;
     private const float SPAWN_CHECK_RADIUS = 0.1f;
 
+    public event Action<GameObject> DestroyRequest;
     private float _age = 0;
 
-    public event Action<GameObject> DestroyRequest;
-
-    public void Construct( PlayerRuntimeConfig config, ulong ownerID, Quaternion rotation ) {
+    public void Construct( BulletRuntimeStats config, ulong ownerID, Quaternion rotation ) {
         _config = config;
         OwnerID = ownerID;
         transform.rotation = rotation;
@@ -34,13 +34,15 @@ public class ServerBullet : MonoBehaviour {
 
         InitializeProjectileState();
         CheckOnSpawnInObject();
+        _modHandler.OnSpawn();
     }
+
 
     private void InitializeProjectileState() {
         _state = new();
         _state.Position = transform.position;
         _state.PreviousPosition = transform.position;
-        _state.Velocity = transform.forward * _config.Bullet.Speed;
+        _state.Velocity = transform.forward * _config.Speed;
         _state.IsActive = true;
     }
 
@@ -50,6 +52,7 @@ public class ServerBullet : MonoBehaviour {
         IncreaseAge();
         HandleLifetime();
         SyncPosition();
+        _modHandler.OnTick();
     }
 
     private void CheckOnSpawnInObject() {
@@ -59,11 +62,10 @@ public class ServerBullet : MonoBehaviour {
         HandleHitOnSpawn( initialHits );
     }
 
-    private void HandleHitOnSpawn( Collider[] initialHits ) {
+    private void HandleHitOnSpawn( Collider[] initialHits ) { // MyTodo вынести в отдельный класс
         foreach ( var hit in initialHits ) {
             if ( hit.transform.CompareTag( Defines.Tags.Player ) ) {
                 if ( hit.GetComponent<PlayerController>().OwnerClientId == OwnerID ) {
-                    Debug.Log( "Hitting a self player on spawn. Continue." );
                     continue;
                 } else {
                     HandleProjectileColliderHit( hit );
@@ -71,7 +73,6 @@ public class ServerBullet : MonoBehaviour {
 
             } else if ( hit.transform.CompareTag( Defines.Tags.Bullet ) ) {
                 if ( hit.GetComponent<ServerBullet>().OwnerID == OwnerID ) {
-                    Debug.Log( "Hitting a self bullet on spawn. Continue." );
                     continue;
                 } else {
                     HandleProjectileColliderHit( hit );
@@ -97,7 +98,7 @@ public class ServerBullet : MonoBehaviour {
         while ( remainingDistance > 0f ) {
             float stepDistance = Mathf.Min( remainingDistance, MAX_STEP_DISTANCE );
 
-            if ( Physics.SphereCast( _state.Position, _config.Bullet.Radius, direction,
+            if ( Physics.SphereCast( _state.Position, _config.Radius, direction,
                 out RaycastHit hit, stepDistance, _hitMask, QueryTriggerInteraction.Collide ) ) {
 
                 _state.Position = hit.point;
@@ -131,14 +132,14 @@ public class ServerBullet : MonoBehaviour {
         } else if ( hitTransform.CompareTag( Defines.Tags.Bullet ) ) {
             HandleBulletHit( hitTransform );
         } else {
-            HandleAnotherHit();
+            HandleWallHit( hitTransform );
         }
     }
 
     private void HandlePlayerHit( Transform hitTransform ) {
-        hitTransform.GetComponent<PlayerController>().TakeDamage( _config.Bullet.Damage );
+        hitTransform.GetComponent<PlayerController>().TakeDamage( _config.Damage );
         HandleDestroy();
-        }
+    }
 
     private void HandleBulletHit( Transform hitTransform ) {
         if ( hitTransform.TryGetComponent( out ServerBullet component ) ) {
@@ -146,19 +147,24 @@ public class ServerBullet : MonoBehaviour {
 
             float damage = component.GetDamage();
             HandleHitFromAnotherBullet( damage );
-            PlayHitAudio();
         }
+        HandleHit( hitTransform );
     }
 
     private void HandleHitFromAnotherBullet( float damageFromAnotherBullet ) {
-        if ( _config.Bullet.Damage <= damageFromAnotherBullet ) {
+        if ( _config.Damage <= damageFromAnotherBullet ) {
             HandleDestroy();
         }
     }
 
-    private void HandleAnotherHit() {
+    private void HandleWallHit( Transform hit ) {
         HandleDestroy();
+        HandleHit( hit );
+    }
+
+    private void HandleHit( Transform hit ) {
         PlayHitAudio();
+        _modHandler.OnHit( hit );
     }
 
     private void PlayHitAudio() {
@@ -166,11 +172,11 @@ public class ServerBullet : MonoBehaviour {
     }
 
     public float GetDamage() {
-        return _config.Bullet.Damage;
+        return _config.Damage;
     }
 
     private void HandleLifetime() {
-        if ( _age >= _config.Bullet.Lifetime ) {
+        if ( _age >= _config.Lifetime ) {
             HandleDestroy();
         }
     }
@@ -181,6 +187,7 @@ public class ServerBullet : MonoBehaviour {
 
     private void HandleDestroy() {
         _state.IsActive = false;
+        _modHandler.OnDestroy();
         DestroyRequest.Invoke( gameObject );
     }
 }

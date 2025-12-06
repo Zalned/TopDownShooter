@@ -9,7 +9,10 @@ public class BasePlayerConfigSO : ScriptableObject {
     public float shotCooldown = 0.5f;
     public float reloadTime = 3f;
 
+    public int baseDashCount = 1;
     public float baseDashLenght = 4f;
-    public float baseDashTime = 0.5f;
     public float baseDashCooldown = 2f;
+
+    // Не модифицирующиеся
+    public float baseDashTime = 0.5f;
 }

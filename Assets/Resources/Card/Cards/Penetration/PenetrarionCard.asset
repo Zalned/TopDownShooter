@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PenetrarionCard
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
   cardName: Penetrarion
-  effects:
-  - {fileID: 11400000, guid: c94ea73cf497341429a95ff333c535f9, type: 2}
+  mods:
+  - {fileID: 11400000, guid: e48cd9aa231d5d1488744fdfabe10856, type: 2}
   description: Add bullet penetration
   statDescription: +1 bullet penetration

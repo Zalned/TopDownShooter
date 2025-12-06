@@ -21,6 +21,5 @@ public class CardPickService : IDisposable {
 
     private void OnPlayerPickCard( PlayerCardPickEvent evt ) {
         var activePlayer = _sessionPlayerManager.GetActivePlayerByID( evt.playerID );
-        activePlayer.CardDeck.Add( _cardManager.GetCardSoById( evt.CardId ) );
     }
 }

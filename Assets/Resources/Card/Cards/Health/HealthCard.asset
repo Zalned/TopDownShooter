@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealthCard
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
   cardName: Health
-  effects:
+  mods:
   - {fileID: 11400000, guid: 34ccccc1d777c324587edb46ce92fff5, type: 2}
   description: Increase max health
   statDescription: +50% max health

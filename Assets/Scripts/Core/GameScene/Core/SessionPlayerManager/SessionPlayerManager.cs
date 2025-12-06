@@ -18,7 +18,7 @@ public class SessionPlayerManager {
     public event Action OnAllPlayersPickCard;
 
     public void AddPlayerWhoChoseCard( ulong playerID ) {
-        if( PlayersWhoChoseCard.Contains( playerID ) ) {
+        if ( PlayersWhoChoseCard.Contains( playerID ) ) {
             Debug.LogWarning( $"[{nameof( SessionPlayerManager )}] Player already chose card." );
             return;
         }
@@ -122,6 +122,7 @@ public class SessionPlayerManager {
         foreach ( var player in ActivePlayers ) {
             LosePlayers.Add( player.Key, player.Value );
         }
+        if ( ActivePlayers.Count == 1 ) { return; } // DEBUG
         LosePlayers.Remove( winnerID );
     }
 }

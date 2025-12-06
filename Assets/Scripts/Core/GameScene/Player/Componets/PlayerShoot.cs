@@ -3,6 +3,7 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class PlayerShoot : NetworkBehaviour {
     [SerializeField] private Transform _shootPoint;
@@ -18,7 +19,10 @@ public class PlayerShoot : NetworkBehaviour {
 
     public event Action OnShot;
 
-    public void Initialize( BulletManager bulletManager, PlayerRuntimeConfig config, ulong playerId ) {
+    public void Initialize( 
+        BulletManager bulletManager, 
+        PlayerRuntimeConfig config, 
+        ulong playerId) {
         _bulletManager = bulletManager;
         _config = config;
         _playerId = playerId;
@@ -47,7 +51,7 @@ public class PlayerShoot : NetworkBehaviour {
 
     [ServerRpc]
     private void CreateBulletServerRpc() {
-        _bulletManager.CreateServerBullet( _config, _shootPoint, _playerId );
+        _bulletManager.CreateServerBullet( _config.Bullet, _shootPoint, _playerId );
     }
 
     public void Tick() {
