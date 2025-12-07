@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 838147034
+  GlobalObjectIdHash: 2846594158
   InScenePlacedSourceGlobalObjectIdHash: 2846594158
   DeferredDespawnTick: 0
   Ownership: 1
@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkAudioManager
   ShowTopMostFoldoutHeaderGroup: 1
+  _settingsCfg: {fileID: 11400000, guid: c0ee1854eaee3014da84e356461f89dc, type: 2}
   _playerShoot: {fileID: 8310701910210472369, guid: d6dca99d25adea648aaf42a499d7fb0b, type: 3}
   _hittingPlayer: {fileID: 8310701910210472369, guid: 6104fd7869fd83e4cabcc5b43de9164c, type: 3}
   _playerDie: {fileID: 8310701910210472369, guid: a708fe51cc69cab489890ec37721e6a0, type: 3}

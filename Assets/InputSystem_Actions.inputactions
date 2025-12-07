@@ -104,6 +104,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenDebugPanel",
+                    "type": "Button",
+                    "id": "b5c3db25-2ce7-4816-af26-f626bd23c51a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -509,8 +518,19 @@
                     "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": "",
                     "action": "ScrollWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "896ad713-b3fa-43d4-8303-948d60f0737b",
+                    "path": "<Keyboard>/f9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenDebugPanel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1027,34 +1047,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenPauseMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Debug",
-            "id": "dc4156c1-8847-41fe-abaa-206d24710649",
-            "actions": [
-                {
-                    "name": "OpenDebug",
-                    "type": "Button",
-                    "id": "418ac778-6205-4fa9-815c-b5e762284348",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "b466ba13-f2cf-4ef2-aad9-28399aa148ff",
-                    "path": "<Keyboard>/f9",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "OpenDebug",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,3 +1,5 @@
+using TMPro;
+
 public class PlayerModHandler {
     PlayerRuntimeStats _config;
 
@@ -6,18 +8,18 @@ public class PlayerModHandler {
     }
 
     public void OnSpawn() {
-        foreach(var mod in _config.Mods) { mod?.OnInitialize(); }
+        foreach ( var mod in _config.Mods ) { mod.OnInitialize(); }
     }
 
     public void OnTick() {
-        foreach ( var mod in _config.Mods ) { mod?.OnTick(); }
+        foreach ( var mod in _config.Mods ) { mod.OnTick(); }
     }
 
     public void OnDamage() {
-        foreach ( var mod in _config.Mods ) { mod?.OnDamage(); }
+        foreach ( var mod in _config.Mods ) { mod.OnDamage(); }
     }
 
     public void OnDash() {
-        foreach ( var mod in _config.Mods ) { mod?.OnDash(); }
+        foreach ( var mod in _config.Mods ) { mod.OnDash(); }
     }
 }

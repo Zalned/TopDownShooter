@@ -2,7 +2,6 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class LobbyView : NetworkBehaviour {
     [SerializeField] private GameObject _lobbyObject;
@@ -13,7 +12,7 @@ public class LobbyView : NetworkBehaviour {
     public Button StartButton => _startButton;
     public TextMeshProUGUI WaitingHostText => _waitingHostText;
 
-    [ ClientRpc]
+    [ClientRpc]
     public void ShowClientRpc() {
         _lobbyObject.SetActive( true );
     }

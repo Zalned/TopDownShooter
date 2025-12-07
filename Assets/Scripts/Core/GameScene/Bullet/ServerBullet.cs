@@ -21,6 +21,7 @@ public class ServerBullet : MonoBehaviour {
 
     public event Action<GameObject> DestroyRequest;
     private float _age = 0;
+    private bool _isInitialized = false; // MyNote: Использутся потому что ModHandler почему-то не инициализирован раньше его вызовов
 
     public void Construct( BulletRuntimeStats config, ulong ownerID, Quaternion rotation ) {
         _config = config;
@@ -34,6 +35,10 @@ public class ServerBullet : MonoBehaviour {
 
         InitializeProjectileState();
         CheckOnSpawnInObject();
+        _isInitialized = true;
+
+        BulletContext bulletContext = new( gameObject, config );
+        _modHandler = new( bulletContext );
         _modHandler.OnSpawn();
     }
 
@@ -52,7 +57,10 @@ public class ServerBullet : MonoBehaviour {
         IncreaseAge();
         HandleLifetime();
         SyncPosition();
-        _modHandler.OnTick();
+
+        if ( _isInitialized ) {
+            _modHandler.OnTick();
+        }
     }
 
     private void CheckOnSpawnInObject() {
@@ -164,7 +172,10 @@ public class ServerBullet : MonoBehaviour {
 
     private void HandleHit( Transform hit ) {
         PlayHitAudio();
-        _modHandler.OnHit( hit );
+
+        if ( _isInitialized ) {
+            _modHandler.OnHit( hit );
+        }
     }
 
     private void PlayHitAudio() {
@@ -187,7 +198,11 @@ public class ServerBullet : MonoBehaviour {
 
     private void HandleDestroy() {
         _state.IsActive = false;
-        _modHandler.OnDestroy();
+
+        if ( _isInitialized ) {
+            _modHandler.OnDestroy();
+        }
+
         DestroyRequest.Invoke( gameObject );
     }
 }

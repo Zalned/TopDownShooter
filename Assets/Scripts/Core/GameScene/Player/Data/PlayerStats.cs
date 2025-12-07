@@ -1,18 +1,18 @@
 using UnityEngine;
 
 public enum PlayerStatType {
-    MaxHealth, 
+    MaxHealth,
     Speed,
-    DashTime, 
-    DashLength, 
+    DashTime,
+    DashLength,
     DashCount,
     ReloadTime
 }
 
 public enum BulletStatType {
-    Damage, 
-    Speed, 
-    Lifetime, 
+    Damage,
+    Speed,
+    Lifetime,
     Radius,
     RicochetCount,
     PenetrationCount,
@@ -30,51 +30,46 @@ public class PlayerStats {
     }
 
     public void ApplyPlayerModifier( PlayerStatType type, float value ) {
-        PlayerRuntimeStats runtimeStats = new();
+        var stats = RuntimeConfig.Player;
         switch ( type ) {
-            case PlayerStatType.MaxHealth: runtimeStats.MaxHealth += value; break;
-            case PlayerStatType.Speed: runtimeStats.Speed += value; break;
-            case PlayerStatType.DashLength: runtimeStats.DashLength += value; break;
-            case PlayerStatType.ReloadTime: runtimeStats.ReloadTime += value; break;
+            case PlayerStatType.MaxHealth: stats.MaxHealth += value; break;
+            case PlayerStatType.Speed: stats.Speed += value; break;
+            case PlayerStatType.DashLength: stats.DashLength += value; break;
+            case PlayerStatType.ReloadTime: stats.ReloadTime += value; break;
         }
-        RuntimeConfig.SetPlayerRuntimeStats( runtimeStats );
     }
 
     public void ApplyPlayerModifier( PlayerStatType type, int count ) {
-        PlayerRuntimeStats runtimeStats = new();
+        var stats = RuntimeConfig.Player;
         switch ( type ) {
-            case PlayerStatType.DashCount: runtimeStats.DashCount += count; break;
+            case PlayerStatType.DashCount: stats.DashCount += count; break;
         }
-        RuntimeConfig.SetPlayerRuntimeStats( runtimeStats );
     }
 
     public void ApplyBulletModifier( BulletStatType type, float value ) {
-        BulletRuntimeStats runtimeStats = new();
+        var stats = RuntimeConfig.Bullet;
         switch ( type ) {
-            case BulletStatType.Damage: runtimeStats.Damage += value; break;
-            case BulletStatType.Speed: runtimeStats.Speed += value; break;
-            case BulletStatType.Lifetime: runtimeStats.Lifetime += value; break;
-            case BulletStatType.Radius: runtimeStats.Radius += value; break;
-            case BulletStatType.Scale: runtimeStats.Scale += value; break;
+            case BulletStatType.Damage: stats.Damage += value; break;
+            case BulletStatType.Speed: stats.Speed += value; break;
+            case BulletStatType.Lifetime: stats.Lifetime += value; break;
+            case BulletStatType.Radius: stats.Radius += value; break;
+            case BulletStatType.Scale: stats.Scale += value; break;
 
         }
-        RuntimeConfig.SetBulletRuntimeStats( runtimeStats );
     }
 
     public void ApplyBulletModifier( BulletStatType type, int count ) {
-        BulletRuntimeStats runtimeStats = new();
+        var stats = RuntimeConfig.Bullet;
         switch ( type ) {
-            case BulletStatType.RicochetCount: runtimeStats.RicochetCount += count; break;
-            case BulletStatType.PenetrationCount: runtimeStats.PenetrationCount += count; break;
+            case BulletStatType.RicochetCount: stats.RicochetCount += count; break;
+            case BulletStatType.PenetrationCount: stats.PenetrationCount += count; break;
         }
-        RuntimeConfig.SetBulletRuntimeStats( runtimeStats );
     }
 
     public void ApplyBulletModifier( BulletStatType type, bool active ) {
-        BulletRuntimeStats runtimeStats = new();
+        var stats = RuntimeConfig.Bullet;
         switch ( type ) {
-            case BulletStatType.RicochetCount: runtimeStats.HasSplash = active; break;
+            case BulletStatType.RicochetCount: stats.HasSplash = active; break;
         }
-        RuntimeConfig.SetBulletRuntimeStats( runtimeStats );
     }
 }

@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine;
 
-public struct PlayerRuntimeStats {
-    public List<IPlayerMod> Mods;
+public class PlayerRuntimeStats {
+    public List<IPlayerMod> Mods = new();
     public float MaxHealth;
     public float Speed;
     public int MaxAmmoCount;
@@ -14,7 +13,7 @@ public struct PlayerRuntimeStats {
 
     public float DashTime;
 
-    public void SetStats( BasePlayerConfigSO basePlayerCfg ) {
+    public PlayerRuntimeStats( BasePlayerConfigSO basePlayerCfg ) {
         MaxHealth = basePlayerCfg.baseHealth;
         Speed = basePlayerCfg.baseSpeed;
 

@@ -1,12 +1,9 @@
 using System;
-using UnityEngine;
 using Zenject;
 
 public class PlayerDieHandler : IDisposable {
     private SessionPlayerManager _sessionPlayerManager;
     private PlayerSpawnService _playerSpawnService;
-
-    private IDisposable _subscription;
 
     [Inject]
     public PlayerDieHandler(
@@ -15,15 +12,15 @@ public class PlayerDieHandler : IDisposable {
         _sessionPlayerManager = sessionPlayerManager;
         _playerSpawnService = playerSpawn;
 
-        _subscription = EventBus.Subscribe<PlayerDiedEvent>( e => HandlePlayerDie( e.id, e.playerObj ) );
+        EventBus.Subscribe<PlayerDiedEvent>( HandlePlayerDie );
     }
     public void Dispose() {
-        _subscription.Dispose();
+        EventBus.Subscribe<PlayerDiedEvent>( HandlePlayerDie );
     }
 
-    private void HandlePlayerDie( ulong id, GameObject playerObj ) {
-        _sessionPlayerManager.RemoveLivePlayer( id );
-        _sessionPlayerManager.AddDeadPlayer( id, playerObj );
-        _playerSpawnService.DespawnPlayerOnMap( playerObj );
+    private void HandlePlayerDie( PlayerDiedEvent evt ) {
+        _sessionPlayerManager.RemoveLivePlayer( evt.id );
+        _sessionPlayerManager.AddDeadPlayer( evt.id, evt.playerObj );
+        _playerSpawnService.DespawnPlayerOnMap( evt.playerObj );
     }
 }

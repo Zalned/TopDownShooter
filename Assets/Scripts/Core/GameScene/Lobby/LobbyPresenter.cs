@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class LobbyPresenter : MonoBehaviour {
     [SerializeField] private LobbyView _view;
     private NetworkPlayerManager _playerManager;

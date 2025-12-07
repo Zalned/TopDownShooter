@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24081c9dc8a3f6448bc8e84a7d413bac, type: 3}
   m_Name: BulletConfig
   m_EditorClassIdentifier: Assembly-CSharp::BaseBulletConfigSO
-  baseDamage: 25
-  baseSpeed: 40
-  baseLifetime: 3
-  baseRadius: 0.2
+  damage: 25
+  speed: 35
+  lifetime: 5
+  radius: 0.1
+  penetrationCount: 0
+  bounceCount: 3
+  scale: 0
+  hasSplash: 0

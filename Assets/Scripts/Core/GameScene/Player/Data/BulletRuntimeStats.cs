@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
-public struct BulletRuntimeStats {
-    public List<IBulletMod> Mods;
+public class BulletRuntimeStats {
+    public List<IBulletMod> Mods = new();
     public float Damage;
     public float Speed;
     public float Lifetime;
@@ -11,7 +11,7 @@ public struct BulletRuntimeStats {
     public float Scale;
     public bool HasSplash;
 
-    public void SetStats( BaseBulletConfigSO baseBulletCfg ) {
+    public BulletRuntimeStats( BaseBulletConfigSO baseBulletCfg ) {
         Damage = baseBulletCfg.damage;
         Speed = baseBulletCfg.speed;
         Lifetime = baseBulletCfg.lifetime;

@@ -54,13 +54,14 @@ public class GameFlowController : IDisposable {
         _roundManager.OnRoundEnd += HandleRoundEnd;
         _roundManager.OnPlayerWin += HandlePlayerWinGame;
 
+        DebugEvents.OnEndRoundBtn += HandleRoundEnd;
         EventBus.Subscribe<StartButtonClicked>( OnStartRequested );
     }
 
     public void Dispose() {
-        EventBus.Unsubscribe<StartButtonClicked>( OnStartRequested );
         _roundManager.OnRoundEnd -= HandleRoundEnd;
         _roundManager.OnPlayerWin -= HandlePlayerWinGame;
+        EventBus.Unsubscribe<StartButtonClicked>( OnStartRequested );
     }
 
     private void OnStartRequested( StartButtonClicked e ) {

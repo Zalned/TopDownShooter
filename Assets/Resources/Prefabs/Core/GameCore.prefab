@@ -329,7 +329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2730622039190971025}
   - component: {fileID: 5377171864139492000}
-  - component: {fileID: 3858985936875938197}
+  - component: {fileID: 7981210694005261796}
   - component: {fileID: 8596821018756569543}
   m_Layer: 0
   m_Name: Card
@@ -372,7 +372,7 @@ MonoBehaviour:
   - {fileID: 2822571493951403192, guid: 0373d2393541f744fb0914234c545c1a, type: 3}
   - {fileID: 2822571493951403192, guid: b89fc3ef46ab20346bdfc9b37b117a94, type: 3}
   - {fileID: 2822571493951403192, guid: aa0afcdf18bebc7419eedbf34bab55be, type: 3}
---- !u!114 &3858985936875938197
+--- !u!114 &7981210694005261796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardPickView
   _cardManager: {fileID: 5377171864139492000}
-  _cardPickController: {fileID: 3858985936875938197}
+  _cardPickController: {fileID: 7981210694005261796}
   _menu: {fileID: 6716916898120097183}
   _pickMenu: {fileID: 8107680008707612284}
   _waitingMenu: {fileID: 945756643934968810}
@@ -470,8 +470,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Waiting Host
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2ab5858ca13707f4fb7b170d9dad37b7, type: 2}
-  m_sharedMaterial: {fileID: 5155630682436557435, guid: 2ab5858ca13707f4fb7b170d9dad37b7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+  m_sharedMaterial: {fileID: 236633589708143758, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -903,7 +903,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -969,7 +969,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2606420818590081715
@@ -1323,7 +1323,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1389,7 +1389,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3928775508326312451
@@ -1459,8 +1459,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Not initialized
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2ab5858ca13707f4fb7b170d9dad37b7, type: 2}
-  m_sharedMaterial: {fileID: 5155630682436557435, guid: 2ab5858ca13707f4fb7b170d9dad37b7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+  m_sharedMaterial: {fileID: 236633589708143758, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2135,8 +2135,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 418ac778-6205-4fa9-815c-b5e762284348
-    m_ActionName: 'Debug/OpenDebug[/Keyboard/f9]'
+    m_ActionId: b5c3db25-2ce7-4816-af26-f626bd23c51a
+    m_ActionName: 'Player/OpenDebugPanel[/Keyboard/f9]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3571,6 +3571,18 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5706028933053963694, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3683,6 +3695,18 @@ PrefabInstance:
     - target: {fileID: 1159441473275942612, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Name
       value: HudPlayerCell (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5706028933053963694, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Pivot.x
@@ -3797,6 +3821,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HudPlayerCell (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5706028933053963694, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3909,6 +3945,18 @@ PrefabInstance:
     - target: {fileID: 1159441473275942612, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Name
       value: HudPlayerCell (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5706028933053963694, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Pivot.x
@@ -4023,6 +4071,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HudPlayerCell (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5706028933053963694, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4135,6 +4195,18 @@ PrefabInstance:
     - target: {fileID: 1159441473275942612, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Name
       value: HudPlayerCell (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5706028933053963694, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Pivot.x
@@ -4249,6 +4321,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HudPlayerCell (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5706028933053963694, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4361,6 +4445,18 @@ PrefabInstance:
     - target: {fileID: 1159441473275942612, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Name
       value: HudPlayerCell (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5706028933053963694, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Pivot.x
@@ -4834,6 +4930,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HudPlayerCell (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5706028933053963694, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4946,6 +5054,18 @@ PrefabInstance:
     - target: {fileID: 1159441473275942612, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Name
       value: HudPlayerCell (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7973d0cec21be974ebd09f8b2e898825, type: 2}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791674492378564810, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5706028933053963694, guid: cc8cc036097056245aa80c7c9ae2bf3d, type: 3}
       propertyPath: m_Pivot.x
