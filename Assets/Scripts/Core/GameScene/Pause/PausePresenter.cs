@@ -23,39 +23,46 @@ public class PausePresenter : MonoBehaviour {
     public void OnShowPauseMenuBtn( InputAction.CallbackContext context ) {
         if ( context.performed ) {
             if ( _isPauseOpened ) {
-                _view.Hide();
-                _isPauseOpened = false;
+                HandlePauseClose();
             } else {
-                _view.Show();
-                _isPauseOpened = true;
+                HandlePauseOpen();
             }
         }
     }
 
     private void OnResumeButton() {
-        _isPauseOpened = false;
-        _view.Hide();
+        HandlePauseClose();
     }
 
     private void OnOpenSettingsButton() {
         EventBus.Publish( new SettingsOpenEvent() );
-        _isPauseOpened = false;
-        _view.Hide();
+        HandlePauseClose();
     }
 
-    private void OnStopGameButton() { 
+    private void OnStopGameButton() {
         EventBus.Publish( new StopGameButtonEvent() );
-        _isPauseOpened = false;
-        _view.Hide();
+        HandlePauseClose();
     }
 
-    private void OnQuitButton() { 
+    private void OnQuitButton() {
         EventBus.Publish( new ExitGameButtonEvent() );
     }
 
     private void HandleClientState() {
-        if ( NetcodeHelper.IsClient ) {
+        if ( NetcodeHelper.IsHost ) {
+            _view.StopGameButton.gameObject.SetActive( true );
+        } else {
             _view.StopGameButton.gameObject.SetActive( false );
         }
+    }
+
+    private void HandlePauseClose() {
+        _isPauseOpened = false;
+        _view.Hide();
+    }
+
+    private void HandlePauseOpen() {
+        _view.Show();
+        _isPauseOpened = true;
     }
 }
