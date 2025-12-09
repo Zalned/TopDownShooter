@@ -5,12 +5,12 @@ public class ReloadSO : ModSO {
     [Range( 0f, 1f )]
     public float Multiplier = 1f;
 
-    public override ISimpleMod CreateRuntime() {
+    public override IMod CreateRuntime() {
         return new ReloadMod( Multiplier );
     }
 }
 
-public class ReloadMod : ISimpleMod {
+public class ReloadMod : IMod {
     private readonly float _mult;
     private PlayerStats _stats;
 

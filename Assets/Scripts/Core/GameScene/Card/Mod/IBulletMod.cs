@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IBulletMod : ISimpleMod {
+public interface IBulletMod : IMod {
     void OnSpawn() { }
     void OnTick() { }
     void OnHit( Transform hit ) { }

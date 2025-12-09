@@ -11,17 +11,16 @@ public class PlayerModel {
     public List<IBulletMod> BulletMods => PlayerStats.RuntimeConfig.Bullet.Mods;
     public List<IPlayerMod> PlayerMods => PlayerStats.RuntimeConfig.Player.Mods;
 
-    public void SetCards( List<CardSO> cards ) {
+    public void SetCards( List<CardData> cards ) {
         foreach ( var card in cards ) {
             AddCard( card );
         }
     }
 
-    private void AddCard( CardSO card ) {
-        Debug.Log( $"Add card: {card.Name}" );
+    private void AddCard( CardData card ) {
+        Debug.Log( $"Add card: {card.Title}" );
 
-        foreach ( var effectSO in card.Effects ) {
-            ISimpleMod mod = effectSO.CreateRuntime();
+        foreach ( var mod in card.Mods ) {
             mod.Install( PlayerStats, _ctx );
 
             if ( mod is IPlayerMod ) {

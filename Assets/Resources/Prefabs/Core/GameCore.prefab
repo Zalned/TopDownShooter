@@ -367,11 +367,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardManager
   ShowTopMostFoldoutHeaderGroup: 1
   _cardPickView: {fileID: 8596821018756569543}
-  _registredCards:
-  - {fileID: 2822571493951403192, guid: af764e29cc87cf745951be97c0b1f97e, type: 3}
-  - {fileID: 2822571493951403192, guid: 0373d2393541f744fb0914234c545c1a, type: 3}
-  - {fileID: 2822571493951403192, guid: b89fc3ef46ab20346bdfc9b37b117a94, type: 3}
-  - {fileID: 2822571493951403192, guid: aa0afcdf18bebc7419eedbf34bab55be, type: 3}
 --- !u!114 &7981210694005261796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1176,8 +1171,8 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 418ac778-6205-4fa9-815c-b5e762284348
-    m_ActionName: 'Debug/OpenDebug[/Keyboard/f9]'
+    m_ActionId: b5c3db25-2ce7-4816-af26-f626bd23c51a
+    m_ActionName: 'Player/OpenDebugPanel[/Keyboard/f9]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3553,6 +3548,7 @@ MonoBehaviour:
   _playerWinRoundView: {fileID: 22065584234354150}
   _playerWinGameView: {fileID: 6275649098644896099}
   _cardManager: {fileID: 5377171864139492000}
+  _cardPickHandler: {fileID: 7981210694005261796}
 --- !u!1001 &336873305611372401
 PrefabInstance:
   m_ObjectHideFlags: 0

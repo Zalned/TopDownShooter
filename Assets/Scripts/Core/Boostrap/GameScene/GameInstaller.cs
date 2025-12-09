@@ -9,6 +9,7 @@ public class GameInstaller : MonoInstaller {
     [SerializeField] private PlayerWinGameView _playerWinGameView;
 
     [SerializeField] private CardManager _cardManager;
+    [SerializeField] private CardPickHandler _cardPickHandler;
 
     public override void InstallBindings() {
         Container.Bind<ITickService>().To<TickService>().AsSingle().NonLazy();
@@ -32,9 +33,9 @@ public class GameInstaller : MonoInstaller {
             Container.Bind<PlayerSpawnService>().AsSingle();
             Container.Bind<PlayerDieHandler>().AsSingle().NonLazy();
 
-            Container.Bind<ExplosionService>().AsSingle();
-            Container.Bind<CardPickService>().AsSingle().NonLazy();
+            Container.Bind<CardPickHandler>().FromInstance( _cardPickHandler ).AsSingle().NonLazy();
             Container.Bind<CardContext>().AsSingle();
+            Container.Bind<ExplosionService>().AsSingle();
         }
 
         Container.BindInterfacesAndSelfTo<GameBootstrap>().AsSingle();

@@ -5,12 +5,12 @@ public class HealthSO : ModSO {
     [Range( 0f, 1f )]
     public float Multiplier = 0f;
 
-    public override ISimpleMod CreateRuntime() {
+    public override IMod CreateRuntime() {
         return new HealthMod( Multiplier );
     }
 }
 
-public class HealthMod : ISimpleMod {
+public class HealthMod : IMod {
     private readonly float _mult;
     private PlayerStats _stats;
 

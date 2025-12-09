@@ -1,0 +1,1 @@
+public record PlayerCardPickEvent( ulong playerID, int CardId );

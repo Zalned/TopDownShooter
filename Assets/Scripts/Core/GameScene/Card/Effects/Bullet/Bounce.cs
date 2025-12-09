@@ -4,12 +4,12 @@ using UnityEngine;
 public class BounceSO : ModSO {
     public int Count = 0;
 
-    public override ISimpleMod CreateRuntime() {
+    public override IMod CreateRuntime() {
         return new BounceMod( Count );
     }
 }
 
-public class BounceMod : ISimpleMod {
+public class BounceMod : IMod {
     private readonly float _count;
     private PlayerStats _stats;
 

@@ -4,12 +4,12 @@ using UnityEngine;
 public class DamageSO : ModSO {
     public float Multiplier = 0f;
 
-    public override ISimpleMod CreateRuntime() {
+    public override IMod CreateRuntime() {
         return new DamageMod( Multiplier );
     }
 }
 
-public class DamageMod : ISimpleMod {
+public class DamageMod : IMod {
     private readonly float _mult;
     private PlayerStats _stats;
 

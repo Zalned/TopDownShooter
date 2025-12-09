@@ -4,12 +4,12 @@ using UnityEngine;
 public class PenetrationSO : ModSO {
     public int Count = 0;
 
-    public override ISimpleMod CreateRuntime() {
+    public override IMod CreateRuntime() {
         return new BounceMod( Count );
     }
 }
 
-public class PenetrationMod : ISimpleMod {
+public class PenetrationMod : IMod {
     private readonly float _count;
     private PlayerStats _stats;
 

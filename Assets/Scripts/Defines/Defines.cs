@@ -9,6 +9,7 @@ public static class Defines {
         public const string BULLET_PREFAB = "Prefabs/Bullet/Bullet";
         public const string CLIENT_BULLET_PREFAB = "Prefabs/Bullet/ClientBullet";
         public const string PLAYER_CAMERA_PREFAB = "Prefabs/Camera/PlayerCamera";
+        public const string CARD_PREFAB = "Prefabs/Card/Card";
     }
 
     public static class ConfigPaths {

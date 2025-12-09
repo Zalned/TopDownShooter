@@ -20,7 +20,7 @@ public class PlayerController : NetworkBehaviour {
         var cardManager = container.Resolve<CardManager>();
 
         Model = new();
-        Model.SetCards( cardManager.GetCardSOsByIds( cardsIDs ) );
+        Model.SetCards( cardManager.GetRegistredCardsByIDs( cardsIDs ) );
 
         PlayerContext playerContext = new( gameObject, Model.PlayerStats.RuntimeConfig.Player );
         _modHandler = new( playerContext );

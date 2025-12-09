@@ -9,11 +9,13 @@ public class GameBootstrap : IInitializable, ITickable {
 
             var playerManager = container.Resolve<NetworkPlayerManager>();
             var lobbyPresenter = container.Resolve<LobbyPresenter>();
-            var cardManager = container.Resolve<CardManager>();
             var sessionPlayerManager = container.Resolve<SessionPlayerManager>();
+            var cardManager = container.Resolve<CardManager>();
+            var cardPickHandler = container.Resolve<CardPickHandler>();
 
             lobbyPresenter.Initialize( playerManager );
             cardManager.Initialize( sessionPlayerManager );
+            cardPickHandler.Initialize( sessionPlayerManager );
         }
     }
 }

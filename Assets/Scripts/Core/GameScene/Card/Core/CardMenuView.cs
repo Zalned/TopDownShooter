@@ -1,24 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CardMenuView : MonoBehaviour {
     [SerializeField] private CardManager _cardManager;
-    [SerializeField] private CardPickController _cardPickController;
+    [SerializeField] private CardPickHandler _cardPickController;
     [Space]
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _pickMenu;
     [SerializeField] private GameObject _waitingMenu;
     [SerializeField] private HorizontalLayoutGroup _horizontalLayout;
 
-    public void InstallCards( int[] cardIDs ) {
-        for ( int i = 0; i < cardIDs.Length; i++ ) {
+    private static GameObject _cardPrefab;
+
+    private void Awake() {
+        _cardPrefab = Resources.Load<GameObject>( Defines.ObjectPaths.CARD_PREFAB );
+    }
+
+    public void InstallRandomCards( int[] cardIDs ) {
+        for ( ushort i = 0; i < cardIDs.Length; i++ ) {
             var cardID = cardIDs[ i ];
-            var cardPrefab = _cardManager.GetCardByID( cardID ).gameObject;
-            var card = Instantiate( cardPrefab, _horizontalLayout.transform );
+            var card = Instantiate( _cardPrefab, _horizontalLayout.transform );
+
+            var cardData = _cardManager.GetRegistredCardByID( i );
 
             var cardComponent = card.GetComponent<Card>();
-            cardComponent.Init( _cardPickController );
-            cardComponent.SetCardId( (ushort)cardID );
+            cardComponent.Init( cardData, _cardPickController, cardID );
         }
     }
 
@@ -28,24 +35,12 @@ public class CardMenuView : MonoBehaviour {
         }
     }
 
-    public void Show() {
-        _menu.SetActive( true );
-    }
-    public void Hide() {
-        _menu.SetActive( false );
-    }
+    public void Show() { _menu.SetActive( true ); }
+    public void Hide() { _menu.SetActive( false ); }
 
-    public void ShowPickMenu() {
-        _pickMenu.SetActive( true );
-    }
-    public void HidePickMenu() {
-        _pickMenu.SetActive( false );
-    }
+    public void ShowPickMenu() { _pickMenu.SetActive( true ); }
+    public void HidePickMenu() { _pickMenu.SetActive( false ); }
 
-    public void ShowWaitingMenu() {
-        _waitingMenu.SetActive( true );
-    }
-    public void HideWaitingMenu() {
-        _waitingMenu.SetActive( false );
-    }
+    public void ShowWaitingMenu() { _waitingMenu.SetActive( true ); }
+    public void HideWaitingMenu() { _waitingMenu.SetActive( false ); }
 }

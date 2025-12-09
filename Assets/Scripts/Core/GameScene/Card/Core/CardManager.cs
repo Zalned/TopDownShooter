@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class CardManager : NetworkBehaviour {
     [SerializeField] private CardMenuView _cardPickView;
-    [Space]
-    [SerializeField] private List<GameObject> _registredCards = new();
 
+    private List<CardData> _registredCards = new();
     private SessionPlayerManager _sessionPlayerManager;
 
     private int _maxCardsToChoose;
     private CardListGenerator _cardListGenerator = new();
 
     public void Initialize( SessionPlayerManager sessionPlayerManager ) {
+        _registredCards = CardDataManager.GetCardDatas();
         _sessionPlayerManager = sessionPlayerManager;
 
         var sessionConfig = Resources.Load<SessionConfigSO>( Defines.ConfigPaths.SESSION_CONFIG );
@@ -23,6 +23,20 @@ public class CardManager : NetworkBehaviour {
             EventBus.Subscribe<PlayerCardPickEvent>( HandlePlayerChoseCardFromServer );
             DebugEvents.OnShowCardPickViewBtn += StartCardChooseFromServer; // DEBUG
         }
+    }
+
+    public CardData GetRegistredCardByID( int id ) {
+        return _registredCards[ id ];
+    }
+
+    public List<CardData> GetRegistredCardsByIDs( int[] ids ) {
+        List<CardData> cards = new List<CardData>();
+        if ( ids == null ) { return cards; }
+
+        foreach ( var id in ids ) {
+            cards.Add( GetRegistredCardByID( id ) );
+        }
+        return cards;
     }
 
     public override void OnDestroy() {
@@ -62,9 +76,9 @@ public class CardManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    private void SendCardsIDsTargetClientRpc( ulong playerID, int[] cardSoIDs ) {
+    private void SendCardsIDsTargetClientRpc( ulong playerID, int[] cardDataIds ) {
         if ( NetcodeHelper.LocalClientId == playerID ) {
-            _cardPickView.InstallCards( cardSoIDs );
+            _cardPickView.InstallRandomCards( cardDataIds );
         }
     }
 
@@ -104,30 +118,5 @@ public class CardManager : NetworkBehaviour {
             _cardPickView.HidePickMenu();
             _cardPickView.ShowWaitingMenu();
         }
-    }
-
-    public Card GetCardByID( int id ) {
-        return _registredCards[ id ].GetComponent<Card>();
-    }
-
-    public List<Card> GetCardsByIDs( int[] ids ) {
-        List<Card> cards = new();
-        foreach ( var id in ids ) {
-            cards.Add( GetCardByID( id ) );
-        }
-        return cards;
-    }
-
-    public CardSO GetCardSoById( int id ) {
-        return _registredCards[ id ].GetComponent<Card>().CardSO;
-    }
-
-    public List<CardSO> GetCardSOsByIds( int[] ids ) {
-        if ( ids == null ) return new List<CardSO>();
-        List<CardSO> cardSOs = new();
-        foreach ( var id in ids ) {
-            cardSOs.Add( GetCardSoById( id ) );
-        }
-        return cardSOs;
     }
 }
