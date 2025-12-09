@@ -1,4 +1,4 @@
 using System;
 
-public record SettingsOpenedEvent();
-public record SettingsClosedEvent();
+public record SettingsOpenEvent();
+public record SettingsCloseEvent();

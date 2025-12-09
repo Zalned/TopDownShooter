@@ -14,7 +14,7 @@ public class SettingsPresenter : IDisposable {
         _view.CloseBtn.onClick.AddListener( OnCloseBtnClicked );
         _view.EffectVolumeSlider.onValueChanged.AddListener( OnEffectsVolumeChanged );
 
-        _onSettingsOpenedSub = EventBus.Subscribe<SettingsOpenedEvent>( e => _view.Show() );
+        _onSettingsOpenedSub = EventBus.Subscribe<SettingsOpenEvent>( e => _view.Show() );
     }
 
     public void Dispose() {

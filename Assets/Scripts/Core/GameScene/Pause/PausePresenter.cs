@@ -38,19 +38,19 @@ public class PausePresenter : MonoBehaviour {
     }
 
     private void OnOpenSettingsButton() {
-        EventBus.Publish( new SettingsOpenedEvent() );
+        EventBus.Publish( new SettingsOpenEvent() );
         _isPauseOpened = false;
         _view.Hide();
     }
 
-    private void OnStopGameButton() { // MyTodo
-        //GameEvents.OnStopGameBtn.Invoke();
-        //_isPauseOpened = false;
-        //_view.Hide();
+    private void OnStopGameButton() { 
+        EventBus.Publish( new StopGameButtonEvent() );
+        _isPauseOpened = false;
+        _view.Hide();
     }
 
-    private void OnQuitButton() { // MyTodo
-        //GameEvents.OnQuitToMenuBtn.Invoke();
+    private void OnQuitButton() { 
+        EventBus.Publish( new ExitGameButtonEvent() );
     }
 
     private void HandleClientState() {

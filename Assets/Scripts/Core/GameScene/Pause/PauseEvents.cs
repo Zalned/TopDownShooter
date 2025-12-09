@@ -1,2 +1,2 @@
-public record OnStopGameButtonClicked;
-public record OnExitGameButtonClicked;
+public record StopGameButtonEvent;
+public record ExitGameButtonEvent;
