@@ -19,7 +19,7 @@ public class PlayerController : NetworkBehaviour {
         var bulletManager = container.Resolve<BulletManager>();
         var cardManager = container.Resolve<CardManager>();
 
-        Model = new();
+        Model = new( OwnerClientId );
         Model.SetCards( cardManager.GetRegistredCardsByIDs( cardsIDs ) );
 
         PlayerContext playerContext = new( gameObject, Model.PlayerStats.RuntimeConfig.Player );
@@ -35,7 +35,7 @@ public class PlayerController : NetworkBehaviour {
         _playerDash.Initialize( Model.PlayerStats.RuntimeConfig );
 
         TickService.OnTick += Tick;
-        _playerShoot.OnShot += OnShoot;
+        _playerShoot.OnShot += OnShot;
         _playerDash.OnDash += OnDash;
 
         _modHandler.OnSpawn();
@@ -47,7 +47,7 @@ public class PlayerController : NetworkBehaviour {
     }
     public override void OnDestroy() {
         TickService.OnTick -= Tick;
-        _playerShoot.OnShot -= OnShoot;
+        _playerShoot.OnShot -= OnShot;
         _playerDash.OnDash -= OnDash;
     }
 
@@ -59,6 +59,7 @@ public class PlayerController : NetworkBehaviour {
 
     public void TakeDamage( float damage ) {
         Model.CurrentHealth.Value -= damage;
+        _modHandler.OnDamage();
     }
 
     public void HandleDie() {
@@ -66,8 +67,9 @@ public class PlayerController : NetworkBehaviour {
         NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.PlayerDie, transform.position );
     }
 
-    private void OnShoot() {
+    private void OnShot() {
         NetworkAudioManager.Instance.PlayClipAtPointServerRpc( Sounds.PlayerShoot, transform.position );
+        _modHandler.OnShoot();
     }
 
     private void OnDash() {

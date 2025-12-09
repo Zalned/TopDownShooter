@@ -54,7 +54,6 @@ public class PlayerStats {
             case BulletStatType.Lifetime: stats.Lifetime += value; break;
             case BulletStatType.Radius: stats.Radius += value; break;
             case BulletStatType.Scale: stats.Scale += value; break;
-
         }
     }
 

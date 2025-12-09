@@ -1,14 +1,3 @@
-using UnityEngine;
-
-[CreateAssetMenu( fileName = "DamageMod", menuName = "BulletMods/Damage" )]
-public class DamageSO : ModSO {
-    public float Multiplier = 0f;
-
-    public override IMod CreateRuntime() {
-        return new DamageMod( Multiplier );
-    }
-}
-
 public class DamageMod : IMod {
     private readonly float _mult;
     private PlayerStats _stats;

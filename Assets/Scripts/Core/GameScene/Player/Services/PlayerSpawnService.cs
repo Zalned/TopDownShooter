@@ -1,18 +1,23 @@
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class PlayerSpawnService {
     private readonly NetworkPlayerManager _playerManager;
     private readonly MapService _mapService;
     private readonly SessionPlayerManager _sessionPlayerManager;
+    private readonly PlayerInitializer _playerInitializer;
 
+    [Inject]
     public PlayerSpawnService(
         NetworkPlayerManager playerManager,
         MapService mapService,
-        SessionPlayerManager sessionPlayerManager ) {
+        SessionPlayerManager sessionPlayerManager,
+        PlayerInitializer playerInitializer ) {
         _playerManager = playerManager;
         _mapService = mapService;
         _sessionPlayerManager = sessionPlayerManager;
+        _playerInitializer = playerInitializer;
     }
 
     public void SpawnPlayersOnMap() {
@@ -31,12 +36,7 @@ public class PlayerSpawnService {
         GameObject playerObj = Object.Instantiate( playerPrefab, spawnPosition, Quaternion.identity );
         NetcodeHelper.SpawnAsPlayerObject( playerObj, id, true );
 
-        var data = _playerManager.GetPlayerById( NetcodeHelper.GetOwnerClientID( playerObj ) );
-        var activePlayer = _sessionPlayerManager.GetActivePlayerByID( id );
-
-        var cardsIds = activePlayer.CardDeckIDs.ToArray();
-        playerObj.GetComponent<PlayerController>().InitalizeClientRpc( data, cardsIds );
-
+        _playerInitializer.InitializePlayer( playerObj, id );
         return (id, playerObj);
     }
 

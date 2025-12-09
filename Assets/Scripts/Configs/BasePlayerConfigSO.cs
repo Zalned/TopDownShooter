@@ -11,7 +11,7 @@ public class BasePlayerConfigSO : ScriptableObject {
 
     public int baseDashCount = 1;
     public float baseDashLenght = 4f;
-    public float baseDashCooldown = 2f;
+    public float DashReloadTime = 2f;
 
     // Не модифицирующиеся
     public float baseDashTime = 0.5f;

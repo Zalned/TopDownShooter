@@ -7,9 +7,9 @@ public class CardManager : NetworkBehaviour {
     [SerializeField] private CardMenuView _cardPickView;
 
     private List<CardData> _registredCards = new();
-    private SessionPlayerManager _sessionPlayerManager;
-
     private int _maxCardsToChoose;
+
+    private SessionPlayerManager _sessionPlayerManager;
     private CardListGenerator _cardListGenerator = new();
 
     public void Initialize( SessionPlayerManager sessionPlayerManager ) {
@@ -30,7 +30,7 @@ public class CardManager : NetworkBehaviour {
     }
 
     public List<CardData> GetRegistredCardsByIDs( int[] ids ) {
-        List<CardData> cards = new List<CardData>();
+        List<CardData> cards = new();
         if ( ids == null ) { return cards; }
 
         foreach ( var id in ids ) {
@@ -64,12 +64,12 @@ public class CardManager : NetworkBehaviour {
         foreach ( var activePlayerID in activePlayersIDs ) {
             if ( _sessionPlayerManager.LosePlayers.Keys.Contains( activePlayerID ) ) {
 
-                var cardIDs = _cardListGenerator.Generate( _maxCardsToChoose, _registredCards.Count );
-                SendCardsIDsTargetClientRpc( activePlayerID, cardIDs );
+                var cardIds = _cardListGenerator.Generate( _maxCardsToChoose, _registredCards.Count );
+                SendCardsIDsTargetClientRpc( activePlayerID, cardIds );
                 HandleLosePlayersStartChooseCardsTargetClientRpc( activePlayerID );
 
             } else {
-                // MyNote: Выполняем ту же логику что для игрока выбравшего карточку
+                // Выполняем ту же логику что для игрока выбравшего карточку
                 HandlePlayerChoseCardTargetClientRpc( activePlayerID );
             }
         }

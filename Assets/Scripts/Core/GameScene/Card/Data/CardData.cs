@@ -10,17 +10,16 @@ public class CardStat {
 }
 
 public class CardData {
-    public string Title;
-    public string Description;
-    public List<CardStat> CardStats;
-    public List<IMod> Mods;
-    public bool Enabled;
+    public string Title = "unknown";
+    public string Description = "unknown";
+    public List<CardStat> CardStats = new( new List<CardStat>() { new( "unknown", false ) } );
+    public List<IMod> Mods = new();
+    public bool Enabled = false;
 }
 
 public class CardDatas {
     public List<CardData> Cards = new() {
 
-        // Bullet
         { new() {
             Title = "Example", Description = "Example",
             Enabled = false,
@@ -28,6 +27,7 @@ public class CardDatas {
             CardStats = new() {new CardStat("Example", true) },}
         },
 
+         //Bullet
         { new() {
             Title = "Damage", Description = "Increase bullet damage",
             Enabled = true,

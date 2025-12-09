@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SessionConfig
   m_EditorClassIdentifier: Assembly-CSharp::SessionConfigSO
   _roundForWin: 4
-  _countCardToChoose: 2
+  _countCardToChoose: 3
   _timeToPickBonus: 60

@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour {
     private const int MAX_ZOOM = 16;
     private const float ZOOM_SPEED = 2;
 
-    private readonly Quaternion _cameraRotation = Quaternion.Euler( 90, 0, 0 );
+    private Quaternion _cameraRotation = Quaternion.Euler( 90, 0, 0 );
 
     private void LateUpdate() {
         UpdatePosition();
@@ -16,8 +16,8 @@ public class CameraController : MonoBehaviour {
 
     public void UpdatePosition() {
         Vector3 offset = new( 0, _currentZoom, 0 );
-        gameObject.transform.position = _target.position + offset;
-        gameObject.transform.rotation = _cameraRotation;
+        transform.position = _target.position + offset;
+        transform.rotation = _cameraRotation;
     }
 
     public void OnScroll( InputAction.CallbackContext context ) {

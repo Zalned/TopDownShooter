@@ -10,7 +10,7 @@ public class Card : MonoBehaviour {
     [Space]
     [SerializeField] private TextMeshProUGUI _cardStatTextExample;
 
-    private int _cardId;
+    private int _cardId = -1;
 
     private CardData _cardData;
     public CardData CardData => _cardData;
@@ -25,6 +25,7 @@ public class Card : MonoBehaviour {
     public void Init( CardData cardData, CardPickHandler controller, int cardId ) {
         _cardData = cardData;
         _controller = controller;
+        _cardId = cardId;
         _statsTextInitializer = new();
 
         _nameText.text = _cardData.Title;

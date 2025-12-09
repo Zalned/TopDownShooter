@@ -3,15 +3,24 @@ using UniRx;
 using UnityEngine;
 
 public class PlayerModel {
-    public PlayerStats PlayerStats = new();
+    public PlayerStats PlayerStats { get; private set; } = new();
     public ReactiveProperty<float> CurrentHealth;
 
-    private CardContext _ctx;
+    private ulong _playerId;
+    private CardContext _ctx; // MyTodo: Ќужно получать или инициализировать здесь
+
+    public PlayerModel( ulong playerId ) {
+        _playerId = playerId;
+        EventBus.Publish( new PlayerStatsChanged( _playerId, PlayerStats ) );
+    }
 
     public List<IBulletMod> BulletMods => PlayerStats.RuntimeConfig.Bullet.Mods;
     public List<IPlayerMod> PlayerMods => PlayerStats.RuntimeConfig.Player.Mods;
 
     public void SetCards( List<CardData> cards ) {
+        PlayerStats.RuntimeConfig.Player.Reset();
+        PlayerStats.RuntimeConfig.Bullet.Reset();
+
         foreach ( var card in cards ) {
             AddCard( card );
         }
@@ -30,5 +39,6 @@ public class PlayerModel {
                 PlayerStats.RuntimeConfig.Bullet.Mods.Add( (IBulletMod)mod );
             }
         }
+        EventBus.Publish( new PlayerStatsChanged( _playerId, PlayerStats ) );
     }
 }

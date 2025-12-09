@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
 
 public class PausePresenter : MonoBehaviour {
@@ -10,6 +11,7 @@ public class PausePresenter : MonoBehaviour {
         _view.OpenSettingsButton.onClick.AddListener( OnOpenSettingsButton );
         _view.StopGameButton.onClick.AddListener( OnStopGameButton );
         _view.QuitButton.onClick.AddListener( OnQuitButton );
+        EventBus.Subscribe<PlayerStatsChanged>( InitializeStatsText );
         HandleClientState();
     }
 
@@ -18,6 +20,7 @@ public class PausePresenter : MonoBehaviour {
         _view.OpenSettingsButton.onClick.RemoveListener( OnOpenSettingsButton );
         _view.StopGameButton.onClick.RemoveListener( OnStopGameButton );
         _view.QuitButton.onClick.RemoveListener( OnQuitButton );
+        EventBus.Unsubscribe<PlayerStatsChanged>( InitializeStatsText );
     }
 
     public void OnShowPauseMenuBtn( InputAction.CallbackContext context ) {
@@ -64,5 +67,11 @@ public class PausePresenter : MonoBehaviour {
     private void HandlePauseOpen() {
         _view.Show();
         _isPauseOpened = true;
+    }
+
+    private void InitializeStatsText( PlayerStatsChanged evt ) {
+        string buffer = $"{evt.playerStats.RuntimeConfig.Player.GetAsText()}" +
+                        $"\n{evt.playerStats.RuntimeConfig.Bullet.GetAsText()}";
+        _view.SetStatsText( buffer );
     }
 }

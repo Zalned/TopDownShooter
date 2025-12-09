@@ -18,14 +18,14 @@ public class CardMenuView : MonoBehaviour {
     }
 
     public void InstallRandomCards( int[] cardIDs ) {
-        for ( ushort i = 0; i < cardIDs.Length; i++ ) {
-            var cardID = cardIDs[ i ];
-            var card = Instantiate( _cardPrefab, _horizontalLayout.transform );
+        for ( int i = 0; i < cardIDs.Length; i++ ) {
+            var cardId = cardIDs[ i ];
+            var cardData = _cardManager.GetRegistredCardByID( cardId );
 
-            var cardData = _cardManager.GetRegistredCardByID( i );
+            var cardObj = Instantiate( _cardPrefab, _horizontalLayout.transform );
 
-            var cardComponent = card.GetComponent<Card>();
-            cardComponent.Init( cardData, _cardPickController, cardID );
+            var cardComponent = cardObj.GetComponent<Card>();
+            cardComponent.Init( cardData, _cardPickController, cardId );
         }
     }
 

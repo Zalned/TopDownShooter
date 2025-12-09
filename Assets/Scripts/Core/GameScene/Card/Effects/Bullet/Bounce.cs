@@ -1,14 +1,3 @@
-using UnityEngine;
-
-[CreateAssetMenu( fileName = "BounceMod", menuName = "BulletMods/Bounce" )]
-public class BounceSO : ModSO {
-    public int Count = 0;
-
-    public override IMod CreateRuntime() {
-        return new BounceMod( Count );
-    }
-}
-
 public class BounceMod : IMod {
     private readonly float _count;
     private PlayerStats _stats;

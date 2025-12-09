@@ -5,30 +5,36 @@ using UnityEngine.InputSystem;
 
 public class PlayerDash : NetworkBehaviour {
     [SerializeField] private PlayerInput _playerInput;
-    private PlayerRuntimeConfig _config;
+    private PlayerRuntimeStats _config;
     private LayerMask _wallLayerMask;
     private float _checkCollisionRadius = 0.25f;
 
     int _currentDashCount = 0;
     float _dashTimeAccumulated = 0;
-    float _cooldown = 0;
+
+    private float _reloadCycleAccumulatedTime = 0;
 
     private bool _inDash = false;
     public event Action OnDash;
 
     public void Initialize( PlayerRuntimeConfig config ) {
-        _config = config;
-        _currentDashCount = _config.Player.DashCount;
+        _config = config.Player;
+        _currentDashCount = _config.DashCount;
         _wallLayerMask = LayerMask.GetMask( Defines.Layers.Environment );
     }
 
     public void OnDashInput( InputAction.CallbackContext context ) {
         if ( !IsOwner ) return;
         if ( !context.performed ) return;
-        if ( _cooldown > 0 ) return;
+        if ( _currentDashCount <= 0 ) return;
 
+        HandleDash();
+    }
+
+    private void HandleDash() {
         _inDash = true;
-        _cooldown = _config.Player.DashCooldown;
+        _currentDashCount--;
+        _reloadCycleAccumulatedTime = 0;
         OnDash.Invoke();
     }
 
@@ -36,12 +42,12 @@ public class PlayerDash : NetworkBehaviour {
         if ( _inDash ) {
             MoveToTargetPosition();
         }
-        DecreaseCooldown();
+        ReloadCycle();
     }
 
     private void MoveToTargetPosition() {
-        if ( _dashTimeAccumulated <= _config.Player.DashTime ) {
-            Vector3 velocity = transform.forward * (_config.Player.DashLength / _config.Player.DashTime);
+        if ( _dashTimeAccumulated <= _config.DashTime ) {
+            Vector3 velocity = transform.forward * (_config.DashLength / _config.DashTime);
             var newPosition = transform.position + velocity * TickService.TickDeltaTime;
 
             if ( !Physics.CheckSphere( newPosition, _checkCollisionRadius, _wallLayerMask ) ) {
@@ -59,8 +65,13 @@ public class PlayerDash : NetworkBehaviour {
         }
     }
 
-    private void DecreaseCooldown() {
-        _cooldown -= TickService.TickDeltaTime;
-        _cooldown = Mathf.Clamp( _cooldown, 0, 999 );
+    private void ReloadCycle() {
+        if ( _currentDashCount >= _config.DashCount ) { return; }
+        _reloadCycleAccumulatedTime += TickService.TickDeltaTime;
+
+        if ( _reloadCycleAccumulatedTime >= _config.DashReloadTime ) {
+            _currentDashCount = _config.DashCount;
+            _reloadCycleAccumulatedTime = 0;
+        }
     }
 }
