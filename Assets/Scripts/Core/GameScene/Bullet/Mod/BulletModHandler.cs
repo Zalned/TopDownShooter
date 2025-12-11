@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class BulletModHandler {
     private BulletContext _ctx;
     private BulletRuntimeStats _config;
@@ -16,8 +14,8 @@ public class BulletModHandler {
         foreach ( var mod in _config.Mods ) { mod.OnTick(); }
     }
 
-    public void OnHit( Transform hit ) {
-        foreach ( var mod in _config.Mods ) { mod.OnHit( hit ); }
+    public void OnHit( BulletHitContext bulletHitContext ) {
+        foreach ( var mod in _config.Mods ) { mod.OnHit( bulletHitContext ); }
     }
 
     public void OnDestroy() {

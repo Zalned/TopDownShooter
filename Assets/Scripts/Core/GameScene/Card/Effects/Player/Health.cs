@@ -5,7 +5,7 @@ public class HealthMod : IMod {
         _mult = mult;
     }
 
-    public void Install( PlayerStats stats, CardContext ctx ) {
+    public void Install( PlayerStats stats, CardContext _ ) {
         float maxHealth = stats.RuntimeConfig.Player.MaxHealth;
         stats.ApplyPlayerModifier( PlayerStatType.MaxHealth, maxHealth * _mult );
     }

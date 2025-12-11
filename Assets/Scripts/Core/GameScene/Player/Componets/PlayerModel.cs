@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerModel {
     public PlayerStats PlayerStats { get; private set; } = new();
-    public ReactiveProperty<float> CurrentHealth;
+    public readonly ReactiveProperty<float> CurrentHealth = new();
 
     private ulong _playerId;
-    private CardContext _ctx; // MyTodo: Ќужно получать или инициализировать здесь
+    private CardContext _cardCtx; // MyTodo: Ќужно получать или инициализировать здесь
 
-    public PlayerModel( ulong playerId ) {
+    public PlayerModel( ulong playerId, CardContext cardCtx ) {
+        _cardCtx = cardCtx;
+
         _playerId = playerId;
         EventBus.Publish( new PlayerStatsChanged( _playerId, PlayerStats ) );
     }
@@ -30,7 +32,7 @@ public class PlayerModel {
         Debug.Log( $"Add card: {card.Title}" );
 
         foreach ( var mod in card.Mods ) {
-            mod.Install( PlayerStats, _ctx );
+            mod.Install( PlayerStats, _cardCtx );
 
             if ( mod is IPlayerMod ) {
                 PlayerStats.RuntimeConfig.Player.Mods.Add( (IPlayerMod)mod );

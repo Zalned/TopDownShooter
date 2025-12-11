@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +13,7 @@ public class CardMenuView : MonoBehaviour {
     private static GameObject _cardPrefab;
 
     private void Awake() {
-        _cardPrefab = Resources.Load<GameObject>( Defines.ObjectPaths.CARD_PREFAB );
+        _cardPrefab = Resources.Load<GameObject>( Defines.PrefabPaths.CARD );
     }
 
     public void InstallRandomCards( int[] cardIDs ) {

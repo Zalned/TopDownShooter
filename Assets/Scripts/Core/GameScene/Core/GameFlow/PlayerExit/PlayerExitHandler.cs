@@ -9,7 +9,6 @@ public class PlayerExitHandler { // MyTodo
     }
 
     private void HandlePlayerExit( PlayerExitEvent evt ) {
-        _sessionPlayerManager.RemoveSessionPlayer( evt.playerId );
         _sessionPlayerManager.RemoveActivePlayer( evt.playerId );
         _sessionPlayerManager.RemoveLivePlayer( evt.playerId );
         _sessionPlayerManager.RemoveDeadPlayer( evt.playerId );

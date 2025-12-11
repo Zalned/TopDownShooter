@@ -3,28 +3,20 @@ using UnityEngine;
 using Zenject;
 
 public class PlayerSpawnService {
-    private readonly NetworkPlayerManager _playerManager;
     private readonly MapService _mapService;
     private readonly SessionPlayerManager _sessionPlayerManager;
-    private readonly PlayerInitializer _playerInitializer;
 
     [Inject]
-    public PlayerSpawnService(
-        NetworkPlayerManager playerManager,
-        MapService mapService,
-        SessionPlayerManager sessionPlayerManager,
-        PlayerInitializer playerInitializer ) {
-        _playerManager = playerManager;
+    public PlayerSpawnService( MapService mapService, SessionPlayerManager sessionPlayerManager ) {
         _mapService = mapService;
         _sessionPlayerManager = sessionPlayerManager;
-        _playerInitializer = playerInitializer;
     }
 
     public void SpawnPlayersOnMap() {
-        var registered = _playerManager.RegistredPlayers;
+        var activePlayers = _sessionPlayerManager.ActivePlayers;
 
-        foreach ( var player in registered.Values ) {
-            var spawnedPlayer = SpawnPlayerOnMap( player.NetID );
+        foreach ( var player in activePlayers.Values ) {
+            var spawnedPlayer = SpawnPlayerOnMap( player.NetworkPlayerData.NetID );
             _sessionPlayerManager.AddLivePlayer( spawnedPlayer.Item1, spawnedPlayer.Item2 );
         }
     }
@@ -32,11 +24,11 @@ public class PlayerSpawnService {
     public (ulong, GameObject) SpawnPlayerOnMap( ulong id ) {
         Vector3 spawnPosition = _mapService.GetRandomSpawnPosition();
 
-        GameObject playerPrefab = Resources.Load<GameObject>( Defines.ObjectPaths.PLAYER_PREFAB );
+        GameObject playerPrefab = Resources.Load<GameObject>( Defines.PrefabPaths.PLAYER );
         GameObject playerObj = Object.Instantiate( playerPrefab, spawnPosition, Quaternion.identity );
         NetcodeHelper.SpawnAsPlayerObject( playerObj, id, true );
 
-        _playerInitializer.InitializePlayer( playerObj, id );
+        EventBus.Publish( new PlayerSpawnedEvent( id, playerObj ) );
         return (id, playerObj);
     }
 

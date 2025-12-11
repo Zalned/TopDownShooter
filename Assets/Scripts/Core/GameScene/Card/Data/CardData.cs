@@ -23,45 +23,64 @@ public class CardDatas {
         { new() {
             Title = "Example", Description = "Example",
             Enabled = false,
-            Mods = new() {new ReloadMod( 0.5f )},
+            Mods = new() {},
             CardStats = new() {new CardStat("Example", true) },}
         },
 
          //Bullet
         { new() {
-            Title = "Damage", Description = "Increase bullet damage",
+            Title = "Damage", Description = "Increase bullet damage and speed",
             Enabled = true,
-            Mods = new() {new DamageMod( 0.5f )},
-            CardStats = new() {new CardStat("+50% Bullet damage", true) },}
+            Mods = new() {new DamageMod( 0.5f ), new BulletSpeedMod(0.5f), new ReloadMod(-0.15f)},
+            CardStats = new() {new CardStat("+50% Bullet damage", true),
+                                new CardStat("+50% Bullet speed", true),
+                                new CardStat("+15% Reload time", false)},}
         },
 
         { new() {
-            Title = "Penetration", Description = "Add bullet penetration",
+            Title = "Piercing", Description = "Add bullet penetration and damage",
             Enabled = true,
-            Mods = new() {new PenetrationMod( 1 )},
-            CardStats = new() {new CardStat("+1 penetration", true) },}
+            Mods = new() {new PenetrationMod( 1 ), new DamageMod(0.25f), new ReloadMod(-0.15f), new ShotCdMod(-1)},
+            CardStats = new() {new ("+1 penetration", true),
+                               new ("+50% Damage",true ),
+                               new ("+15% Reload time",false),
+                               new ("+100% Shot cooldown",false)}, }
         },
 
         { new() {
-            Title = "Bounce", Description = "Add bullet bounce",
+            Title = "Bounce", Description = "Add bullet bounces",
             Enabled = true,
-            Mods = new() {new BounceMod( 2 )},
-            CardStats = new() {new CardStat("+2 bounces", true) },}
+            Mods = new() {new BounceMod( 2 ), new ReloadMod(-0.20f), new ShotCdMod(-0.75f) },
+            CardStats = new() {new ("+2 Bounces", true),
+                               new ("+20% Reload time", false),
+                                new ("+75% Shot cooldown", false)},}
         },
 
         { new() {
-            Title = "Explosion", Description = "Add bullet splash",
+            Title = "Explosion bullet", Description = "Add bullet explosion",
             Enabled = true,
-            Mods = new() {new SplashMod( )},
-            CardStats = new() {new CardStat("+Splash", true) },}
+            Mods = new() {new ExplosionMod( 6f ), new DamageMod(0.75f), new ReloadMod(-0.15f), new ShotCdMod(-1f) },
+            CardStats = new() {new ("+Explosion", true),
+                               new ("+75% Damage", true),
+                               new ("+15% Reload time", false),
+                               new ("+100% Shot cooldown", false) },}
+        },
+
+        { new() {
+            Title = "Impulse", Description = "Increase bullet speed",
+            Enabled = true,
+            Mods = new() {new BulletSpeedMod(0.85f), new DamageMod(0.25f), new ShotCdMod(-1f) },
+            CardStats = new() {new ("+85% Bullet speed", true),
+                               new ("+25% Damage", true),
+                               new ("+100% Shot cooldown", false)},}
         },
 
         // Player
         { new() {
             Title = "Health", Description = "Increase max health",
             Enabled = true,
-            Mods = new() {new HealthMod( 0.5f )},
-            CardStats = new() {new CardStat("+50% Health", true) },}
+            Mods = new() {new HealthMod( 0.75f )},
+            CardStats = new() {new CardStat("+75% Health", true) },}
         },
 
         { new() {
@@ -82,8 +101,8 @@ public class CardDatas {
         { new() {
             Title = "Dash length", Description = "Increase dash length",
             Enabled = true,
-            Mods = new() {new DashLengthMod( 1f )},
-            CardStats = new() {new CardStat("+100% Dash length", true) },}
+            Mods = new() {new DashLengthMod( 0.75f )},
+            CardStats = new() {new CardStat("+75% Dash length", true) },}
         },
     };
 }

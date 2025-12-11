@@ -36,10 +36,13 @@ public class PlayerView : NetworkBehaviour {
         //_playerHealth.maxValue = maxValue;
     }
 
+    public void UpdateHealthHud( float value ) {
+        _healthHudText.text = value.ToString();
+    }
+
     [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
     public void SetPlayerHeatlhServerRpc( float value ) {
         //SetPlayerHeatlhClientRpc( value );
-        _healthHudText.text = value.ToString();
     }
     [ClientRpc]
     private void SetPlayerHeatlhSliderClientRpc( float value ) {

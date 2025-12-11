@@ -62,7 +62,6 @@ public class NetworkPlayerManager : IDisposable {
 
     private void RegisterPlayer( NetworkPlayerData playerData ) {
         if ( !RegistredPlayers.ContainsKey( playerData.NetID ) ) {
-            Debug.Log( $"[{nameof( NetworkPlayerManager )}] Player: {playerData.NetID} registred" ); ;
             RegistredPlayers.Add( playerData.NetID, playerData );
             OnRegistredPlayersUpdated?.Invoke();
 

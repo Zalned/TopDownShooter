@@ -12,6 +12,7 @@ public class PlayerShoot : NetworkBehaviour {
     private BulletManager _bulletManager;
     private PlayerRuntimeConfig _config;
     private ulong _playerId;
+    private CardContext _cardContext;
 
     private int _currentAmmo = 0;
     private float _currentCooldown = 0;
@@ -19,13 +20,16 @@ public class PlayerShoot : NetworkBehaviour {
 
     public event Action OnShot;
 
-    public void Initialize( 
-        BulletManager bulletManager, 
-        PlayerRuntimeConfig config, 
-        ulong playerId) {
+    public void Initialize(
+        BulletManager bulletManager,
+        PlayerRuntimeConfig config,
+        ulong playerId,
+        CardContext cardCtx ) {
+
         _bulletManager = bulletManager;
         _config = config;
         _playerId = playerId;
+        _cardContext = cardCtx;
 
         _currentAmmo = _config.Player.MaxAmmoCount;
         RefreshAmmoCountText();
@@ -51,7 +55,11 @@ public class PlayerShoot : NetworkBehaviour {
 
     [ServerRpc]
     private void CreateBulletServerRpc() {
-        _bulletManager.CreateServerBullet( _config.Bullet, _shootPoint, _playerId );
+        _bulletManager.CreateServerBullet(
+            _config.Bullet,
+            _shootPoint,
+            _playerId,
+            _cardContext );
     }
 
     public void Tick() {

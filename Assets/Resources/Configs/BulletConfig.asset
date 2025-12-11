@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BaseBulletConfigSO
   damage: 25
   speed: 35
-  lifetime: 5
-  radius: 0.1
-  penetrationCount: 0
-  bounceCount: 3
   scale: 0
+  radius: 0.12
+  penetrationCount: 0
+  bounceCount: 0
+  splashRadius: 0
   hasSplash: 0

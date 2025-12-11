@@ -1,0 +1,59 @@
+using Unity.Netcode;
+using UnityEngine;
+using System.Collections.Generic;
+using System;
+
+public class BulletManager : IDisposable {
+    private readonly Dictionary<int, ServerBullet> _spawnedBullets = new();
+    private readonly List<GameObject> _bulletsToRemove = new();
+
+    public BulletManager() {
+        TickService.OnTick += Tick;
+    }
+    public void Dispose() {
+        TickService.OnTick -= Tick;
+    }
+
+    private void SafeAddSpawnedBullet( GameObject bulletObj, ServerBullet bullet ) {
+        int bulletId = bulletObj.GetInstanceID();
+
+        if ( _spawnedBullets.ContainsKey( bulletId ) ) {
+            Debug.LogWarning( $"Bullet {bulletId} already exists." ); return;
+        }
+        _spawnedBullets.Add( bulletId, bullet );
+    }
+
+    public ServerBullet CreateServerBullet(
+        BulletRuntimeStats bulletRuntimeConfig, Transform transform,
+        ulong ownerID, CardContext cardCtx ) {
+
+        var bulletPrefab = Resources.Load<GameObject>( Defines.PrefabPaths.BULLET );
+        var bulletObject = UnityEngine.Object.Instantiate( bulletPrefab, transform.position, Quaternion.identity );
+        var bulletComponent = bulletObject.GetComponent<ServerBullet>();
+
+        bulletObject.GetComponent<NetworkObject>().SpawnWithOwnership( ownerID, true );
+        bulletComponent.DestroyRequest += HandleDestroyBullet;
+        bulletComponent.Construct( bulletRuntimeConfig, ownerID, transform.rotation, cardCtx );
+
+        SafeAddSpawnedBullet( bulletObject, bulletComponent );
+        return bulletComponent;
+    }
+
+    private void HandleDestroyBullet( GameObject bulletObj ) {
+        _bulletsToRemove.Add( bulletObj );
+        NetcodeHelper.Despawn( bulletObj, true );
+    }
+
+    public void Tick() {
+        foreach ( var bullet in _spawnedBullets ) {
+            bullet.Value.Tick();
+        }
+
+        if ( _bulletsToRemove.Count > 0 ) {
+            foreach ( var bulletObj in _bulletsToRemove ) {
+                _spawnedBullets.Remove( bulletObj.GetInstanceID() );
+            }
+            _bulletsToRemove.Clear();
+        }
+    }
+}

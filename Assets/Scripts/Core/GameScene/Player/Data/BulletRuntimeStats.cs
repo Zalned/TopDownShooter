@@ -5,11 +5,11 @@ public class BulletRuntimeStats {
     public List<IBulletMod> Mods = new();
     public float Damage;
     public float Speed;
-    public float Lifetime;
     public float Radius;
     public int PenetrationCount;
-    public int RicochetCount;
+    public int BounceCount;
     public float Scale;
+    public float SplashRadius;
     public bool HasSplash;
 
     private BaseBulletConfigSO _baseBulletCfg;
@@ -24,12 +24,12 @@ public class BulletRuntimeStats {
 
         Damage = _baseBulletCfg.damage;
         Speed = _baseBulletCfg.speed;
-        Lifetime = _baseBulletCfg.lifetime;
         Radius = _baseBulletCfg.radius;
         Scale = _baseBulletCfg.scale;
-
         PenetrationCount = _baseBulletCfg.penetrationCount;
-        RicochetCount = _baseBulletCfg.bounceCount;
+        BounceCount = _baseBulletCfg.bounceCount;
+        HasSplash = _baseBulletCfg.hasSplash;
+        SplashRadius = _baseBulletCfg.splashRadius;
     }
 
     public string GetAsText() {
@@ -37,11 +37,11 @@ public class BulletRuntimeStats {
 
         sb.AppendLine( $"Damage: {Damage}" );
         sb.AppendLine( $"Speed: {Speed}" );
-        sb.AppendLine( $"Lifetime: {Lifetime}" );
         sb.AppendLine( $"Radius: {Radius}" );
         sb.AppendLine( $"Scale: {Scale}" );
         sb.AppendLine( $"PenetrationCount: {PenetrationCount}" );
-        sb.AppendLine( $"RicochetCount: {RicochetCount}" );
+        sb.AppendLine( $"RicochetCount: {BounceCount}" );
+        sb.AppendLine( $"SplashRadius: {SplashRadius}" );
         sb.AppendLine( $"HasSplash: {HasSplash}" );
 
         return sb.ToString();

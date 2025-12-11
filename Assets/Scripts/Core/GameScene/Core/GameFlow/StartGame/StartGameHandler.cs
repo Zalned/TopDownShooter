@@ -13,9 +13,7 @@ public class StartGameHandler {
     }
 
     public void HandleStartGame() {
-        _sessionPlayerManager.SetSessionPlayers( _playerManager.RegistredPlayers );
-        _sessionPlayerManager.SetActivePlayers( _sessionPlayerManager.SessionPlayers );
-
+        _sessionPlayerManager.SetActivePlayers( _playerManager.RegistredPlayers );
         _lobbyPresenter.Hide();
     }
 }

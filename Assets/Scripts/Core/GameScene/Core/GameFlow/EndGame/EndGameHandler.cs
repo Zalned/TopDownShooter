@@ -1,5 +1,3 @@
-using Zenject;
-
 public class EndGameHandler {
     private readonly MapService _mapService;
     private readonly LobbyPresenter _lobbyPresenter;
@@ -21,8 +19,6 @@ public class EndGameHandler {
         _mapService.DespawnMap();
         _lobbyPresenter.Show();
         _playerSpawnService.DespawnPlayersOnMap();
-
-        _sessionPlayerManager.ResetSessionPlayers();
         _sessionPlayerManager.ResetActivePlayers();
     }
 }

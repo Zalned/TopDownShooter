@@ -20,7 +20,7 @@ public class PlayerDash : NetworkBehaviour {
     public void Initialize( PlayerRuntimeConfig config ) {
         _config = config.Player;
         _currentDashCount = _config.DashCount;
-        _wallLayerMask = LayerMask.GetMask( Defines.Layers.Environment );
+        _wallLayerMask = LayerMask.GetMask( Defines.Layers.ENVIROMENT );
     }
 
     public void OnDashInput( InputAction.CallbackContext context ) {

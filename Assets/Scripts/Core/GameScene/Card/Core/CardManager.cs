@@ -12,16 +12,24 @@ public class CardManager : NetworkBehaviour {
     private SessionPlayerManager _sessionPlayerManager;
     private CardListGenerator _cardListGenerator = new();
 
-    public void Initialize( SessionPlayerManager sessionPlayerManager ) {
+    public override void OnNetworkSpawn( ) {
         _registredCards = CardDataManager.GetCardDatas();
+    }
+
+    public void Initialize( SessionPlayerManager sessionPlayerManager ) {
         _sessionPlayerManager = sessionPlayerManager;
 
-        var sessionConfig = Resources.Load<SessionConfigSO>( Defines.ConfigPaths.SESSION_CONFIG );
+        var sessionConfig = Resources.Load<SessionConfigSO>( Defines.ConfigPaths.SESSION );
         _maxCardsToChoose = sessionConfig.CountCardToChoose;
 
         if ( IsServer ) {
             EventBus.Subscribe<PlayerCardPickEvent>( HandlePlayerChoseCardFromServer );
-            DebugEvents.OnShowCardPickViewBtn += StartCardChooseFromServer; // DEBUG
+        }
+    }
+
+    public override void OnDestroy() {
+        if ( IsServer ) {
+            EventBus.Unsubscribe<PlayerCardPickEvent>( HandlePlayerChoseCardFromServer );
         }
     }
 
@@ -37,13 +45,6 @@ public class CardManager : NetworkBehaviour {
             cards.Add( GetRegistredCardByID( id ) );
         }
         return cards;
-    }
-
-    public override void OnDestroy() {
-        if ( IsServer ) {
-            EventBus.Unsubscribe<PlayerCardPickEvent>( HandlePlayerChoseCardFromServer );
-            DebugEvents.OnShowCardPickViewBtn -= StartCardChooseFromServer; // DEBUG
-        }
     }
 
     public void StartCardChooseFromServer() {

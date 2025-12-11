@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 
 public class SessionPlayerManager {
-    public Dictionary<ulong, NetworkPlayerData> SessionPlayers { get; private set; } = new();
     public Dictionary<ulong, ActivePlayerData> ActivePlayers { get; private set; } = new();
     public Dictionary<ulong, GameObject> LivePlayers { get; private set; } = new();
     public Dictionary<ulong, GameObject> DeadPlayers { get; private set; } = new();
@@ -31,22 +30,6 @@ public class SessionPlayerManager {
 
     public void ClearPlayersWhoChoseCard() {
         PlayersWhoChoseCard.Clear();
-    }
-
-    // Session players
-    public void SetSessionPlayers( Dictionary<ulong, NetworkPlayerData> players ) {
-        foreach ( var player in players ) {
-            AddSessionPlayer( player.Key, player.Value );
-        }
-    }
-    public void ResetSessionPlayers() {
-        SessionPlayers.Clear();
-    }
-    public void AddSessionPlayer( ulong playerId, NetworkPlayerData data ) {
-        SessionPlayers.Add( playerId, data );
-    }
-    public void RemoveSessionPlayer( ulong playerId ) {
-        SessionPlayers.Remove( playerId );
     }
 
     // Active players

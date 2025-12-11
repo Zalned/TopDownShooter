@@ -5,7 +5,7 @@ public class DashLengthMod : IMod {
         _mult = multiplier;
     }
 
-    public void Install( PlayerStats stats, CardContext ctx ) {
+    public void Install( PlayerStats stats, CardContext _ ) {
         var dashLength = stats.RuntimeConfig.Player.DashLength;
         stats.ApplyPlayerModifier( PlayerStatType.DashLength, dashLength * _mult );
     }

@@ -44,6 +44,5 @@ public class Card : MonoBehaviour {
     private void OnPicked() {
         var playerId = NetcodeHelper.LocalClientId;
         _controller.HandleCardPickedToServerRpc( playerId, _cardId ); // Стоит обрабатывать через событие
-        EventBus.Publish( new PlayerCardPickEvent( playerId, _cardId ) );
     }
 }

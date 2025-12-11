@@ -6,7 +6,8 @@ public enum PlayerStatType {
     DashTime,
     DashLength,
     DashCount,
-    ReloadTime
+    ReloadTime,
+    ShotCooldown
 }
 
 public enum BulletStatType {
@@ -14,8 +15,9 @@ public enum BulletStatType {
     Speed,
     Lifetime,
     Radius,
-    RicochetCount,
+    BounceCount,
     PenetrationCount,
+    SplashRadius,
     HasSplash,
     Scale
 }
@@ -24,8 +26,8 @@ public class PlayerStats {
     public PlayerRuntimeConfig RuntimeConfig { get; private set; }
 
     public PlayerStats() {
-        var basePlayerConfig = Resources.Load<BasePlayerConfigSO>( Defines.ConfigPaths.PLAYER_CONFIG );
-        var baseBulletConfig = Resources.Load<BaseBulletConfigSO>( Defines.ConfigPaths.BULLET_CONFIG );
+        var basePlayerConfig = Resources.Load<BasePlayerConfigSO>( Defines.ConfigPaths.PLAYER );
+        var baseBulletConfig = Resources.Load<BaseBulletConfigSO>( Defines.ConfigPaths.BULLET );
         RuntimeConfig = new PlayerRuntimeConfig( basePlayerConfig, baseBulletConfig );
     }
 
@@ -36,6 +38,7 @@ public class PlayerStats {
             case PlayerStatType.Speed: stats.Speed += value; break;
             case PlayerStatType.DashLength: stats.DashLength += value; break;
             case PlayerStatType.ReloadTime: stats.ReloadTime += value; break;
+            case PlayerStatType.ShotCooldown: stats.ShotCooldown += value; break;
         }
     }
 
@@ -51,16 +54,16 @@ public class PlayerStats {
         switch ( type ) {
             case BulletStatType.Damage: stats.Damage += value; break;
             case BulletStatType.Speed: stats.Speed += value; break;
-            case BulletStatType.Lifetime: stats.Lifetime += value; break;
             case BulletStatType.Radius: stats.Radius += value; break;
             case BulletStatType.Scale: stats.Scale += value; break;
+            case BulletStatType.SplashRadius: stats.SplashRadius += value; break;
         }
     }
 
     public void ApplyBulletModifier( BulletStatType type, int count ) {
         var stats = RuntimeConfig.Bullet;
         switch ( type ) {
-            case BulletStatType.RicochetCount: stats.RicochetCount += count; break;
+            case BulletStatType.BounceCount: stats.BounceCount += count; break;
             case BulletStatType.PenetrationCount: stats.PenetrationCount += count; break;
         }
     }
@@ -68,7 +71,7 @@ public class PlayerStats {
     public void ApplyBulletModifier( BulletStatType type, bool active ) {
         var stats = RuntimeConfig.Bullet;
         switch ( type ) {
-            case BulletStatType.RicochetCount: stats.HasSplash = active; break;
+            case BulletStatType.HasSplash: stats.HasSplash = active; break;
         }
     }
 }

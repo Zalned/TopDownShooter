@@ -5,7 +5,7 @@ public class DashCountMod : IMod {
         _count = count;
     }
 
-    public void Install( PlayerStats stats, CardContext ctx ) {
+    public void Install( PlayerStats stats, CardContext _ ) {
         stats.ApplyPlayerModifier( PlayerStatType.DashCount, _count );
     }
 }

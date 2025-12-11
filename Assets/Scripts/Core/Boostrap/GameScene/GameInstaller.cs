@@ -15,6 +15,7 @@ public class GameInstaller : MonoInstaller {
         Container.Bind<ITickService>().To<TickService>().AsSingle().NonLazy();
         Container.Bind<BulletManager>().AsSingle().NonLazy();
         Container.Bind<CardManager>().FromInstance( _cardManager ).AsSingle().NonLazy();
+        Container.Bind<CardContext>().AsSingle();
 
         if ( NetcodeHelper.IsServer ) {
             Container.Bind<GameFlowController>().AsSingle().NonLazy();
@@ -32,11 +33,9 @@ public class GameInstaller : MonoInstaller {
             Container.Bind<SessionPlayerManager>().AsSingle();
             Container.Bind<PlayerSpawnService>().AsSingle();
             Container.Bind<PlayerDieHandler>().AsSingle().NonLazy();
-            Container.Bind<PlayerInitializer>().AsSingle();
+            Container.Bind<PlayerInitializer>().AsSingle().NonLazy();
 
             Container.Bind<CardPickHandler>().FromInstance( _cardPickHandler ).AsSingle().NonLazy();
-            Container.Bind<CardContext>().AsSingle();
-            Container.Bind<ExplosionService>().AsSingle();
         }
 
         Container.BindInterfacesAndSelfTo<GameBootstrap>().AsSingle();

@@ -11,5 +11,6 @@ public class CardPickHandler : NetworkBehaviour {
     public void HandleCardPickedToServerRpc( ulong playerId, int cardId ) {
         var activePlayer = _sessionPlayerManager.GetActivePlayerByID( playerId );
         activePlayer.CardDeckIDs.Add( cardId );
+        EventBus.Publish( new PlayerCardPickEvent( playerId, cardId ) );
     }
 }
