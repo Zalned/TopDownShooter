@@ -13,4 +13,6 @@ public class BaseBulletConfigSO : ScriptableObject {
 
     public float splashRadius = 0;  
     public bool hasSplash = false;
+
+    public float leech = 0;
 }

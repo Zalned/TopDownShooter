@@ -1,12 +1,11 @@
 public class ReloadMod : IMod {
-    private readonly float _mult;
+    private readonly float _time;
 
-    public ReloadMod( float mult ) {
-        _mult = mult;
+    public ReloadMod( float time ) {
+        _time = time;
     }
 
     public void Install( PlayerStats stats, CardContext _ ) {
-        float reloadSpeed = stats.RuntimeConfig.Player.ReloadTime;
-        stats.ApplyPlayerModifier( PlayerStatType.ReloadTime, -(reloadSpeed * _mult) );
+        stats.ApplyPlayerModifier( PlayerStatType.ReloadTime, _time );
     }
 }

@@ -11,6 +11,7 @@ public class BulletRuntimeStats {
     public float Scale;
     public float SplashRadius;
     public bool HasSplash;
+    public float LifeSteal;
 
     private BaseBulletConfigSO _baseBulletCfg;
 
@@ -30,6 +31,7 @@ public class BulletRuntimeStats {
         BounceCount = _baseBulletCfg.bounceCount;
         HasSplash = _baseBulletCfg.hasSplash;
         SplashRadius = _baseBulletCfg.splashRadius;
+        LifeSteal = _baseBulletCfg.leech;
     }
 
     public string GetAsText() {

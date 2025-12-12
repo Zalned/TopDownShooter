@@ -1,7 +1,7 @@
-public class ShotCdMod : IMod {
+public class AttackSpeedMod : IMod {
     private readonly float _mult;
 
-    public ShotCdMod( float mult ) {
+    public AttackSpeedMod( float mult ) {
         _mult = mult;
     }
 

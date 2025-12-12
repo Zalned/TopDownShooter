@@ -43,4 +43,8 @@ public class PlayerModel {
         }
         EventBus.Publish( new PlayerStatsChanged( _playerId, PlayerStats ) );
     }
+
+    public void AddHealth(float value) {
+        CurrentHealth.Value += value;
+    }
 }

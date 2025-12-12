@@ -19,7 +19,8 @@ public enum BulletStatType {
     PenetrationCount,
     SplashRadius,
     HasSplash,
-    Scale
+    Scale,
+    LifeSteal,
 }
 
 public class PlayerStats {
@@ -57,6 +58,7 @@ public class PlayerStats {
             case BulletStatType.Radius: stats.Radius += value; break;
             case BulletStatType.Scale: stats.Scale += value; break;
             case BulletStatType.SplashRadius: stats.SplashRadius += value; break;
+            case BulletStatType.LifeSteal: stats.LifeSteal += value; break;
         }
     }
 
