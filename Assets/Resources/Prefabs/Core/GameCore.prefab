@@ -1115,6 +1115,7 @@ GameObject:
   - component: {fileID: 9207295743875814105}
   - component: {fileID: 1483786192976158962}
   - component: {fileID: 5462449166758074271}
+  - component: {fileID: 5160283353744209214}
   - component: {fileID: 2076149628214871062}
   m_Layer: 0
   m_Name: GameCore
@@ -1185,6 +1186,19 @@ MonoBehaviour:
   - {fileID: 1720974953460589044, guid: d1809161ecba15f42a3392f7f2c8cf08, type: 3}
   - {fileID: 1720974953460589044, guid: 88854b05840ad1c44ab46c78f0af7546, type: 3}
   - {fileID: 1720974953460589044, guid: cb75c95f94aa766408fc510198e65d3a, type: 3}
+--- !u!114 &5160283353744209214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2606420818590081715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c19e29406c4314aa3abe70126e8623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkSpawner
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!114 &2076149628214871062
 MonoBehaviour:
   m_ObjectHideFlags: 0

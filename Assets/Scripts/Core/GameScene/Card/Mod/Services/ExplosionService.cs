@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class ExplosionService {
-    private const float EXPLOSION_EFFECT_RADIUS_SCALER = 2;
+    private const float EXPLOSION_EFFECT_RADIUS_SCALER = 4.5f;
     private LayerMask _hitMask = LayerMask.GetMask( Defines.Layers.PLAYER );
 
     private GameObject _explosionEffect = Resources.Load<GameObject>( Defines.EffectPaths.EXPLOSION );
@@ -13,8 +13,6 @@ public class ExplosionService {
         var hits = Physics.OverlapSphere( point, radius, _hitMask, QueryTriggerInteraction.Collide );
 
         foreach ( var hit in hits ) {
-            Debug.Log( $"Explosion hit: {hit.transform.name}" );
-
             if ( hit.transform.CompareTag( Defines.Tags.PLAYER ) ) {
                 Debug.Log( $"Сфера задела игрока" );
 
@@ -33,7 +31,7 @@ public class ExplosionService {
     }
 
     private void CreateEffect( Vector3 point ) {
-        var effect = Object.Instantiate( _explosionEffect );
+        var effect = NetworkSpawner.Instance.NetworkSpawnObject( _explosionEffect );
         effect.transform.position = point;
         var particleSystem = effect.GetComponent<ParticleSystem>();
         ConfigureExplosionEffect( particleSystem );
