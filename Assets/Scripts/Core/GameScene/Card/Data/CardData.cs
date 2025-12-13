@@ -40,7 +40,7 @@ public class CardDatas {
             Title = "Bouncy", Description = "",
             Enabled = true,
             Mods = new() {new BounceMod( 2 ), new DamageMod(0.25f), new ReloadMod(0.25f)},
-            CardStats = new() {new ("+2 Bounces", true), new ("+25% Damage", false),
+            CardStats = new() {new ("+2 Bounces", true), new ("+25% Damage", true),
                                 new ("+0.25s Reload time", false)}}
         },
 
@@ -49,7 +49,7 @@ public class CardDatas {
             Enabled = true,
             Mods = new() {new ExplosionMod( 3f ), new ReloadMod(0.25f), new AttackSpeedMod(-1f) },
             CardStats = new() {new ("+Explosion", true), new ("+0.25s Reload time", false),
-                               new ("+100% ATKSPD", false) }}
+                               new ("+100% Attack speed", false) }}
         },
 
         { new() {
