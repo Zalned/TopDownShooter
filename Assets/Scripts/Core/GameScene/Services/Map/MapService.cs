@@ -32,7 +32,7 @@ public class MapService : MonoBehaviour {
         }
     }
 
-    public Vector3 GetRandomSpawnPosition() {
+    public Vector3 GetUniqueRandomSpawnPosition() {
         int spawnPointsCount = _currentMap.SpawnPoints.Count;
 
         while ( true ) {

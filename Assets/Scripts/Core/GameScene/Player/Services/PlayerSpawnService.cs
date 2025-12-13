@@ -22,7 +22,7 @@ public class PlayerSpawnService {
     }
 
     public (ulong, GameObject) SpawnPlayerOnMap( ulong id ) {
-        Vector3 spawnPosition = _mapService.GetRandomSpawnPosition();
+        Vector3 spawnPosition = _mapService.GetUniqueRandomSpawnPosition();
 
         GameObject playerPrefab = Resources.Load<GameObject>( Defines.PrefabPaths.PLAYER );
         GameObject playerObj = Object.Instantiate( playerPrefab, spawnPosition, Quaternion.identity );
