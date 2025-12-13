@@ -26,6 +26,7 @@ public class MapService : MonoBehaviour {
     public void DespawnMap() {
         if ( _currentMap != null ) {
             _currentMap = null;
+            _usedSpawnPosition.Clear();
             NetcodeHelper.Despawn( _currentMapObj, true );
         } else {
             Debug.LogWarning( $"[{nameof( MapService )}] No map to despawn." );
@@ -40,6 +41,7 @@ public class MapService : MonoBehaviour {
 
             if ( _usedSpawnPosition.Count >= spawnPointsCount ) {
                 _usedSpawnPosition.Clear();
+                Debug.LogWarning( $"{nameof( MapService )} Not enough spawn positions" );
             }
 
             if ( !_usedSpawnPosition.Contains( randomIndex ) ) {
