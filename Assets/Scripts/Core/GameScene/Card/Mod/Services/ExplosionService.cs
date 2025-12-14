@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ExplosionService {
     private const float EXPLOSION_EFFECT_RADIUS_SCALER = 4.5f;
-    private LayerMask _hitMask = LayerMask.GetMask( Defines.Layers.PLAYER );
+    private LayerMask _playerMask = LayerMask.GetMask( Defines.Layers.PLAYER );
 
     private GameObject _explosionEffect = Resources.Load<GameObject>( Defines.EffectPaths.EXPLOSION );
     private float _radius;
@@ -10,23 +10,21 @@ public class ExplosionService {
     public void Explode( Vector3 point, float radius, float damage ) {
         _radius = radius;
 
-        var hits = Physics.OverlapSphere( point, radius, _hitMask, QueryTriggerInteraction.Collide );
+        var hits = Physics.OverlapSphere( point, radius, _playerMask, QueryTriggerInteraction.Collide );
 
         foreach ( var hit in hits ) {
-            if ( hit.transform.CompareTag( Defines.Tags.PLAYER ) ) {
-                Debug.Log( $"—фера задела игрока" );
+            var target = hit.transform.position;
+            Vector3 direction = target - point;
 
-                Vector3 direction = (hit.transform.position - point).normalized;
-                Physics.Raycast( point, direction, out RaycastHit rayHit );
+            float distance = direction.magnitude;
+            direction.Normalize();
 
-                if ( rayHit.transform.CompareTag( Defines.Tags.PLAYER ) ) {
-                    Debug.Log( $"¬зрыв дошел до игрока" );
-                    hit.transform.GetComponent<PlayerController>().TakeDamageClientRpc( damage );
-                }
+            Physics.Raycast( point, direction, out RaycastHit hitInfo, distance );
+
+            if ( hitInfo.transform.CompareTag( Defines.Tags.PLAYER ) ) {
+                hit.transform.GetComponent<PlayerController>().TakeDamageClientRpc( damage );
             }
-
         }
-
         CreateEffect( point );
     }
 
