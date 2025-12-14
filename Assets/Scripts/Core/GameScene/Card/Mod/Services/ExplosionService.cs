@@ -31,6 +31,7 @@ public class ExplosionService {
     private void CreateEffect( Vector3 point ) {
         var effect = NetworkSpawner.Instance.NetworkSpawnObject( _explosionEffect );
         effect.transform.position = point;
+
         var particleSystem = effect.GetComponent<ParticleSystem>();
         ConfigureExplosionEffect( particleSystem );
     }
