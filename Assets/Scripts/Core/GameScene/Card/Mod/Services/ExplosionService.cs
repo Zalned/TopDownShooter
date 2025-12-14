@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class ExplosionService {
-    private const float EXPLOSION_EFFECT_RADIUS_SCALER = 4.5f;
+    private const float EXPLOSION_EFFECT_RADIUS_SCALER = 4.5f; // Scaler подобран вручную, нормального рассчета не сделал
     private LayerMask _playerMask = LayerMask.GetMask( Defines.Layers.PLAYER );
 
     private GameObject _explosionEffect = Resources.Load<GameObject>( Defines.EffectPaths.EXPLOSION );
