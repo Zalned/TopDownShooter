@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerView : NetworkBehaviour {
     [SerializeField] private Canvas _playerHudCanvas;
-    [SerializeField] private Renderer _renderer;
+    [SerializeField] private Renderer _cubeRenderer;
+    [SerializeField] private Renderer _faceRenderer;
     [SerializeField] private TextMeshProUGUI _playerName;
 
     [SerializeField] private TextMeshProUGUI _healthHudText;
@@ -25,7 +26,8 @@ public class PlayerView : NetworkBehaviour {
     }
 
     private void SetColor( Color color ) {
-        _renderer.material.color = color;
+        _cubeRenderer.material.color = color;
+        _faceRenderer.material.color = color;
     }
 
     private void SetPlayerName( string name ) {
