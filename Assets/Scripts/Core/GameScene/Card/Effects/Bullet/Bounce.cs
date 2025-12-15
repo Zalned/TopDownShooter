@@ -1,11 +1,9 @@
 public class BounceMod : IMod {
-    private readonly int _count;
+    private readonly int _value;
 
-    public BounceMod( int count ) {
-        _count = count;
-    }
+    public BounceMod( int value ) { _value = value; }
 
     public void Install( PlayerStats stats, CardContext _ ) {
-        stats.ApplyBulletModifier( BulletStatType.BounceCount, _count );
+        stats.RuntimeConfig.Bullet.BounceCount.Additive += _value;
     }
 }

@@ -1,12 +1,16 @@
-public class HealthMod : IMod {
-    private readonly float _mult;
+using System;
 
-    public HealthMod( float mult ) {
-        _mult = mult;
-    }
+public class HealthMod : BaseMod, IMod {
+    public HealthMod( StatType type, float value ) : base( type, value ) { }
 
     public void Install( PlayerStats stats, CardContext _ ) {
-        float maxHealth = stats.RuntimeConfig.Player.MaxHealth;
-        stats.ApplyPlayerModifier( PlayerStatType.MaxHealth, maxHealth * _mult );
+        var health = stats.RuntimeConfig.Player.MaxHealth;
+
+        switch ( type ) {
+            case StatType.Additive: health.Additive += value; break;
+            case StatType.Percent: health.Percent += value; break;
+            default: throw new ArgumentOutOfRangeException();
+        }
+        stats.RuntimeConfig.Player.MaxHealth = health;
     }
 }

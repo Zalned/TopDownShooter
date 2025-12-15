@@ -3,15 +3,15 @@ using System.Text;
 
 public class PlayerRuntimeStats {
     public List<IPlayerMod> Mods = new();
-    public float MaxHealth;
-    public float Speed;
-    public int MaxAmmoCount;
-    public float ShotCooldown;
-    public float ReloadTime;
-    public int DashCount;
-    public float DashLength;
-    public float DashReloadTime;
-    public float DashTime;
+    public Stat MaxHealth;
+    public Stat Speed;
+    public Stat MaxAmmoCount;
+    public Stat AttackSpeed;
+    public Stat ReloadTime;
+    public Stat DashCount;
+    public Stat DashLength;
+    public Stat DashReloadTime;
+    public Stat DashTime;
 
     private BasePlayerConfigSO _basePlayerCfg;
 
@@ -23,32 +23,33 @@ public class PlayerRuntimeStats {
     public void Reset() {
         Mods = new();
 
-        MaxHealth = _basePlayerCfg.baseHealth;
-        Speed = _basePlayerCfg.baseSpeed;
+        MaxHealth.Base = _basePlayerCfg.baseHealth;
+        Speed.Base = _basePlayerCfg.baseSpeed;
 
-        MaxAmmoCount = _basePlayerCfg.maxAmmoCount;
-        ShotCooldown = _basePlayerCfg.shotCooldown;
-        ReloadTime = _basePlayerCfg.reloadTime;
+        MaxAmmoCount.Base = _basePlayerCfg.maxAmmoCount;
+        AttackSpeed.Base = _basePlayerCfg.shotCooldown;
+        ReloadTime.Base = _basePlayerCfg.reloadTime;
 
-        DashCount = _basePlayerCfg.baseDashCount;
-        DashLength = _basePlayerCfg.baseDashLenght;
-        DashReloadTime = _basePlayerCfg.DashReloadTime;
+        DashCount.Base = _basePlayerCfg.baseDashCount;
+        DashLength.Base = _basePlayerCfg.baseDashLenght;
+        DashReloadTime.Base = _basePlayerCfg.DashReloadTime;
 
-        DashTime = _basePlayerCfg.baseDashTime;
+        DashTime.Base = _basePlayerCfg.baseDashTime;
     }
 
     public string GetAsText() {
         var sb = new StringBuilder();
 
-        sb.AppendLine( $"MaxHealth: {MaxHealth}" );
-        sb.AppendLine( $"Speed: {Speed}" );
-        sb.AppendLine( $"MaxAmmoCount: {MaxAmmoCount}" );
-        sb.AppendLine( $"ShotCooldown: {ShotCooldown}" );
-        sb.AppendLine( $"ReloadTime: {ReloadTime}" );
-        sb.AppendLine( $"DashCount: {DashCount}" );
-        sb.AppendLine( $"DashLength: {DashLength}" );
-        sb.AppendLine( $"DashCooldown: {DashReloadTime}" );
-        sb.AppendLine( $"DashTime: {DashTime}" );
+        sb.AppendLine( $"PLAYER" );
+        sb.AppendLine( $"MaxHealth: {MaxHealth.Value}" );
+        sb.AppendLine( $"Speed: {Speed.Value}" );
+        sb.AppendLine( $"MaxAmmoCount: {MaxAmmoCount.Value}" );
+        sb.AppendLine( $"ShotCooldown: {AttackSpeed.Value}" );
+        sb.AppendLine( $"ReloadTime: {ReloadTime.Value}" );
+        sb.AppendLine( $"DashCount: {DashCount.Value}" );
+        sb.AppendLine( $"DashLength: {DashLength.Value}" );
+        sb.AppendLine( $"DashCooldown: {DashReloadTime.Value}" );
+        sb.AppendLine( $"DashTime: {DashTime.Value}" );
 
         return sb.ToString();
     }

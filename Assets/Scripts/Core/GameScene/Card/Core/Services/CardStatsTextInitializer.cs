@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CardStatsTextInitializer {
     public void InitializeCardStatTexts(
-        List<CardStat> cardStats,
+        List<VisualCardStat> cardStats,
         Transform textParent,
         TextMeshProUGUI textExample ) {
 

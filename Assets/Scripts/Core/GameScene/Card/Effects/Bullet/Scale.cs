@@ -1,13 +1,17 @@
-public class ScaleMod : IMod {
-    private readonly float _mult;
+using System;
 
-    public ScaleMod( float mult ) {
-        _mult = mult;
-    }
+public class ScaleMod : BaseMod, IMod {
+    public ScaleMod( StatType type, float value ) : base( type, value ) { }
 
     public void Install( PlayerStats stats, CardContext _ ) {
-        float scale = stats.RuntimeConfig.Bullet.Scale;
-        stats.ApplyBulletModifier( BulletStatType.Scale, scale * _mult );
+        var scale = stats.RuntimeConfig.Bullet.Scale;
+
+        switch ( type ) {
+            case StatType.Additive: scale.Additive += value; break;
+            case StatType.Percent: scale.Percent += value; break;
+            default: throw new ArgumentOutOfRangeException();
+        }
+        stats.RuntimeConfig.Bullet.Scale = scale;
     }
 }
 

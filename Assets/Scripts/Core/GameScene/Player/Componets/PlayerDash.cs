@@ -19,7 +19,7 @@ public class PlayerDash : NetworkBehaviour {
 
     public void Initialize( PlayerRuntimeConfig config ) {
         _config = config.Player;
-        _currentDashCount = _config.DashCount;
+        _currentDashCount = (int)_config.DashCount.Value;
         _wallLayerMask = LayerMask.GetMask( Defines.Layers.ENVIROMENT );
     }
 
@@ -46,8 +46,8 @@ public class PlayerDash : NetworkBehaviour {
     }
 
     private void MoveToTargetPosition() {
-        if ( _dashTimeAccumulated <= _config.DashTime ) {
-            Vector3 velocity = transform.forward * (_config.DashLength / _config.DashTime);
+        if ( _dashTimeAccumulated <= _config.DashTime.Value ) {
+            Vector3 velocity = transform.forward * (_config.DashLength.Value / _config.DashTime.Value);
             var newPosition = transform.position + velocity * TickService.TickDeltaTime;
 
             if ( !Physics.CheckSphere( newPosition, _checkCollisionRadius, _wallLayerMask ) ) {
@@ -66,11 +66,11 @@ public class PlayerDash : NetworkBehaviour {
     }
 
     private void ReloadCycle() {
-        if ( _currentDashCount >= _config.DashCount ) { return; }
+        if ( _currentDashCount >= _config.DashCount.Value ) { return; }
         _reloadCycleAccumulatedTime += TickService.TickDeltaTime;
 
-        if ( _reloadCycleAccumulatedTime >= _config.DashReloadTime ) {
-            _currentDashCount = _config.DashCount;
+        if ( _reloadCycleAccumulatedTime >= _config.DashReloadTime.Value ) {
+            _currentDashCount = (int)_config.DashCount.Value;
             _reloadCycleAccumulatedTime = 0;
         }
     }

@@ -10,7 +10,8 @@ public class PlayerShoot : NetworkBehaviour {
     [SerializeField] private TextMeshProUGUI _ammoCountText;
 
     private BulletManager _bulletManager;
-    private PlayerRuntimeConfig _config;
+    private PlayerRuntimeStats _playerCfg;
+    private BulletRuntimeStats _bulletCfg;
     private ulong _playerId;
     private CardContext _cardContext;
 
@@ -27,11 +28,12 @@ public class PlayerShoot : NetworkBehaviour {
         CardContext cardCtx ) {
 
         _bulletManager = bulletManager;
-        _config = config;
+        _playerCfg = config.Player;
+        _bulletCfg = config.Bullet;
         _playerId = playerId;
         _cardContext = cardCtx;
 
-        _currentAmmo = _config.Player.MaxAmmoCount;
+        _currentAmmo = (int)_playerCfg.MaxAmmoCount.Value;
         RefreshAmmoCountText();
     }
 
@@ -44,7 +46,7 @@ public class PlayerShoot : NetworkBehaviour {
     }
 
     private void Shot() {
-        _currentCooldown += _config.Player.ShotCooldown;
+        _currentCooldown += _playerCfg.AttackSpeed.Value;
         _currentAmmo--;
         _reloadCycleAccumulatedTime = 0;
 
@@ -56,10 +58,7 @@ public class PlayerShoot : NetworkBehaviour {
     [ServerRpc]
     private void CreateBulletServerRpc() {
         _bulletManager.CreateServerBullet(
-            _config.Bullet,
-            _shootPoint,
-            _playerId,
-            _cardContext );
+            _bulletCfg, _shootPoint, _playerId, _cardContext );
     }
 
     public void Tick() {
@@ -68,11 +67,11 @@ public class PlayerShoot : NetworkBehaviour {
     }
 
     private void ReloadCycle() {
-        if ( _currentAmmo >= _config.Player.MaxAmmoCount ) { return; }
+        if ( _currentAmmo >= _playerCfg.MaxAmmoCount.Value ) { return; }
         _reloadCycleAccumulatedTime += TickService.TickDeltaTime;
 
-        if ( _reloadCycleAccumulatedTime >= _config.Player.ReloadTime ) {
-            _currentAmmo = _config.Player.MaxAmmoCount;
+        if ( _reloadCycleAccumulatedTime >= _playerCfg.ReloadTime.Value ) {
+            _currentAmmo = (int)_playerCfg.MaxAmmoCount.Value;
             _reloadCycleAccumulatedTime = 0;
             RefreshAmmoCountText();
         }

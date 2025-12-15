@@ -1,12 +1,16 @@
-public class AttackSpeedMod : IMod {
-    private readonly float _mult;
+using System;
 
-    public AttackSpeedMod( float mult ) {
-        _mult = mult;
-    }
+public class AttackSpeedMod : BaseMod, IMod {
+    public AttackSpeedMod( StatType type, float value ) : base( type, value ) { }
 
     public void Install( PlayerStats stats, CardContext _ ) {
-        float shotCd = stats.RuntimeConfig.Player.ShotCooldown;
-        stats.ApplyPlayerModifier( PlayerStatType.ShotCooldown, -(shotCd * _mult) );
+        var attackSpeed = stats.RuntimeConfig.Player.AttackSpeed;
+
+        switch ( type ) {
+            case StatType.Additive: attackSpeed.Additive += value; break;
+            case StatType.Percent: attackSpeed.Percent += value; break;
+            default: throw new ArgumentOutOfRangeException();
+        }
+        stats.RuntimeConfig.Player.AttackSpeed = attackSpeed;
     }
 }

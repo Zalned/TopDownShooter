@@ -1,13 +1,13 @@
 using System;
 
 public class LifeStealService {
-    private Action<float> _lifeStealCallback;
+    private Action<float> _addHealthCallback;
 
-    public LifeStealService( Action<float> lifeStealCallback ) {
-        _lifeStealCallback = lifeStealCallback;
+    public LifeStealService( Action<float> addHealthCallback ) {
+        _addHealthCallback = addHealthCallback;
     }
 
-    public void LifeSteal(float dmg) {
-        _lifeStealCallback.Invoke( dmg );
+    public void LifeSteal( float value ) {
+        _addHealthCallback.Invoke( value );
     }
 }

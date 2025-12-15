@@ -19,7 +19,7 @@ public class PlayerModHandler {
         foreach ( var mod in _config.Mods ) { mod.OnDamage(); }
     }
 
-    public void OnShoot() {
+    public void OnShot() {
         foreach ( var mod in _config.Mods ) { mod.OnShoot(); }
     }
 

@@ -1,13 +1,17 @@
-public class DamageMod : IMod {
-    private readonly float _mult;
+using System;
 
-    public DamageMod( float mult ) {
-        _mult = mult;
-    }
+public class DamageMod : BaseMod, IMod {
+    public DamageMod( StatType type, float value ) : base( type, value ) { }
 
     public void Install( PlayerStats stats, CardContext _ ) {
-        float damage = stats.RuntimeConfig.Bullet.Damage;
-        stats.ApplyBulletModifier( BulletStatType.Damage, damage * _mult );
+        var damage = stats.RuntimeConfig.Bullet.Damage;
+
+        switch ( type ) {
+            case StatType.Additive: damage.Additive += value; break;
+            case StatType.Percent: damage.Percent += value; break;
+            default: throw new ArgumentOutOfRangeException();
+        }
+        stats.RuntimeConfig.Bullet.Damage = damage;
     }
 }
 

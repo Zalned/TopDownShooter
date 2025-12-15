@@ -4,14 +4,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : NetworkBehaviour {
     private Camera _playerCamera;
-    private PlayerRuntimeConfig _config;
+    private PlayerRuntimeStats _config;
 
     private Rigidbody _rb;
     private Vector2 _inputVector = Vector2.zero;
 
     public void Initialize( Camera camera, PlayerRuntimeConfig config ) {
         _playerCamera = camera;
-        _config = config;
+        _config = config.Player;
     }
 
     public void Start() {
@@ -27,7 +27,7 @@ public class PlayerMovement : NetworkBehaviour {
     }
 
     private void Move() {
-        Vector3 velocity = new Vector3( _inputVector.x, 0, _inputVector.y ) * _config.Player.Speed;
+        Vector3 velocity = new Vector3( _inputVector.x, 0, _inputVector.y ) * _config.Speed.Value;
         _rb.linearVelocity = velocity;
     }
 

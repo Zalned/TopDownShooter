@@ -1,11 +1,9 @@
 public class PenetrationMod : IMod {
-    private readonly int _count;
+    private int _value;
 
-    public PenetrationMod( int count ) {
-        _count = count;
-    }
+    public PenetrationMod( int value ) { _value = value; }
 
     public void Install( PlayerStats stats, CardContext _ ) {
-        stats.ApplyBulletModifier( BulletStatType.PenetrationCount, _count );
+        stats.RuntimeConfig.Bullet.PenetrationCount.Additive += _value;
     }
 }

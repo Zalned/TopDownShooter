@@ -3,15 +3,14 @@ using System.Text;
 
 public class BulletRuntimeStats {
     public List<IBulletMod> Mods = new();
-    public float Damage;
-    public float Speed;
-    public float Radius;
-    public int PenetrationCount;
-    public int BounceCount;
-    public float Scale;
-    public float SplashRadius;
-    public bool HasSplash;
-    public float LifeSteal;
+    public Stat Damage;
+    public Stat Speed;
+    public Stat Radius;
+    public Stat PenetrationCount;
+    public Stat BounceCount;
+    public Stat Scale;
+    public Stat SplashRadius;
+    public Stat LifeSteal;
 
     private BaseBulletConfigSO _baseBulletCfg;
 
@@ -23,28 +22,26 @@ public class BulletRuntimeStats {
     public void Reset() {
         Mods = new();
 
-        Damage = _baseBulletCfg.damage;
-        Speed = _baseBulletCfg.speed;
-        Radius = _baseBulletCfg.radius;
-        Scale = _baseBulletCfg.scale;
-        PenetrationCount = _baseBulletCfg.penetrationCount;
-        BounceCount = _baseBulletCfg.bounceCount;
-        HasSplash = _baseBulletCfg.hasSplash;
-        SplashRadius = _baseBulletCfg.splashRadius;
-        LifeSteal = _baseBulletCfg.leech;
+        Damage.Base = _baseBulletCfg.damage;
+        Speed.Base = _baseBulletCfg.speed;
+        Radius.Base = _baseBulletCfg.radius;
+        Scale.Base = _baseBulletCfg.scale;
+        PenetrationCount.Base = _baseBulletCfg.penetrationCount;
+        BounceCount.Base = _baseBulletCfg.bounceCount;
+        SplashRadius.Base = _baseBulletCfg.splashRadius;
     }
 
     public string GetAsText() {
         var sb = new StringBuilder();
 
-        sb.AppendLine( $"Damage: {Damage}" );
-        sb.AppendLine( $"Speed: {Speed}" );
-        sb.AppendLine( $"Radius: {Radius}" );
-        sb.AppendLine( $"Scale: {Scale}" );
-        sb.AppendLine( $"PenetrationCount: {PenetrationCount}" );
-        sb.AppendLine( $"RicochetCount: {BounceCount}" );
-        sb.AppendLine( $"SplashRadius: {SplashRadius}" );
-        sb.AppendLine( $"HasSplash: {HasSplash}" );
+        sb.AppendLine( $"BULLET" );
+        sb.AppendLine( $"Damage: {Damage.Value}" );
+        sb.AppendLine( $"Speed: {Speed.Value}" );
+        sb.AppendLine( $"Radius: {Radius.Value}" );
+        sb.AppendLine( $"Scale: {Scale.Value}" );
+        sb.AppendLine( $"PenetrationCount: {PenetrationCount.Value}" );
+        sb.AppendLine( $"RicochetCount: {BounceCount.Value}" );
+        sb.AppendLine( $"SplashRadius: {SplashRadius.Value}" );
 
         return sb.ToString();
     }

@@ -1,11 +1,9 @@
 public class DashCountMod : IMod {
-    private readonly int _count;
+    private readonly int _value;
 
-    public DashCountMod( int count) {
-        _count = count;
-    }
+    public DashCountMod( int value ) { _value = value; }
 
     public void Install( PlayerStats stats, CardContext _ ) {
-        stats.ApplyPlayerModifier( PlayerStatType.DashCount, _count );
+        stats.RuntimeConfig.Player.DashCount.Additive += _value;
     }
 }
