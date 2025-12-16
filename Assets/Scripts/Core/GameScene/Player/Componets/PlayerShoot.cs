@@ -3,11 +3,12 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerShoot : NetworkBehaviour {
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private TextMeshProUGUI _ammoCountText;
+    [SerializeField] private Slider _reloadSlider;
 
     private BulletManager _bulletManager;
     private PlayerRuntimeStats _playerCfg;
@@ -18,6 +19,9 @@ public class PlayerShoot : NetworkBehaviour {
     private int _currentAmmo = 0;
     private float _currentCooldown = 0;
     private float _reloadCycleAccumulatedTime = 0;
+
+    private float _refreshReloadSliderTime = 0;
+    private float _timeForRefreshReloadSliderTime = 0.1f;
 
     public event Action OnShot;
 
@@ -34,7 +38,10 @@ public class PlayerShoot : NetworkBehaviour {
         _cardContext = cardCtx;
 
         _currentAmmo = (int)_playerCfg.MaxAmmoCount.Value;
+        _reloadSlider.maxValue = _playerCfg.ReloadTime.Value;
+
         RefreshAmmoCountText();
+        ResetReloadSlider();
     }
 
     public void OnShootInput( InputAction.CallbackContext context ) {
@@ -68,12 +75,21 @@ public class PlayerShoot : NetworkBehaviour {
 
     private void ReloadCycle() {
         if ( _currentAmmo >= _playerCfg.MaxAmmoCount.Value ) { return; }
+
         _reloadCycleAccumulatedTime += TickService.TickDeltaTime;
+        _refreshReloadSliderTime += TickService.TickDeltaTime;
 
         if ( _reloadCycleAccumulatedTime >= _playerCfg.ReloadTime.Value ) {
             _currentAmmo = (int)_playerCfg.MaxAmmoCount.Value;
             _reloadCycleAccumulatedTime = 0;
+
             RefreshAmmoCountText();
+            ResetReloadSlider();
+        }
+
+        if ( _refreshReloadSliderTime >= _timeForRefreshReloadSliderTime ) {
+            RefreshReloadSlider();
+            _refreshReloadSliderTime = 0;
         }
     }
 
@@ -84,5 +100,13 @@ public class PlayerShoot : NetworkBehaviour {
 
     private void RefreshAmmoCountText() {
         _ammoCountText.text = _currentAmmo.ToString();
+    }
+
+    private void RefreshReloadSlider() {
+        _reloadSlider.value = _reloadCycleAccumulatedTime;
+    }
+
+    private void ResetReloadSlider() {
+        _reloadSlider.value = _reloadSlider.maxValue;
     }
 }
