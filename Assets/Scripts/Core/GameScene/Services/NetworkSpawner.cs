@@ -13,4 +13,8 @@ public class NetworkSpawner : NetworkBehaviour {
         NetcodeHelper.Spawn( obj, true );
         return obj;
     }
+
+    public void NetworkDespawnObject( GameObject go ) { 
+        NetcodeHelper.Despawn( go );
+    }
 }
