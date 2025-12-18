@@ -29,6 +29,7 @@ public class PlayerSpawnService {
         NetcodeHelper.SpawnAsPlayerObject( playerObj, id, true );
 
         EventBus.Publish( new PlayerSpawnedEvent( id, playerObj ) );
+        ProvidersClientEvents.PlayerSpawnedClientEventProvider?.Invoke();
         return (id, playerObj);
     }
 

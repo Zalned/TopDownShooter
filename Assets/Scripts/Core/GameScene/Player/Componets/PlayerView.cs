@@ -7,11 +7,12 @@ public class PlayerView : NetworkBehaviour {
     [SerializeField] private Canvas _playerHudCanvas;
     [SerializeField] private Renderer _cubeRenderer;
     [SerializeField] private Renderer _faceRenderer;
-    [SerializeField] private TextMeshProUGUI _playerName;
-
+    [Space]
     [SerializeField] private TextMeshProUGUI _healthHudText;
-    [SerializeField] private Slider _healthWorldSlider;
-    [SerializeField] private Image _healthWorldSliderFill;
+    [Space]
+    [SerializeField] private Canvas _worldCanvas;
+    [SerializeField] private TextMeshProUGUI _worldName;
+    [SerializeField] private Slider _worldHealthSlider;
 
     [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
     public void InitializeServerRpc( NetworkPlayerData data, float maxHealth ) {
@@ -20,9 +21,8 @@ public class PlayerView : NetworkBehaviour {
     [ClientRpc]
     private void InitializeClientRpc( NetworkPlayerData data, float maxHealth ) {
         SetColor( data.TeamColor );
-        SetPlayerName( data.Name );
-        InitializePlayerHeatlhSlider( maxHealth );
-        SetPlayerHeatlhServerRpc( maxHealth );
+        InitializeWorldName( data.Name );
+        InitializeWorldHealthSlider( maxHealth );
     }
 
     private void SetColor( Color color ) {
@@ -30,31 +30,35 @@ public class PlayerView : NetworkBehaviour {
         _faceRenderer.material.color = color;
     }
 
-    private void SetPlayerName( string name ) {
-        //_playerName.text = name; // world canvas с данными игрока не используется
+    private void InitializeWorldName( string name ) {
+        _worldName.text = name;
     }
 
-    private void InitializePlayerHeatlhSlider( float maxValue ) {
-        //_playerHealth.maxValue = maxValue;
-    }
-
-    public void UpdateHealthHud( float value ) {
-        _healthHudText.text = value.ToString();
+    private void InitializeWorldHealthSlider( float maxHealth ) {
+        _worldHealthSlider.maxValue = maxHealth;
+        _worldHealthSlider.value = maxHealth;
     }
 
     [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
-    public void SetPlayerHeatlhServerRpc( float value ) {
-        //SetPlayerHeatlhClientRpc( value );
+    public void UpdateHealthServerRpc( float value ) {
+        UpdateWorldHealthClientRpc( value );
+        UpdateHudHealth( value );
     }
+
     [ClientRpc]
-    private void SetPlayerHeatlhSliderClientRpc( float value ) {
-        //_playerHealth.value = value;
+    private void UpdateWorldHealthClientRpc( float value ) {
+        _worldHealthSlider.value = value;
     }
-    private void SetPlayerHeatlhHud( float value ) {
-        //_playerHealth.value = value;
+
+    private void UpdateHudHealth( float value ) {
+        _healthHudText.text = value.ToString();
     }
 
     public void HideHudCanvas() {
         _playerHudCanvas.enabled = false;
+    }
+
+    public void HideWorldCanvas() {
+        _worldCanvas.enabled = false;
     }
 }

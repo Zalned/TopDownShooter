@@ -86,7 +86,9 @@ public class PlayerDash : NetworkBehaviour {
 
         if ( _reloadCycleAccumulatedTime >= _config.DashReloadTime.Value ) {
             _currentDashCount = (int)_config.DashCount.Value;
+
             _reloadCycleAccumulatedTime = 0;
+            _refreshReloadSliderTime = 0;
 
             RefreshDashCountText();
             ResetReloadSlider();

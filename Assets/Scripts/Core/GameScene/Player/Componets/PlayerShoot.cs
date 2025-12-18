@@ -81,7 +81,9 @@ public class PlayerShoot : NetworkBehaviour {
 
         if ( _reloadCycleAccumulatedTime >= _playerCfg.ReloadTime.Value ) {
             _currentAmmo = (int)_playerCfg.MaxAmmoCount.Value;
+
             _reloadCycleAccumulatedTime = 0;
+            _refreshReloadSliderTime = 0;
 
             RefreshAmmoCountText();
             ResetReloadSlider();

@@ -1116,6 +1116,8 @@ GameObject:
   - component: {fileID: 1483786192976158962}
   - component: {fileID: 5462449166758074271}
   - component: {fileID: 5160283353744209214}
+  - component: {fileID: 3884542371186539595}
+  - component: {fileID: 479426657697607658}
   - component: {fileID: 2076149628214871062}
   m_Layer: 0
   m_Name: GameCore
@@ -1156,7 +1158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 669457870
+  GlobalObjectIdHash: 609955244
   InScenePlacedSourceGlobalObjectIdHash: 669457870
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1199,6 +1201,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkSpawner
   ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &3884542371186539595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2606420818590081715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f4c9f45e288c224ca4ab2ea01a8e188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkEventInvoker
+  ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &479426657697607658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2606420818590081715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd28fb2b32af6844b8e4a3ed3dc0a24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldUIService
 --- !u!114 &2076149628214871062
 MonoBehaviour:
   m_ObjectHideFlags: 0

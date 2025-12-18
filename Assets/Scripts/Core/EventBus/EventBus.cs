@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public static class EventBus {
     private static readonly Dictionary<Type, List<Delegate>> _subscribers = new();
 
-    // Подписка возвращает IDisposable, чтобы потом отписаться
     public static IDisposable Subscribe<T>( Action<T> callback ) {
         var type = typeof( T );
         if ( !_subscribers.ContainsKey( type ) )
