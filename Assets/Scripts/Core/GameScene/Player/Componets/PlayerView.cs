@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UI;
 
 public class PlayerView : NetworkBehaviour {
@@ -26,8 +27,15 @@ public class PlayerView : NetworkBehaviour {
     }
 
     private void SetColor( Color color ) {
-        _cubeRenderer.material.color = color;
-        _faceRenderer.material.color = color;
+        Color emission = color * 2.5f; 
+
+        _cubeRenderer.material.EnableKeyword( "_EMISSION" );
+        _cubeRenderer.material.SetColor( "_EmissionColor", emission );
+        _cubeRenderer.material.SetColor( "_BaseColor", emission );
+
+        _faceRenderer.material.EnableKeyword( "_EMISSION" );
+        _faceRenderer.material.SetColor( "_EmissionColor", emission );
+        _faceRenderer.material.SetColor( "_BaseColor", emission );
     }
 
     private void InitializeWorldName( string name ) {
