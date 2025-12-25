@@ -1,7 +1,6 @@
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Android;
 using UnityEngine.UI;
 
 public class PlayerView : NetworkBehaviour {
@@ -15,6 +14,8 @@ public class PlayerView : NetworkBehaviour {
     [SerializeField] private TextMeshProUGUI _worldName;
     [SerializeField] private Slider _worldHealthSlider;
 
+    private const float PLAYER_EMISSION_MULTIPLIER = 2.5f; // Можно вынести в конфиг
+
     [Rpc( SendTo.Server, InvokePermission = RpcInvokePermission.Everyone )]
     public void InitializeServerRpc( NetworkPlayerData data, float maxHealth ) {
         InitializeClientRpc( data, maxHealth );
@@ -27,7 +28,7 @@ public class PlayerView : NetworkBehaviour {
     }
 
     private void SetColor( Color color ) {
-        Color emission = color * 2.5f; 
+        Color emission = color * PLAYER_EMISSION_MULTIPLIER; 
 
         _cubeRenderer.material.EnableKeyword( "_EMISSION" );
         _cubeRenderer.material.SetColor( "_EmissionColor", emission );
