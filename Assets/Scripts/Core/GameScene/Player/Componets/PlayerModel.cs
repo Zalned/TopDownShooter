@@ -7,13 +7,18 @@ public class PlayerModel {
     public readonly ReactiveProperty<float> CurrentHealth = new();
 
     private ulong _playerId;
-    private CardContext _cardCtx; // MyTodo: Ќужно получать или инициализировать здесь
+    private PlayerContext _playerCtx;
+    private CardContext _cardCtx;
 
     public PlayerModel( ulong playerId, CardContext cardCtx ) {
+        _playerId = playerId;
         _cardCtx = cardCtx;
 
-        _playerId = playerId;
         EventBus.Publish( new PlayerStatsChanged( _playerId, PlayerStats ) );
+    }
+
+    public void SetContext( PlayerContext ctx ) {
+        _playerCtx = ctx;
     }
 
     public List<IBulletMod> BulletMods => PlayerStats.RuntimeConfig.Bullet.Mods;
@@ -32,7 +37,7 @@ public class PlayerModel {
         Debug.Log( $"Add card: {card.Title}" );
 
         foreach ( var mod in card.Mods ) {
-            mod.Install( PlayerStats, _cardCtx );
+            mod.Install( _playerCtx, _cardCtx );
 
             if ( mod is IPlayerMod ) {
                 PlayerStats.RuntimeConfig.Player.Mods.Add( (IPlayerMod)mod );
@@ -42,9 +47,5 @@ public class PlayerModel {
             }
         }
         EventBus.Publish( new PlayerStatsChanged( _playerId, PlayerStats ) );
-    }
-
-    public void AddHealth(float value) {
-        CurrentHealth.Value += value;
     }
 }

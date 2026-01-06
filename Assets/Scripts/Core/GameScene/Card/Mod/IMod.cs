@@ -1,3 +1,3 @@
 public interface IMod {
-    void Install( PlayerStats stats, CardContext cardCtx );
+    void Install( PlayerContext playerCtx, CardContext cardCtx );
 }

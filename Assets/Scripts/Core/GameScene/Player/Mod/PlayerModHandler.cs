@@ -1,10 +1,8 @@
-using TMPro;
-
 public class PlayerModHandler {
     PlayerRuntimeStats _config;
 
     public PlayerModHandler( PlayerContext ctx ) {
-        _config = ctx.Stats;
+        _config = ctx.Stats.RuntimeConfig.Player;
     }
 
     public void OnSpawn() {

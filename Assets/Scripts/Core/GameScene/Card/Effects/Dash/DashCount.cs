@@ -3,7 +3,7 @@ public class DashCountMod : IMod {
 
     public DashCountMod( int value ) { _value = value; }
 
-    public void Install( PlayerStats stats, CardContext _ ) {
-        stats.RuntimeConfig.Player.DashCount.Additive += _value;
+    public void Install( PlayerContext playerCtx, CardContext _ ) {
+        playerCtx.Stats.RuntimeConfig.Player.DashCount.Additive += _value;
     }
 }
