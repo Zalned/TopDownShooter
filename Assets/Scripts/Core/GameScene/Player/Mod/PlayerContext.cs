@@ -2,10 +2,16 @@ using UnityEngine;
 
 public class PlayerContext {
     public GameObject GO;
-    public PlayerRuntimeStats Stats;
+    public PlayerModel Model;
 
-    public PlayerContext( GameObject go, PlayerRuntimeStats stats ) {
+    public PlayerContext( GameObject go, PlayerModel model ) {
         GO = go;
-        Stats = stats;
+        Model = model;
+    }
+
+    public PlayerStats Stats => Model.PlayerStats;
+
+    public void AddHealth( float value ) {
+        Model.CurrentHealth.Value += value;
     }
 }

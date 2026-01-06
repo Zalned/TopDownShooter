@@ -3,7 +3,7 @@ public class PenetrationMod : IMod {
 
     public PenetrationMod( int value ) { _value = value; }
 
-    public void Install( PlayerStats stats, CardContext _ ) {
-        stats.RuntimeConfig.Bullet.PenetrationCount.Additive += _value;
+    public void Install( PlayerContext playerCtx, CardContext _ ) {
+        playerCtx.Stats.RuntimeConfig.Bullet.PenetrationCount.Additive += _value;
     }
 }

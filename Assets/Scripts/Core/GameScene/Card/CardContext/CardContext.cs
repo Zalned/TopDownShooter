@@ -6,9 +6,6 @@ public class CardContext {
 
     public CardContext(  ) {
         ExplosionService = new ExplosionService();
-    }
-
-    public void InitializeLifeStealService( Action<float> lifeStealCallback ) {
-        LifeStealService = new LifeStealService( lifeStealCallback );
+        LifeStealService = new LifeStealService();
     }
 }

@@ -3,7 +3,7 @@ public class BounceMod : IMod {
 
     public BounceMod( int value ) { _value = value; }
 
-    public void Install( PlayerStats stats, CardContext _ ) {
-        stats.RuntimeConfig.Bullet.BounceCount.Additive += _value;
+    public void Install( PlayerContext playerCtx, CardContext _ ) {
+        playerCtx.Stats.RuntimeConfig.Bullet.BounceCount.Additive += _value;
     }
 }

@@ -6,9 +6,9 @@ public class ExplosionMod : BaseMod, IBulletMod {
 
     public ExplosionMod( StatType type, float value ) : base( type, value ) { }
 
-    public void Install( PlayerStats stats, CardContext ctx ) {
+    public void Install( PlayerContext playerCtx, CardContext ctx ) {
         _context = ctx;
-        _stats = stats.RuntimeConfig.Bullet;
+        _stats = playerCtx.Stats.RuntimeConfig.Bullet;
 
         var splash = _stats.SplashRadius;
 
@@ -17,7 +17,7 @@ public class ExplosionMod : BaseMod, IBulletMod {
             case StatType.Percent: splash.Percent += value; break;
             default: throw new ArgumentOutOfRangeException();
         }
-        stats.RuntimeConfig.Bullet.SplashRadius = splash;
+        playerCtx.Stats.RuntimeConfig.Bullet.SplashRadius = splash;
     }
 
     public void OnHit( BulletHitContext hitContext ) {
